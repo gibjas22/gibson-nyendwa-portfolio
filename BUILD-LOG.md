@@ -9,3 +9,5 @@ Three lines a day: what I did, what broke, what I learned. This becomes the Buil
 **Broke:** Nothing yet. The browser automation I use could not reach my Chrome extension, so some console steps were done by hand.
 
 **Learned:** Root is for billing emergencies only. An IAM user with admin rights plus MFA is the everyday account. An AWS Budget is an alert, not a spending cap, so it tells you about overspend rather than stopping it.
+
+**Setup note:** Cloned to the mini PC and verified push access, 27 Oct.
