@@ -27,6 +27,7 @@
     <a href="#about">About</a>
     <a href="#superpowers">Superpowers</a>
     <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
   </nav>
   <div class="top-right">
   <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><span class="bars" aria-hidden="true"></span><span class="menu-label">Menu</span></button>
@@ -170,6 +171,14 @@
     </div>
   </section>
 
+  <aside class="cta-band" aria-label="Get in touch">
+    <p class="cta-text">Working on something I could help with, or want to talk about teaching, security or sound?</p>
+    <div class="cta-actions">
+      <a class="button" href="#contact">Get in touch</a>
+      <a class="button button-quiet" href="https://cal.imeetify.com/gibsonnyendwa/eventbooking" target="_blank" rel="noopener">Book a 30-minute call</a>
+    </div>
+  </aside>
+
   <section id="desk" class="section desk-section">
     <h2>The mixing desk <span class="eq" aria-hidden="true"><span style="--h:40%"></span><span style="--h:85%"></span><span style="--h:55%"></span><span style="--h:100%"></span><span style="--h:60%"></span></span></h2>
     <p class="desk-prompt">Push a fader up. Every channel is a part of my life.</p>
@@ -186,19 +195,109 @@
     </details>
   </section>
 
+  <section id="contact" class="section contact">
+    <h2>Let's talk about your next project <span class="eq" aria-hidden="true"><span style="--h:40%"></span><span style="--h:85%"></span><span style="--h:55%"></span><span style="--h:100%"></span><span style="--h:60%"></span></span></h2>
+    <p class="section-intro">Whether it is a website that needs to be found, a business that needs securing, a question about SEND education, or a song, I read everything that comes in. Email, book a call, or use the form.</p>
+
+    <div class="contact-grid">
+      <div class="contact-form-wrap card">
+        <form id="contact-form" novalidate hidden>
+          <div class="field">
+            <label for="cf-name">Full name <span class="req" aria-hidden="true">*</span></label>
+            <input id="cf-name" name="name" type="text" autocomplete="name" required maxlength="100">
+            <p class="error" id="cf-name-err" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="cf-email">Email address <span class="req" aria-hidden="true">*</span></label>
+            <input id="cf-email" name="email" type="email" autocomplete="email" required maxlength="254" inputmode="email">
+            <p class="error" id="cf-email-err" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="cf-phone">Telephone <span class="optional">(optional)</span></label>
+            <input id="cf-phone" name="phone" type="tel" autocomplete="tel" maxlength="30" inputmode="tel">
+            <p class="error" id="cf-phone-err" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="cf-type">What is it about? <span class="optional">(optional)</span></label>
+            <select id="cf-type" name="type">
+              <option value="">Choose one</option>
+              <option>Website, search or marketing</option>
+              <option>Cybersecurity for a small business</option>
+              <option>SEND education or support work</option>
+              <option>Music and The Unsaid Sound</option>
+              <option>Speaking, teaching or collaboration</option>
+              <option>Something else</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="cf-message">Message <span class="req" aria-hidden="true">*</span></label>
+            <textarea id="cf-message" name="message" rows="6" required minlength="10" maxlength="2000"></textarea>
+            <p class="error" id="cf-message-err" aria-live="polite"></p>
+          </div>
+          <div class="hp" aria-hidden="true"><label for="cf-company">Company</label><input id="cf-company" name="company" type="text" tabindex="-1" autocomplete="off"></div>
+          <input type="hidden" name="started" id="cf-started">
+          <p class="req-note"><span class="req" aria-hidden="true">*</span> Required</p>
+          <div class="submit-row">
+            <button class="button" type="submit" id="cf-submit">Send message</button>
+            <p class="privacy-note">I use what you send only to reply to you. Nothing goes on a mailing list. <a href="privacy.html">Privacy notice</a>.</p>
+          </div>
+          <p class="form-status" id="cf-status" role="status" aria-live="polite"></p>
+        </form>
+        <div id="contact-fallback" class="contact-fallback">
+          <h3>Send me an email</h3>
+          <p>The form is being connected to AWS. Until then, email works just as well.</p>
+          <a class="button" href="mailto:info@gcmarketingsupport.co?subject=Hello%20from%20your%20portfolio">Email me</a>
+          <p class="privacy-note">I use what you send only to reply to you. Nothing goes on a mailing list. <a href="privacy.html">Privacy notice</a>.</p>
+        </div>
+      </div>
+
+      <div class="contact-details">
+        <div class="card">
+          <h3>Direct</h3>
+          <p><a href="mailto:info@gcmarketingsupport.co">info@gcmarketingsupport.co</a></p>
+          <p class="muted">Birmingham, UK. I reply within two working days.</p>
+        </div>
+        <div class="card booking" id="booking">
+          <h3>Book a call</h3>
+          <p>A 30-minute online call, in your time zone. Pick a slot that suits you.</p>
+          <a class="button" href="https://cal.imeetify.com/gibsonnyendwa/eventbooking" target="_blank" rel="noopener" id="book-link">Book a 30-minute call</a>
+          <button class="button button-quiet" type="button" id="book-embed-btn">Show calendar here</button>
+          <div class="booking-embed" id="booking-embed" hidden></div>
+          <p class="muted small">Opens the iMeetify scheduler. Showing it here loads content from imeetify.com.</p>
+        </div>
+        <div class="card">
+          <h3>Elsewhere</h3>
+          <ul class="social">
+            <li><a href="https://www.linkedin.com/in/gibson-nyendwa-uk/" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://www.facebook.com/gibson.nyendwa/" target="_blank" rel="noopener">Facebook</a></li>
+            <li><a href="https://www.instagram.com/nyendwagibson/" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="https://www.youtube.com/@theUnsaidSoundMusic" target="_blank" rel="noopener">YouTube, The Unsaid Sound</a></li>
+            <li><a href="https://github.com/gibjas22" target="_blank" rel="noopener">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <footer class="foot">
   <p>Gibson Nyendwa, Birmingham. Educator, agency founder, student, musician.</p>
   <p class="links">
-    <a href="https://github.com/gibjas22">GitHub</a>
-    <a href="https://www.linkedin.com/in/gibsonnyendwa">LinkedIn</a>
-    <a href="https://www.youtube.com/@theUnsaidSoundMusic">The Unsaid Sound</a>
-    <a href="https://gcmarketingsupport.co.uk">Gibcom</a>
+    <a href="mailto:info@gcmarketingsupport.co">info@gcmarketingsupport.co</a>
+    <a href="https://cal.imeetify.com/gibsonnyendwa/eventbooking" target="_blank" rel="noopener">Book a call</a>
+    <a href="https://www.linkedin.com/in/gibson-nyendwa-uk/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://www.facebook.com/gibson.nyendwa/" target="_blank" rel="noopener">Facebook</a>
+    <a href="https://www.instagram.com/nyendwagibson/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.youtube.com/@theUnsaidSoundMusic" target="_blank" rel="noopener">The Unsaid Sound</a>
+    <a href="https://github.com/gibjas22" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://gcmarketingsupport.co.uk" target="_blank" rel="noopener">Gibcom</a>
+    <a href="privacy.html">Privacy</a>
   </p>
   <p class="small">Built for the AWS Student Builder Challenge 2026. Hosted on AWS Amplify.</p>
 </footer>
 
 <script type="module" src="js/main.js"></script>
+<script type="module" src="js/contact.js"></script>
 </body>
 </html>

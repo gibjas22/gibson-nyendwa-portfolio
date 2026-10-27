@@ -234,7 +234,7 @@ body { overflow-x: clip; }
   .top { flex-wrap: wrap; }
   .top-right { width: 100%; justify-content: space-between; }
 }
-@media (max-width: 760px) {
+@media (max-width: 900px) {
   .menu-toggle { display: inline-flex; }
   .top nav {
     position: absolute; left: 0; right: 0; top: 100%;
@@ -253,4 +253,71 @@ body { overflow-x: clip; }
   .top-right { gap: .5rem; }
   .pull { border-left-width: 4px; }
   body { font-size: 1.0625rem; }
+}
+
+/* ---------- Contact CTA band ---------- */
+.cta-band {
+  margin: 0 0 clamp(2rem, 5vw, 3.5rem);
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background: linear-gradient(135deg, rgba(109,32,206,.35), rgba(216,43,235,.18));
+  border: 1px solid var(--border); border-radius: var(--radius);
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 2rem;
+  box-shadow: var(--shadow-card);
+}
+.cta-text { margin: 0; font-family: var(--head); font-weight: 600; font-size: 1.25rem; color: var(--text-heading); max-width: 40ch; }
+.cta-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+
+/* ---------- Contact section ---------- */
+.contact-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(280px, .9fr); gap: 1.5rem; align-items: start; }
+.contact-details { display: grid; gap: 1.25rem; }
+.contact-details .card h3 { margin-top: 0; }
+.contact-details .card p:last-child { margin-bottom: 0; }
+.muted { color: var(--text-muted); }
+.small { font-size: 1rem; }
+.booking .button { margin: .25rem .5rem .5rem 0; }
+.booking-embed { margin: 1rem 0; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border); background: #fff; }
+.booking-embed iframe { width: 100%; height: 640px; border: 0; display: block; }
+.social { display: flex; flex-wrap: wrap; gap: .6rem; }
+.social a {
+  display: inline-flex; align-items: center; min-height: 44px; padding: .5rem .95rem;
+  background: var(--surface-raised); border: 1px solid var(--border); border-radius: 999px;
+  text-decoration: none; font-weight: 600;
+  transition: transform 150ms ease, box-shadow var(--t), border-color var(--t);
+}
+.social a:hover { transform: translateY(-2px); border-color: var(--primary-hover); box-shadow: 0 8px 18px rgba(150,46,255,.3); }
+.social a:active { transform: translateY(0); }
+
+/* Form */
+.contact-form-wrap { padding: 1.5rem; }
+.field { margin-bottom: 1.1rem; }
+.field label { display: block; font-weight: 600; color: var(--text-heading); margin-bottom: .35rem; font-size: 1.0625rem; }
+.req { color: var(--accent); }
+.optional { color: var(--text-muted); font-weight: 400; font-size: .95rem; }
+.field input, .field select, .field textarea {
+  width: 100%; font: inherit; font-size: 1.0625rem; color: var(--text-heading);
+  background: var(--bg-base); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: .75rem .9rem; min-height: 48px;
+  box-shadow: 0 2px 0 rgba(0,0,0,.25) inset;
+  transition: border-color var(--t), box-shadow var(--t);
+}
+.field textarea { resize: vertical; min-height: 140px; }
+.field select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--text-muted) 50%), linear-gradient(135deg, var(--text-muted) 50%, transparent 50%); background-position: calc(100% - 20px) 50%, calc(100% - 14px) 50%; background-size: 6px 6px; background-repeat: no-repeat; padding-right: 2.5rem; }
+.field input::placeholder, .field textarea::placeholder { color: var(--text-muted); opacity: 1; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--primary-hover); box-shadow: 0 0 0 3px rgba(228,193,255,.35), 0 2px 0 rgba(0,0,0,.25) inset; }
+.field .invalid { border-color: #FF6B8A; }
+.error { color: #FFB3C2; font-size: 1rem; margin: .35rem 0 0; min-height: 1.2em; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.req-note { color: var(--text-muted); font-size: .95rem; }
+.submit-row { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; margin-top: .5rem; }
+.privacy-note { margin: 0; color: var(--text-muted); font-size: .95rem; max-width: 42ch; }
+.button:disabled { opacity: .7; cursor: progress; transform: none; }
+.form-status { margin: 1rem 0 0; font-weight: 600; min-height: 1.4em; }
+.form-status.ok-state { color: #8CE7A1; }
+.form-status.error-state { color: #FFB3C2; }
+.contact-fallback h3 { margin-top: 0; }
+.contact-fallback .button { margin: .25rem 0 1rem; }
+.contact-fallback .privacy-note { max-width: none; }
+
+@media (max-width: 860px) {
+  .contact-grid { grid-template-columns: 1fr; }
 }
