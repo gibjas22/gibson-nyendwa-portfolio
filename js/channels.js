@@ -10,7 +10,7 @@ export const channels = [
     title: "Twenty years in the classroom",
     story:
       "Twenty years with children and young people, since 2006. Specialist SEND and residential settings, then Ruskin Mill Trust. The job is helping someone do the thing they were told they could not.",
-    link: { text: "SEND Life Transition", href: "https://www.youtube.com/" },
+    link: { text: "SEND Life Transition", href: "https://www.youtube.com/@SENDLifeTransition" },
     unlock: null
   },
   {
@@ -76,13 +76,14 @@ export const channels = [
     title: "The Unsaid Sound",
     story:
       "Locked until the fader hits 100. Then: The Unsaid Sound, and the Parsifal tour as 1st Grail Knight across Ruskin Mill Trust provisions.",
-    link: { text: "The Unsaid Sound", href: "https://www.youtube.com/" },
+    link: { text: "The Unsaid Sound", href: "https://www.youtube.com/@theUnsaidSoundMusic" },
     unlock: {
       holdMs: 2000,
       clip: "assets/audio/invincible-clip.mp3",
       title: "The Unsaid Sound",
       story:
-        "Music is where I say the things that do not fit in a report. This is a 30-second excerpt of Invincible Battles. Before the studio there was the stage: I toured as the 1st Grail Knight in a Parsifal production across Ruskin Mill Trust provisions in South Wales, Gloucestershire, Sheffield and Glasshouse College."
+        "Music is where I say the things that do not fit in a report. This is a 30-second excerpt of Invincible Battles. Before the studio there was the stage: I toured as the 1st Grail Knight in a Parsifal production across Ruskin Mill Trust provisions in South Wales, Gloucestershire, Sheffield and Glasshouse College.",
+      link: { text: "Listen on YouTube", href: "https://www.youtube.com/@theUnsaidSoundMusic" }
     }
   }
 ];
