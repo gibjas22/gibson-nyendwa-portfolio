@@ -2,7 +2,7 @@
 
 My personal portfolio, built for the **AWS Student Builder Challenge 2026** and hosted on **AWS Amplify Hosting**.
 
-**Live site:** coming Day 4 (Friday 30 October 2026)
+**Live site:** https://main.dbthjbi29n1oo.amplifyapp.com
 
 ## What it is
 
