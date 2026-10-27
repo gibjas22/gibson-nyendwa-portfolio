@@ -1,0 +1,18 @@
+# OS and editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Node, in case a tool adds it later
+node_modules/
+
+# Raw audio before export; only the final MP3s in assets/audio are committed
+raw-audio/
+*.wav
+*.aup3
+
+# Local notes and secrets
+.env
+*.local
+scratch/
