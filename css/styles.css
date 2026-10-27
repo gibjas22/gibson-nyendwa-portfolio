@@ -383,3 +383,55 @@ body { overflow-x: clip; }
 .eq-large span { width: 8px; border-radius: 4px; }
 .podcast-links p:last-of-type { margin-bottom: 1rem; }
 @media (max-width: 860px) { .podcast-grid { grid-template-columns: 1fr; } }
+
+/* ---------- Anchor offset beneath the sticky header ---------- */
+.section, .cta-band, #top { scroll-margin-top: 90px; }
+@media (max-width: 470px) { .section, .cta-band { scroll-margin-top: 130px; } }
+
+/* ---------- Project gallery ---------- */
+.filters { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 .75rem; }
+.filter {
+  font: 600 1rem var(--body); color: var(--text-body); background: var(--surface); border: 1px solid var(--border);
+  padding: .55rem .95rem; border-radius: 999px; cursor: pointer; min-height: 44px;
+  transition: background var(--t), border-color var(--t), transform 120ms ease, box-shadow var(--t);
+}
+.filter:hover { background: var(--surface-raised); border-color: var(--primary-hover); }
+.filter:active { transform: translateY(1px); }
+.filter.on, .filter[aria-pressed="true"] { background: var(--primary); color: #fff; border-color: var(--primary-hover); box-shadow: 0 6px 16px rgba(150,46,255,.35); }
+.filter-status { color: var(--text-muted); font-size: 1rem; margin: 0 0 1.25rem; }
+.gallery { grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
+.gallery-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+.gallery-card::before { display: none; }
+.gallery-link { text-decoration: none; display: block; }
+.gallery-link h3 { padding: 1.1rem 1.5rem 0; margin-bottom: .4rem; }
+.gallery-link:hover h3 { text-decoration: underline; text-decoration-color: var(--accent); }
+.gallery-link:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: -3px; }
+.thumb {
+  aspect-ratio: 16 / 9; display: grid; place-items: center; position: relative;
+  background: radial-gradient(80% 100% at 30% 100%, color-mix(in srgb, var(--c) 35%, transparent), transparent 70%), linear-gradient(160deg, var(--surface-raised), var(--bg-section));
+  border-bottom: 4px solid var(--c);
+}
+.thumb-mark { font-family: var(--head); font-weight: 700; font-size: clamp(2.4rem, 5vw, 3.4rem); color: var(--c); letter-spacing: .02em; opacity: .95; }
+.thumb-cat { position: absolute; left: 1rem; bottom: .8rem; font-size: .95rem; color: var(--text-muted); background: rgba(16,8,24,.55); padding: .25rem .6rem; border-radius: 999px; border: 1px solid var(--border); }
+.gallery-card > p { padding: 0 1.5rem; }
+.gallery-card .card-actions { display: flex; flex-wrap: wrap; gap: 1rem; padding: .25rem 1.5rem 1.25rem; margin-top: auto; }
+.text-link { background: none; border: 0; padding: 0; font: 600 1.0625rem var(--body); color: var(--text-heading); text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: .18em; cursor: pointer; }
+.text-link:hover { color: var(--focus-ring); }
+.gallery-empty { grid-column: 1 / -1; background: var(--bg-section); border: 1px dashed var(--border); border-radius: var(--radius); padding: 1.5rem; color: var(--text-body); }
+
+/* ---------- Case study page ---------- */
+.case { padding-top: 2rem; padding-bottom: 2rem; }
+.crumbs { margin: 1rem 0; }
+.crumbs a { font-weight: 600; }
+.case-head { border-left: 6px solid var(--c); padding-left: 1.25rem; margin: 1rem 0 2.5rem; }
+.case-cat { color: var(--text-muted); font-weight: 600; margin-bottom: .5rem; }
+.case-head .lede { max-width: 40ch; }
+.case-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.25rem; }
+.case-section { max-width: var(--measure); margin-bottom: 2.25rem; }
+.case-section h2 { font-size: 1.5rem; }
+.case-list { padding-left: 1.2rem; list-style: disc; }
+.case-list li { margin-bottom: .5rem; }
+.tag { display: inline-flex; align-items: center; min-height: 40px; padding: .4rem .9rem; background: var(--surface); border: 1px solid var(--border); border-radius: 999px; font-weight: 600; }
+.related { display: grid; gap: .6rem; }
+.related li { border-left: 4px solid var(--c); padding-left: .75rem; }
+.related a { font-weight: 600; }

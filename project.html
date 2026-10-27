@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#100818">
+  <title>Project</title>
+  <meta name="description" content="A case study from Gibson Nyendwa's portfolio.">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<a class="skip" href="#case">Skip to content</a>
+<header class="top">
+  <a class="wordmark" href="index.html">Gibson Nyendwa</a>
+  <nav id="site-nav" aria-label="Sections">
+    <a href="index.html#about">About</a>
+    <a href="index.html#superpowers">Superpowers</a>
+    <a href="index.html#projects" aria-current="location" class="current">Projects</a>
+    <a href="index.html#contact">Contact</a>
+  </nav>
+  <div class="top-right">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><span class="bars" aria-hidden="true"></span><span class="menu-label">Menu</span></button>
+    <a class="hint" href="index.html#desk">
+      <svg class="fader-icon" width="14" height="18" viewBox="0 0 14 18" aria-hidden="true"><rect x="6" y="1" width="2" height="16" rx="1"/><rect x="1" y="4" width="12" height="5" rx="1.5"/></svg>
+      Hear my story
+    </a>
+  </div>
+</header>
+
+<main id="case" class="case">
+  <p class="crumbs"><a href="index.html#projects">All projects</a></p>
+  <article id="case-body">
+    <p class="muted">Loading the case study.</p>
+  </article>
+  <noscript><p>This page needs JavaScript to load the case study. <a href="index.html#projects">Back to all projects</a>.</p></noscript>
+</main>
+
+<footer class="foot">
+  <p>Gibson Nyendwa, Birmingham. Educator, agency founder, student, musician.</p>
+  <p class="links">
+    <a href="index.html#contact">Contact</a>
+    <a href="https://cal.imeetify.com/gibsonnyendwa/eventbooking" target="_blank" rel="noopener">Book a call</a>
+    <a href="https://github.com/gibjas22" target="_blank" rel="noopener">GitHub</a>
+    <a href="privacy.html">Privacy</a>
+  </p>
+</footer>
+
+<script type="module">
+  import { byId, projects, categoryLabel } from "./js/projects.js";
+  const id = new URLSearchParams(location.search).get("id");
+  const p = byId(id);
+  const body = document.getElementById("case-body");
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  if (!p) {
+    document.title = "Project not found";
+    body.innerHTML = `<h1>That project is not here</h1><p>It may have moved. <a href="index.html#projects">See all projects</a>.</p>`;
+  } else {
+    document.title = `${p.title}, a case study`;
+    document.querySelector('meta[name="description"]').content = p.summary;
+    const link = document.createElement("link"); link.rel = "canonical"; link.href = `https://main.dbthjbi29n1oo.amplifyapp.com/project.html?id=${p.id}`; document.head.appendChild(link);
+    const related = p.related.map(byId).filter(Boolean);
+    const sec = (h, inner) => inner ? `<section class="case-section"><h2>${h}</h2>${inner}</section>` : "";
+    body.innerHTML = `
+      <header class="case-head" style="--c:${p.colour}">
+        <p class="case-cat">${esc(categoryLabel(p.category))} · ${esc(p.year)}</p>
+        <h1>${esc(p.title)}</h1>
+        <p class="lede">${esc(p.summary)}</p>
+        <p class="case-actions">
+          ${p.live ? `<a class="button" href="${p.live}" target="_blank" rel="noopener">${p.live.includes("github.com") ? "View the repository" : "Visit the live project"}</a>` : ""}
+          <a class="button button-quiet" href="index.html#contact">Talk to me about this</a>
+        </p>
+      </header>
+      ${sec("Overview", `<p>${esc(p.overview)}</p>`)}
+      ${sec("The problem", `<p>${esc(p.problem)}</p>`)}
+      ${sec("My role", `<p>${esc(p.role)}</p>`)}
+      ${sec("Approach", p.approach.length ? `<ul class="case-list">${p.approach.map(a=>`<li>${esc(a)}</li>`).join("")}</ul>` : "")}
+      ${sec("Tools", p.tools.length ? `<ul class="social">${p.tools.map(t=>`<li><span class="tag">${esc(t)}</span></li>`).join("")}</ul>` : "")}
+      ${sec("Outcomes", p.outcomes.length ? `<ul class="case-list">${p.outcomes.map(o=>`<li>${esc(o)}</li>`).join("")}</ul>` : "")}
+      ${sec("What I learned", `<p>${esc(p.lessons)}</p>`)}
+      ${related.length ? sec("Related projects", `<ul class="related">${related.map(r=>`<li style="--c:${r.colour}"><a href="project.html?id=${r.id}">${esc(r.title)}</a><span class="muted"> ${esc(categoryLabel(r.category))}</span></li>`).join("")}</ul>`) : ""}
+      <p class="crumbs"><a href="index.html#projects">All projects</a></p>`;
+  }
+  // mobile menu on this page
+  const nav = document.getElementById("site-nav"), toggle = document.querySelector(".menu-toggle");
+  toggle.addEventListener("click", () => { const open = !nav.classList.contains("open"); nav.classList.toggle("open", open); toggle.setAttribute("aria-expanded", String(open)); toggle.querySelector(".menu-label").textContent = open ? "Close" : "Menu"; });
+</script>
+</body>
+</html>
