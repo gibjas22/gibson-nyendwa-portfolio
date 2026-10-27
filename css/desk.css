@@ -1,0 +1,23 @@
+/* The mixing desk section. Faders and lights arrive with desk.js at the weekend;
+   this file already styles the section shell, the notice and the text fallback. */
+
+.desk-section { border-top: 0; }
+.desk-section h2 { margin-bottom: .25em; }
+.desk-prompt { color: var(--ink-soft); font-size: 1.15rem; margin-bottom: 1.5rem; }
+
+.desk {
+  background: #1C2130;
+  color: #E7E9EE;
+  border-radius: 16px;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  min-height: 220px;
+  display: grid;
+  place-items: center;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 10px 30px rgba(22,26,36,.18);
+}
+.desk-notice { max-width: 48ch; text-align: center; margin: 0; color: #B8BDC9; }
+
+.stories { margin-top: 1.25rem; max-width: var(--measure); }
+.stories summary { cursor: pointer; font-weight: 600; }
+.stories h3 { margin-top: 1.25rem; }
+.stories .story-link { font-size: 1rem; }

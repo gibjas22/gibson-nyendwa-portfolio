@@ -13,3 +13,5 @@ Three lines a day: what I did, what broke, what I learned. This becomes the Buil
 **Setup note:** Cloned to the mini PC and verified push access, 27 Oct.
 
 **Audio, 27 Oct (afternoon):** Researched ambient sounds on Freesound, Pixabay and BBC Sound Effects. Chose Freesound CC0 only, because the loops sit in a public repo and both Pixabay and the BBC forbid redistributing files. Downloaded six originals, built the loops with ffmpeg on the mini PC (20 s excerpts, mono, normalised to about -18 dB, 0.2 s fades, 128 kbps MP3, 2 MB total). Learned: "free to download" and "free to redistribute" are different questions, and a public GitHub repo is redistribution.
+
+**Site build, 27 Oct (afternoon):** Built index.html, css/styles.css, css/desk.css and js/main.js with the three core sections, the sticky nav carrying the "Hear my story" hint, and a text fallback that renders all seven stories from channels.js. Checked at 1280px and 390px. The desk section is a shell until the weekend; desk.js is next.

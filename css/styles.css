@@ -1,0 +1,140 @@
+/* Gibson Nyendwa portfolio: base layout, sections, nav, responsive rules.
+   The mixing desk has its own file (desk.css). */
+
+:root {
+  --paper: #F7F6F2;
+  --paper-deep: #ECEAE3;
+  --ink: #161A24;
+  --ink-soft: #4A5060;
+  --line: #D8D5CC;
+  --hint: #D7263D;
+  --focus: #1E6FD9;
+  --max: 1120px;
+  --measure: 68ch;
+  --head: "Sora", system-ui, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 1.125rem;
+  line-height: 1.55;
+}
+
+h1, h2, h3 { font-family: var(--head); line-height: 1.15; margin: 0 0 .5em; letter-spacing: -0.01em; }
+h1 { font-size: clamp(2.6rem, 6vw, 4.4rem); font-weight: 700; }
+h2 { font-size: clamp(1.8rem, 3.4vw, 2.5rem); font-weight: 600; }
+h3 { font-size: 1.25rem; font-weight: 600; }
+p { margin: 0 0 1em; }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: .15em; }
+a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible {
+  outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 2px;
+}
+img { max-width: 100%; height: auto; display: block; }
+ul { list-style: none; margin: 0; padding: 0; }
+
+.skip { position: absolute; left: -999px; top: 8px; background: var(--ink); color: #fff; padding: .5rem 1rem; z-index: 100; }
+.skip:focus { left: 8px; }
+
+/* Header: sticky, hint always visible */
+.top {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: .85rem clamp(1rem, 4vw, 2.5rem);
+  background: color-mix(in srgb, var(--paper) 92%, white);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(6px);
+}
+.wordmark { font-family: var(--head); font-weight: 600; text-decoration: none; font-size: 1.05rem; }
+.top nav { display: flex; gap: clamp(.75rem, 2.5vw, 1.75rem); align-items: center; }
+.top nav a { text-decoration: none; font-weight: 600; font-size: 1rem; padding: .25rem 0; border-bottom: 2px solid transparent; }
+.top nav a:hover { border-bottom-color: var(--ink); }
+.top nav .hint {
+  display: inline-flex; align-items: center; gap: .45rem;
+  color: #fff; background: var(--hint);
+  padding: .45rem .85rem; border-radius: 999px; border-bottom: 0;
+}
+.top nav .hint:hover { background: #b51f32; }
+.top nav .hint { white-space: nowrap; }
+.top nav a.current:not(.hint) { border-bottom-color: var(--ink); }
+.fader-icon { fill: currentColor; }
+
+/* Hero */
+main { max-width: var(--max); margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2.5rem); }
+.hero {
+  display: grid; grid-template-columns: 1.3fr 1fr; gap: clamp(1.5rem, 5vw, 4rem); align-items: center;
+  padding: clamp(2.5rem, 8vw, 6rem) 0 clamp(2rem, 6vw, 4rem);
+}
+.lede { font-size: clamp(1.25rem, 2.2vw, 1.5rem); max-width: 34ch; line-height: 1.4; }
+.where { color: var(--ink-soft); font-weight: 600; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
+.button {
+  display: inline-block; text-decoration: none; font-weight: 600;
+  background: var(--ink); color: #fff; padding: .7rem 1.25rem; border-radius: 8px;
+}
+.button:hover { background: #2a3040; }
+.button-quiet { background: transparent; color: var(--ink); border: 2px solid var(--ink); padding: calc(.7rem - 2px) calc(1.25rem - 2px); }
+.button-quiet:hover { background: var(--paper-deep); }
+.hero-photo { margin: 0; }
+.hero-photo img { border-radius: 14px 14px 0 0; }
+.channel-strip { display: grid; grid-template-columns: repeat(7, 1fr); height: 10px; border-radius: 0 0 14px 14px; overflow: hidden; }
+.channel-strip span { background: var(--c); }
+
+/* Sections */
+.section { padding: clamp(2.5rem, 6vw, 4.5rem) 0; border-top: 1px solid var(--line); }
+.section-intro { color: var(--ink-soft); max-width: var(--measure); margin-bottom: 2rem; }
+.prose { max-width: var(--measure); }
+
+.about-grid { display: grid; grid-template-columns: minmax(0, var(--measure)) 1fr; gap: clamp(1.5rem, 5vw, 4rem); align-items: start; }
+.pull {
+  margin: .5rem 0 0; font-family: var(--head); font-weight: 600; font-size: clamp(1.4rem, 2.6vw, 1.9rem); line-height: 1.25;
+  border-left: 6px solid #3FA34D; padding-left: 1rem; color: var(--ink);
+}
+
+/* Superpowers: keyed by channel colour */
+.powers { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.25rem; }
+.powers li { background: #fff; border: 1px solid var(--line); border-top: 6px solid var(--c); border-radius: 10px; padding: 1.25rem 1.25rem 1rem; }
+.powers li p:last-child { margin-bottom: 0; }
+.evidence { color: var(--ink-soft); font-size: 1rem; }
+.powers .learning { background: var(--paper-deep); border-style: dashed; }
+
+/* Projects */
+.projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem 2rem; max-width: 100%; }
+.projects li { padding-top: 1rem; border-top: 2px solid var(--ink); }
+.projects h3 a { text-decoration: none; }
+.projects h3 a:hover { text-decoration: underline; }
+.built { color: var(--ink-soft); font-size: 1rem; }
+
+.quals { margin-top: 3rem; max-width: var(--measure); }
+.quals dl { margin: 0; }
+.quals dt { font-family: var(--head); font-weight: 600; margin-top: 1rem; }
+.quals dd { margin: .25rem 0 0; color: var(--ink-soft); }
+
+/* Footer */
+.foot { max-width: var(--max); margin: 0 auto; padding: 2.5rem clamp(1rem, 4vw, 2.5rem) 3rem; border-top: 1px solid var(--line); color: var(--ink-soft); }
+.foot .links { display: flex; flex-wrap: wrap; gap: 1.25rem; }
+.foot .links a { color: var(--ink); font-weight: 600; }
+.foot .small { font-size: .95rem; }
+
+/* Mobile */
+@media (max-width: 760px) {
+  .hero { grid-template-columns: 1fr; padding-top: 2rem; }
+  .hero-photo { order: -1; max-width: 320px; }
+  .about-grid { grid-template-columns: 1fr; }
+  .pull { border-left-width: 4px; }
+  .top { flex-wrap: wrap; }
+  .top nav { width: 100%; justify-content: space-between; gap: .5rem; }
+  .top nav a { font-size: .95rem; }
+  .top nav .hint { padding: .4rem .7rem; }
+}
+@media (max-width: 420px) {
+  .top nav a:not(.hint) { font-size: .9rem; }
+  body { font-size: 1.05rem; }
+}
