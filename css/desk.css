@@ -1,23 +1,40 @@
-/* The mixing desk section. Faders and lights arrive with desk.js at the weekend;
-   this file already styles the section shell, the notice and the text fallback. */
+/* The mixing desk section. Faders and lights arrive with desk.js; this styles the section
+   shell, the notice, the waveform accent and the text fallback. */
 
-.desk-section { border-top: 0; }
+.desk-section { border-top: 1px solid var(--border); }
 .desk-section h2 { margin-bottom: .25em; }
-.desk-prompt { color: var(--ink-soft); font-size: 1.15rem; margin-bottom: 1.5rem; }
+.desk-prompt { color: var(--text-muted); font-size: 1.2rem; margin-bottom: 1.5rem; }
 
 .desk {
-  background: #1C2130;
-  color: #E7E9EE;
-  border-radius: 16px;
-  padding: clamp(1.25rem, 3vw, 2rem);
-  min-height: 220px;
-  display: grid;
-  place-items: center;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 10px 30px rgba(22,26,36,.18);
+  position: relative; overflow: hidden;
+  background: linear-gradient(180deg, var(--surface-raised), var(--bg-section) 70%);
+  color: var(--text-body);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  min-height: 240px;
+  display: grid; place-items: center;
+  box-shadow: 0 1px 0 rgba(255,255,255,.08) inset, 0 24px 48px rgba(8,2,16,.6), 0 0 40px rgba(150,46,255,.18);
 }
-.desk-notice { max-width: 48ch; text-align: center; margin: 0; color: #B8BDC9; }
+.desk::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(60% 80% at 50% 110%, rgba(216,43,235,.25), transparent 70%);
+}
+.desk-wave { position: absolute; left: 0; right: 0; bottom: 0; height: 90px; opacity: .55; pointer-events: none; }
+.desk-notice { position: relative; max-width: 48ch; text-align: center; margin: 0; color: var(--text-body); font-size: 1.125rem; }
 
-.stories { margin-top: 1.25rem; max-width: var(--measure); }
-.stories summary { cursor: pointer; font-weight: 600; }
-.stories h3 { margin-top: 1.25rem; }
+.stories { margin-top: 1.5rem; max-width: var(--measure); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-card); }
+.stories summary {
+  cursor: pointer; font-weight: 600; color: var(--text-heading); padding: 1rem 1.25rem; list-style: none;
+  display: flex; align-items: center; gap: .6rem; border-radius: var(--radius);
+  transition: background var(--t);
+}
+.stories summary::-webkit-details-marker { display: none; }
+.stories summary::before { content: ""; width: 9px; height: 9px; border-right: 2px solid var(--accent); border-bottom: 2px solid var(--accent); transform: rotate(-45deg); transition: transform var(--t); }
+.stories[open] summary::before { transform: rotate(45deg); }
+.stories summary:hover { background: var(--surface-raised); }
+.stories[open] summary { border-radius: var(--radius) var(--radius) 0 0; border-bottom: 1px solid var(--border); }
+.stories > div { padding: .25rem 1.25rem 1.25rem; animation: fade-in 220ms ease; }
+@keyframes fade-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+.stories h3 { margin-top: 1.25rem; font-size: 1.2rem; }
 .stories .story-link { font-size: 1rem; }

@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#100818">
   <title>Gibson Nyendwa</title>
   <meta name="description" content="Gibson Nyendwa: SEND educator, cybersecurity-credentialed agency founder, psychology student and musician in Birmingham, UK. Push a fader to hear the story.">
   <meta property="og:title" content="Gibson Nyendwa">
@@ -22,23 +23,32 @@
 
 <header class="top">
   <a class="wordmark" href="#top">Gibson Nyendwa</a>
-  <nav aria-label="Sections">
+  <nav id="site-nav" aria-label="Sections">
     <a href="#about">About</a>
     <a href="#superpowers">Superpowers</a>
     <a href="#projects">Projects</a>
-    <a class="hint" href="#desk">
-      <svg class="fader-icon" width="14" height="18" viewBox="0 0 14 18" aria-hidden="true">
-        <rect x="6" y="1" width="2" height="16" rx="1"/>
-        <rect x="1" y="4" width="12" height="5" rx="1.5"/>
-      </svg>
-      Hear my story
-    </a>
   </nav>
+  <div class="top-right">
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><span class="bars" aria-hidden="true"></span><span class="menu-label">Menu</span></button>
+  <a class="hint" href="#desk">
+    <svg class="fader-icon" width="14" height="18" viewBox="0 0 14 18" aria-hidden="true">
+      <rect x="6" y="1" width="2" height="16" rx="1"/>
+      <rect x="1" y="4" width="12" height="5" rx="1.5"/>
+    </svg>
+    Hear my story
+  </a>
+  </div>
 </header>
 
 <main id="top">
 
   <section class="hero">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <svg class="hero-wave" viewBox="0 0 1200 140" preserveAspectRatio="none" aria-hidden="true">
+      <defs><linearGradient id="wg" x1="0" x2="1"><stop offset="0" stop-color="#6D20CE"/><stop offset=".55" stop-color="#962EFF"/><stop offset="1" stop-color="#D82BEB"/></linearGradient></defs>
+      <path d="M0 90 C 120 40, 200 140, 320 90 S 520 30, 640 90 S 860 150, 980 90 S 1140 40, 1200 90" fill="none" stroke="url(#wg)" stroke-width="2.5" opacity=".7"/>
+      <path d="M0 100 C 140 70, 220 130, 340 100 S 540 60, 660 100 S 880 140, 1000 100 S 1150 70, 1200 100" fill="none" stroke="url(#wg)" stroke-width="1.5" opacity=".35"/>
+    </svg>
     <div class="hero-text">
       <h1>Gibson Nyendwa</h1>
       <p class="lede">I teach young people who learn differently, secure small businesses that cannot afford a breach, and write songs when nobody is looking.</p>
@@ -58,7 +68,7 @@
   </section>
 
   <section id="about" class="section about">
-    <h2>Twenty years of showing up</h2>
+    <h2>Twenty years of showing up <span class="eq" aria-hidden="true"><span style="--h:40%"></span><span style="--h:85%"></span><span style="--h:55%"></span><span style="--h:100%"></span><span style="--h:60%"></span></span></h2>
     <div class="about-grid">
       <div class="prose">
         <p>I started working with children and young people in 2006. The settings had long names and complex needs: specialist SEND schools, residential care, a therapeutic community. What I learned there is simple. Most people have been told what they cannot do. My job is to be the person who stays long enough to prove otherwise.</p>
@@ -72,7 +82,7 @@
   </section>
 
   <section id="superpowers" class="section">
-    <h2>Tech superpowers</h2>
+    <h2>Tech superpowers <span class="eq" aria-hidden="true"><span style="--h:40%"></span><span style="--h:85%"></span><span style="--h:55%"></span><span style="--h:100%"></span><span style="--h:60%"></span></span></h2>
     <p class="section-intro">Six things I can do that most people in one room cannot, and where each one came from.</p>
     <ul class="powers">
       <li style="--c:#FF8F33">
@@ -113,7 +123,7 @@
   </section>
 
   <section id="projects" class="section">
-    <h2>Projects and achievements</h2>
+    <h2>Projects and achievements <span class="eq" aria-hidden="true"><span style="--h:40%"></span><span style="--h:85%"></span><span style="--h:55%"></span><span style="--h:100%"></span><span style="--h:60%"></span></span></h2>
     <ul class="projects">
       <li>
         <h3><a href="https://gcmarketingsupport.co.uk">Gibcom Marketing Support</a></h3>
@@ -161,9 +171,13 @@
   </section>
 
   <section id="desk" class="section desk-section">
-    <h2>The mixing desk</h2>
+    <h2>The mixing desk <span class="eq" aria-hidden="true"><span style="--h:40%"></span><span style="--h:85%"></span><span style="--h:55%"></span><span style="--h:100%"></span><span style="--h:60%"></span></span></h2>
     <p class="desk-prompt">Push a fader up. Every channel is a part of my life.</p>
     <div class="desk" id="mixing-desk" data-state="pending">
+      <svg class="desk-wave" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 60 C 100 20, 180 90, 300 60 S 500 10, 600 60 S 820 100, 900 60 S 1120 20, 1200 60" fill="none" stroke="#D82BEB" stroke-width="2"/>
+        <path d="M0 70 C 120 50, 200 85, 320 70 S 520 40, 640 70 S 860 95, 980 70 S 1140 50, 1200 70" fill="none" stroke="#962EFF" stroke-width="1.5"/>
+      </svg>
       <p class="desk-notice">The desk powers up this weekend. Seven channels, seven stories, and one that only unlocks when you push the Studio fader to the top.</p>
     </div>
     <details class="stories">
