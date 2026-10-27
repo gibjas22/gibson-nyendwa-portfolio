@@ -83,7 +83,8 @@ export const channels = [
       title: "The Unsaid Sound",
       story:
         "Music is where I say the things that do not fit in a report. This is a 30-second excerpt of Invincible Battles. Before the studio there was the stage: I toured as the 1st Grail Knight in a Parsifal production across Ruskin Mill Trust provisions in South Wales, Gloucestershire, Sheffield and Glasshouse College.",
-      link: { text: "Listen on YouTube", href: "https://www.youtube.com/@theUnsaidSoundMusic" }
+      link: { text: "Listen on YouTube", href: "https://www.youtube.com/@theUnsaidSoundMusic" },
+      link2: { text: "Stream on SoundCloud", href: "https://soundcloud.com/theunsaidsoundmusic" }
     }
   }
 ];

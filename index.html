@@ -171,6 +171,30 @@
     </div>
   </section>
 
+  <section id="podcast" class="section podcast">
+    <h2>The podcast <span class="eq" aria-hidden="true"><span style="--h:40%"></span><span style="--h:85%"></span><span style="--h:55%"></span><span style="--h:100%"></span><span style="--h:60%"></span></span></h2>
+    <p class="section-intro">SEND Life Transition: conversations for families and professionals helping young people with SEND move into adult life. Honest, practical, recorded in Birmingham.</p>
+    <div class="podcast-grid">
+      <div class="card podcast-card">
+        <h3>Latest episode</h3>
+        <div class="podcast-frame" id="podcast-player">
+          <div class="podcast-placeholder">
+            <span class="eq eq-large" aria-hidden="true"><span style="--h:35%"></span><span style="--h:70%"></span><span style="--h:100%"></span><span style="--h:55%"></span><span style="--h:80%"></span><span style="--h:40%"></span><span style="--h:65%"></span></span>
+            <span class="video-soon">Podcast player coming soon</span>
+          </div>
+        </div>
+        <p class="video-caption" id="podcast-caption">The player will appear here once the first episode is published.</p>
+      </div>
+      <div class="card podcast-links">
+        <h3>Listen and watch</h3>
+        <p>The video episodes live on YouTube now. Audio platforms will be added as they go live.</p>
+        <ul class="social" id="podcast-platforms">
+          <li><a href="https://www.youtube.com/@SENDLifeTransition" target="_blank" rel="noopener">YouTube, SEND Life Transition</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <aside class="cta-band" aria-label="Get in touch">
     <p class="cta-text">Working on something I could help with, or want to talk about teaching, security or sound?</p>
     <div class="cta-actions">
@@ -200,6 +224,7 @@
     <p class="section-intro">Whether it is a website that needs to be found, a business that needs securing, a question about SEND education, or a song, I read everything that comes in. Email, book a call, or use the form.</p>
 
     <div class="contact-grid">
+      <div class="contact-left">
       <div class="contact-form-wrap card">
         <form id="contact-form" novalidate hidden>
           <div class="field">
@@ -251,6 +276,23 @@
         </div>
       </div>
 
+        <div class="card welcome" id="welcome">
+          <h3>A personal welcome from Gibson</h3>
+          <p>Get to know the person behind the projects, the creativity and the ambition.</p>
+          <div class="video-frame" id="welcome-player">
+            <div class="video-placeholder" role="img" aria-label="Welcome video coming soon">
+              <svg viewBox="0 0 600 338" preserveAspectRatio="none" aria-hidden="true">
+                <defs><linearGradient id="vg" x1="0" x2="1"><stop offset="0" stop-color="#6D20CE"/><stop offset=".55" stop-color="#962EFF"/><stop offset="1" stop-color="#D82BEB"/></linearGradient></defs>
+                <path d="M0 200 C 70 150, 120 260, 190 200 S 310 130, 380 200 S 500 270, 600 200" fill="none" stroke="url(#vg)" stroke-width="2.5" opacity=".8"/>
+                <path d="M0 215 C 80 190, 130 245, 200 215 S 320 180, 390 215 S 520 250, 600 215" fill="none" stroke="url(#vg)" stroke-width="1.5" opacity=".4"/>
+              </svg>
+              <span class="video-soon">Welcome video coming soon</span>
+            </div>
+          </div>
+          <p class="video-caption" id="welcome-caption">A short introduction, recorded for this site.</p>
+        </div>
+      </div>
+
       <div class="contact-details">
         <div class="card">
           <h3>Direct</h3>
@@ -299,5 +341,7 @@
 
 <script type="module" src="js/main.js"></script>
 <script type="module" src="js/contact.js"></script>
+<script type="module" src="js/welcome-video.js"></script>
+<script type="module" src="js/podcast.js"></script>
 </body>
 </html>

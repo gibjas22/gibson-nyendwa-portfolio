@@ -321,3 +321,65 @@ body { overflow-x: clip; }
 @media (max-width: 860px) {
   .contact-grid { grid-template-columns: 1fr; }
 }
+
+/* ---------- Welcome video card ---------- */
+.contact-left { display: grid; gap: 1.5rem; align-content: start; }
+.welcome h3 { margin-top: 0; }
+.welcome > p { color: var(--text-body); }
+.video-frame {
+  position: relative; aspect-ratio: 16 / 9; width: 100%;
+  border-radius: var(--radius-sm); overflow: hidden;
+  background: var(--bg-section); border: 1px solid var(--border);
+  box-shadow: 0 10px 24px rgba(8,2,16,.5), 0 0 24px rgba(150,46,255,.18);
+}
+.video-frame > iframe, .video-frame > video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; background: #000; }
+.video-placeholder {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  background: radial-gradient(70% 90% at 50% 100%, rgba(216,43,235,.22), transparent 70%), linear-gradient(180deg, var(--surface-raised), var(--bg-section));
+}
+.video-placeholder svg { position: absolute; inset: auto 0 0 0; width: 100%; height: 55%; }
+.video-soon {
+  position: relative; font-family: var(--head); font-weight: 600; color: var(--text-heading); font-size: 1.1rem;
+  padding: .6rem 1rem; border: 1px solid var(--border); border-radius: 999px; background: rgba(16,8,24,.55);
+}
+.video-soon a { color: var(--focus-ring); }
+.video-caption { color: var(--text-muted); font-size: 1rem; margin: .85rem 0 0; }
+
+/* Real-video play control (only rendered when a source is configured) */
+.video-play {
+  position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; cursor: pointer;
+  background: var(--bg-section); display: grid; place-items: center;
+  transition: transform 150ms ease, box-shadow var(--t);
+}
+.video-play img, .video-poster-fallback { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.video-poster-fallback { background: linear-gradient(180deg, var(--surface-raised), var(--bg-section)); }
+.play-icon {
+  position: relative; display: grid; place-items: center; width: 84px; height: 84px; border-radius: 50%;
+  background: var(--gradient); color: #fff; padding-left: 6px;
+  box-shadow: 0 10px 26px rgba(150,46,255,.5), 0 1px 0 rgba(255,255,255,.25) inset;
+  transition: transform 150ms ease, box-shadow var(--t);
+}
+.video-play:hover .play-icon { transform: translateY(-2px) scale(1.04); box-shadow: 0 14px 32px rgba(216,43,235,.55), 0 1px 0 rgba(255,255,255,.25) inset; }
+.video-play:active .play-icon { transform: translateY(1px) scale(.98); }
+.video-play:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: -3px; }
+
+/* ---------- Podcast section ---------- */
+.podcast-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(260px, .8fr); gap: 1.5rem; align-items: start; }
+.podcast-card h3, .podcast-links h3 { margin-top: 0; }
+.podcast-frame {
+  position: relative; min-height: 200px; border-radius: var(--radius-sm); overflow: hidden;
+  background: var(--bg-section); border: 1px solid var(--border);
+  box-shadow: 0 10px 24px rgba(8,2,16,.5), 0 0 24px rgba(150,46,255,.18);
+}
+.podcast-frame.ratio { aspect-ratio: 16 / 9; }
+.podcast-frame.fixed-height { min-height: 0; }
+.podcast-frame > iframe { width: 100%; border: 0; display: block; background: #000; }
+.podcast-frame.ratio > iframe { position: absolute; inset: 0; height: 100%; }
+.podcast-placeholder {
+  min-height: 200px; display: grid; place-items: center; gap: 1rem; padding: 1.5rem;
+  background: radial-gradient(70% 90% at 50% 100%, rgba(216,43,235,.22), transparent 70%), linear-gradient(180deg, var(--surface-raised), var(--bg-section));
+}
+.eq-large { height: 56px; gap: 6px; margin: 0; }
+.eq-large span { width: 8px; border-radius: 4px; }
+.podcast-links p:last-of-type { margin-bottom: 1rem; }
+@media (max-width: 860px) { .podcast-grid { grid-template-columns: 1fr; } }
