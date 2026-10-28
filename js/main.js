@@ -43,7 +43,7 @@ if ("IntersectionObserver" in window) {
 const box = document.getElementById("stories-text");
 if (box) {
   box.innerHTML = channels.map(ch => {
-    const story = ch.unlock ? `${ch.story} ${ch.unlock.story}` : ch.story;
+    const story = ch.unlock ? ch.unlock.story : ch.story;
     return `<h3>${ch.label}: ${ch.title}</h3><p>${story}</p><p class="story-link"><a href="${ch.link.href}">${ch.link.text}</a></p>`;
   }).join("");
 }

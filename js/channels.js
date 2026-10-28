@@ -27,7 +27,7 @@ export const channels = [
   {
     id: "security",
     label: "Security",
-    colour: "#0E243F",
+    colour: "#5E8FE6",
     stem: "assets/audio/security.mp3",
     title: "The person to call",
     story:
@@ -80,9 +80,11 @@ export const channels = [
     unlock: {
       holdMs: 2000,
       clip: "assets/audio/invincible-clip.mp3",
+      video: "MrCM49wi91E",
+      videoTitle: "Invincible Battles (Official Final Mix)",
       title: "The Unsaid Sound",
       story:
-        "Music is where I say the things that do not fit in a report. This is a 30-second excerpt of Invincible Battles. Before the studio there was the stage: I toured as the 1st Grail Knight in a Parsifal production across Ruskin Mill Trust provisions in South Wales, Gloucestershire, Sheffield and Glasshouse College.",
+        "Music is where I say the things that do not fit in a report. Invincible Battles is waiting below. Before the studio there was the stage: I toured as the 1st Grail Knight in a Parsifal production across Ruskin Mill Trust provisions in South Wales, Gloucestershire, Sheffield and Glasshouse College.",
       link: { text: "Listen on YouTube", href: "https://www.youtube.com/@theUnsaidSoundMusic" },
       link2: { text: "Stream on SoundCloud", href: "https://soundcloud.com/theunsaidsoundmusic" }
     }

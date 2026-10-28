@@ -43,3 +43,13 @@ See the handover list in the chat: lawful-basis wording, retention statement, iM
 - Added `CLAUDE.md`: project rules first, then the official AWS agent rules between markers.
 - Health check `scratch/check-day2.ps1` (read-only): all four MCP servers connected; Claude Code called STS through aws-mcp and reported `user/gibson-admin`.
 - Docs: `docs/day2/` report, runbook, evidence index and case study.
+
+## 28 October 2026, evening: The mixing desk is live (creative feature)
+
+- `js/desk.js`: seven channel faders plus a master, built on the Web Audio API. Each fader reveals one strand of my story; with the sound on it fades in that channel's ambient loop (150 ms ramps, a perceptual volume curve, LED meters driven by analysers).
+- Sound never autoplays: "Turn the sound on" starts it, and it pauses when the tab is hidden. The stories work with the sound off, by keyboard, and without hover; the seven stories also stay readable as text below the desk.
+- Studio channel unlock: push to 100 and hold for two seconds (a glowing ring shows progress; dropping below 100 cancels). It unlocks The Unsaid Sound, with a click-to-load YouTube player for Invincible Battles (the desk ducks while it plays).
+- Studio audio: a soft pad generated in the browser stands in until the Invincible Battles master stem is added as `assets/audio/studio.mp3`.
+- Presets: "Mix my story" and "All faders down". Reduced-motion respected.
+- Tested with the CSP enforced: keyboard, mouse drag, unlock and cancel, audio load (meters lit), YouTube embed, presets; no overflow at 320, 390, 768 and 1280 px; no console errors.
+- Content fixes: the unlock text no longer promises a 30-second excerpt that does not exist yet; Security channel colour made visible on the dark board.
