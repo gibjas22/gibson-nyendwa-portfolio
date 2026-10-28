@@ -234,7 +234,7 @@ body { overflow-x: clip; }
   .top { flex-wrap: wrap; }
   .top-right { width: 100%; justify-content: space-between; }
 }
-@media (max-width: 900px) {
+@media (max-width: 1180px) {
   .menu-toggle { display: inline-flex; }
   .top nav {
     position: absolute; left: 0; right: 0; top: 100%;
@@ -512,3 +512,32 @@ body { overflow-x: clip; }
 .foot .legal a:hover { color: var(--text-heading); }
 .legal-wide .prose { max-width: 900px; }
 .legal-wide .prose p, .legal-wide .prose li { max-width: var(--measure); }
+
+/* Profile expansion: reuse the existing purple design system. */
+.profile-facts { align-self: start; padding: 1.5rem; background: linear-gradient(155deg, var(--surface-raised), var(--bg-section)); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-card); }
+.profile-facts h3 { margin: 0 0 1.25rem; }
+.profile-facts dl { margin: 0 0 1.5rem; }
+.profile-facts dt { color: var(--text-muted); font-size: 1rem; margin-top: 1rem; }
+.profile-facts dd { margin: .2rem 0 0; color: var(--text-heading); }
+.profile-section-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 1rem 2rem; margin-bottom: 1.5rem; }
+.profile-section-head > div { flex: 1 1 32rem; }
+.profile-section-head .section-intro { margin-bottom: 0; }
+.learning-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+.learning-card { padding: clamp(1.25rem, 3vw, 1.75rem); border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow-card); min-width: 0; }
+.learning-kind, .journey-label { color: var(--focus-ring); font-weight: 600; font-size: 1rem; margin-bottom: .85rem; }
+.learning-card h3 { font-size: clamp(1.2rem, 2vw, 1.4rem); line-height: 1.35; }
+.learning-context { color: var(--text-muted); }
+.learning-card > :last-child { margin-bottom: 0; }
+.learning-card a, .career-timeline a, .skill-proof a { font-weight: 600; text-underline-offset: .2em; }
+.learning-current { background: linear-gradient(135deg, var(--surface), var(--bg-section)); border-left: 4px solid var(--primary-hover); }
+.credential-list { list-style: disc; padding-left: 1.25rem; margin: 1rem 0; }
+.credential-list li { margin-bottom: .45rem; }
+.skill-proof { margin-top: 1rem; font-size: 1rem; }
+.career-timeline { list-style: none; margin: 2rem 0 0 .5rem; padding: 0 0 0 2rem; border-left: 2px solid var(--border); max-width: 76ch; }
+.career-timeline > li { position: relative; padding: 0 0 2.5rem 1rem; }
+.career-timeline > li:last-child { padding-bottom: .5rem; }
+.career-timeline > li::before { content: ''; position: absolute; left: calc(-2rem - 7px); top: .45rem; width: 12px; height: 12px; border: 2px solid var(--focus-ring); border-radius: 50%; background: var(--bg-base); box-shadow: 0 0 0 5px var(--bg-base); }
+.career-timeline h3 { line-height: 1.3; }
+.career-timeline p:not(.journey-label) { color: var(--text-muted); }
+.learning-card[hidden] { display: none; }
+@media (max-width: 640px) { .learning-grid { grid-template-columns: 1fr; } .career-timeline { padding-left: 1rem; } .career-timeline > li::before { left: calc(-1rem - 7px); } }
