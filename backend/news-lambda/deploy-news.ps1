@@ -61,8 +61,8 @@ Compress-Archive -Path (Join-Path $Here "index.mjs") -DestinationPath $zip
 $envFile = Join-Path $Tmp "env.json"
 $envJson = @{ Variables = @{ FEED_URL = $FeedUrl; SOURCE_NAME = $Source; LINK_HOST = $LinkHost; MAX_ITEMS = "6" } } | ConvertTo-Json -Compress
 WriteAscii $envFile $envJson
-$fn = Try-Aws lambda get-function --function-name $Fn --output json
-if ($fn.ok) {
+$fnCheck = Try-Aws lambda get-function --function-name $Fn --output json
+if ($fnCheck.ok) {
   Run-Aws lambda update-function-code --function-name $Fn --zip-file "fileb://$zip" | Out-Null
   Run-Aws lambda wait function-updated-v2 --function-name $Fn
   Run-Aws lambda update-function-configuration --function-name $Fn --environment "file://$envFile" --timeout 10 --memory-size 128 | Out-Null

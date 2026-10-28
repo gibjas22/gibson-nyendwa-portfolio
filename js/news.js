@@ -4,7 +4,7 @@
 // publisher. No publisher photos are used: each card gets a themed graphic drawn here instead.
 // The panel stays hidden until NEWS_ENDPOINT is set and the request succeeds.
 
-const NEWS_ENDPOINT = "";   // e.g. "https://abc123.execute-api.eu-west-2.amazonaws.com/news"
+const NEWS_ENDPOINT = "https://776bh82jm8.execute-api.eu-west-2.amazonaws.com/news";   // e.g. "https://abc123.execute-api.eu-west-2.amazonaws.com/news"
 
 const box = document.getElementById("news");
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -24,7 +24,7 @@ const THEMES = [
     icon: '<path d="M7 17a4 4 0 0 1 .5-8A5 5 0 0 1 17 9.5 3.5 3.5 0 0 1 17 17z"/><path d="M9 20l-1 2M13 20l-1 2M17 20l-1 2"/>' },
   { id: "sport", label: "Sport", colour: "#6BDB8C", re: /\b(villa|blues|birmingham city|albion|baggies|wolves|football|match|goal|cricket|edgbaston|boxing|athletics|commonwealth|sport|sports|derby)\b/i,
     icon: '<circle cx="12" cy="12" r="8"/><path d="M12 7l3 2-1 4h-4l-1-4z"/><path d="M12 4v3M19 10l-4-1M17 18l-3-5M7 18l3-5M5 10l4-1"/>' },
-  { id: "business", label: "Business", colour: "#F2C14E", re: /\b(business|businesses|jobs|job|shop|shops|store|stores|restaurant|restaurants|bar|pub|cafe|opening|opens|closing|closes|retail|company|firm|investment|£\d)/i,
+  { id: "business", label: "Business", colour: "#F2C14E", re: /\b(business|businesses|jobs|job|shop|shops|store|stores|restaurant|restaurants|bar|pub|cafe|opening|opens|closing|closes|retail|company|firm|investment|Â£\d)/i,
     icon: '<path d="M4 9h16l-1.5-4h-13z"/><path d="M5 9v10h14V9"/><path d="M10 19v-5h4v5"/>' },
   { id: "council", label: "Civic", colour: "#C9A7FF", re: /\b(council|councillor|mayor|mp|government|election|vote|budget|policy|plan|plans|housing|tax|bins|bin|school|schools|nhs|hospital)\b/i,
     icon: '<path d="M3 21h18M5 21V10M19 21V10M9 21V10M15 21V10M2 10l10-6 10 6z"/>' },
@@ -53,7 +53,7 @@ function render(data) {
           <div class="news-body">
             <h3><a href="${esc(i.link)}" target="_blank" rel="noopener noreferrer">${esc(i.title)}</a></h3>
             ${i.summary ? `<p class="news-summary">${esc(i.summary)}</p>` : ""}
-            <p class="news-meta">${i.published ? `<time datetime="${esc(i.published)}">${when(i.published)}</time> · ` : ""}Read on ${esc(source)}</p>
+            <p class="news-meta">${i.published ? `<time datetime="${esc(i.published)}">${when(i.published)}</time> Â· ` : ""}Read on ${esc(source)}</p>
           </div>
         </li>`;
       }).join("")}
