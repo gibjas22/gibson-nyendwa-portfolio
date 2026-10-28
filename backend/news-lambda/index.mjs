@@ -6,6 +6,7 @@
 //
 // GET /news                    -> What's On (the default, primary section)
 // GET /news?section=<id>       -> one of the sections below; anything else is rejected
+// Each item: title, summary, link, published, kind (the publisher's sub-section, e.g. food-drink-news).
 //
 // The section list is fixed in code on purpose: the function can only ever fetch these addresses.
 // Business is not listed because Birmingham Live's business RSS feed was empty or missing when checked
@@ -22,13 +23,16 @@ const SOURCE = process.env.SOURCE_NAME || "Birmingham Live";
 const MAX = Math.min(parseInt(process.env.MAX_ITEMS || "9", 10) || 9, 12);
 const TTL_MS = 15 * 60 * 1000;   // reuse a fetched feed for 15 minutes
 
-// id -> feed path, plus the link path a story must sit under to count for that section.
+// id -> feed path, plus the link paths a story must match to count for that section.
+// What's On sections only accept these event sub-sections; shopping deals and competitions that the
+// publisher also files under /whats-on/ are left out.
+const EVENTS = /^\/whats-on\/(whats-on-news|food-drink-news|family-kids-news|music-nightlife-news|arts-culture-news|theatre-news|film-news)\//;
 export const SECTIONS = {
-  "whats-on":   { label: "What's On",         feed: "/whats-on/?service=rss",                   under: "/whats-on/" },
-  "food-drink": { label: "Food & drink",      feed: "/whats-on/food-drink-news/?service=rss",   under: "/whats-on/" },
-  "family":     { label: "Family & kids",     feed: "/whats-on/family-kids-news/?service=rss",  under: "/whats-on/" },
-  "music":      { label: "Music & nightlife", feed: "/whats-on/music-nightlife-news/?service=rss", under: "/whats-on/" },
-  "news":       { label: "Latest news",       feed: "/news/?service=rss",                       under: "/" }
+  "whats-on":   { label: "What's On",         feed: "/whats-on/?service=rss",                      allow: EVENTS },
+  "food-drink": { label: "Food & drink",      feed: "/whats-on/food-drink-news/?service=rss",      allow: EVENTS },
+  "family":     { label: "Family & kids",     feed: "/whats-on/family-kids-news/?service=rss",     allow: EVENTS },
+  "music":      { label: "Music & nightlife", feed: "/whats-on/music-nightlife-news/?service=rss", allow: EVENTS },
+  "news":       { label: "Latest news",       feed: "/news/?service=rss",                          allow: /^\// }
 };
 const DEFAULT_SECTION = "whats-on";
 
@@ -49,7 +53,7 @@ const preview = text => {
 };
 const tag = (xml, name) => { const m = xml.match(new RegExp(`<${name}[^>]*>([\\s\\S]*?)</${name}>`, "i")); return m ? decode(m[1]) : ""; };
 
-export function parse(xml, under = "/") {
+export function parse(xml, allow = /^\//) {
   const items = [];
   for (const m of xml.matchAll(/<item\b[\s\S]*?<\/item>/gi)) {
     const it = m[0];
@@ -58,8 +62,8 @@ export function parse(xml, under = "/") {
     const date = new Date(tag(it, "pubDate"));
     let url;
     try { url = new URL(link); } catch { continue; }
-    if (url.protocol !== "https:" || url.hostname !== HOST || !url.pathname.startsWith(under) || !title) continue;
-    items.push({ title, summary: preview(tag(it, "description")), link: url.href, published: isNaN(date) ? null : date.toISOString() });
+    if (url.protocol !== "https:" || url.hostname !== HOST || !allow.test(url.pathname) || !title) continue;
+    items.push({ title, summary: preview(tag(it, "description")), link: url.href, kind: url.pathname.split("/")[2] || "", published: isNaN(date) ? null : date.toISOString() });
     if (items.length >= MAX) break;
   }
   return items;
@@ -83,7 +87,7 @@ export const handler = async (event = {}) => {
     const res = await fetch(BASE + sec.feed, { signal: ctrl.signal, headers: { "user-agent": "GibsonNyendwaPortfolio/1.0 (+https://main.dbthjbi29n1oo.amplifyapp.com)" } });
     clearTimeout(timer);
     if (!res.ok) throw new Error("feed status " + res.status);
-    const items = parse(await res.text(), sec.under);
+    const items = parse(await res.text(), sec.allow);
     const body = { source: SOURCE, section: id, label: sec.label, fetched: new Date().toISOString(), items };
     cache.set(id, { at: Date.now(), body });
     return respond(200, body);

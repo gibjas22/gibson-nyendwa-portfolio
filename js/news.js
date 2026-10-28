@@ -56,7 +56,10 @@ const DEFAULT_THEME = { id: "news", label: "Birmingham", colour: "#D82BEB",
 // Serious stories (crime, deaths, accidents, emergencies) always get the neutral graphic, never a
 // playful theme, whatever other words the headline contains.
 const SERIOUS = /\b(stab|stabbed|stabbing|murder|murdered|killed|kill|dead|death|died|dies|die|fatal|shooting|shot|attack|attacked|assault|rape|crash|collision|police|arrest|arrested|charged|court|jailed|sentenced|missing|fire|blaze|tragedy|tributes|victim|injured|hospitalised|chase|emergency)\b/i;
-const themeFor = title => SERIOUS.test(title) ? DEFAULT_THEME : (THEMES.find(t => t.re.test(title)) || DEFAULT_THEME);
+// The publisher's own sub-section decides the theme when there is one; otherwise words in the headline.
+const KIND_THEME = { "food-drink-news": "food", "family-kids-news": "family", "music-nightlife-news": "music", "arts-culture-news": "arts", "theatre-news": "stage" };
+const themeFor = (title, kind) => SERIOUS.test(title) ? DEFAULT_THEME
+  : (THEMES.find(t => t.id === KIND_THEME[kind]) || THEMES.find(t => t.re.test(title)) || DEFAULT_THEME);
 const svg = path => `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${path}</svg>`;
 
 let current = DEFAULT_SECTION, source = "Birmingham Live", built = false;
@@ -80,7 +83,7 @@ function cards(data) {
   }
   return `<ul class="news-grid">
     ${items.map(i => {
-      const t = themeFor(i.title);
+      const t = themeFor(i.title, i.kind);
       return `<li class="news-card" style="--c:${t.colour}">
         <div class="news-art" aria-hidden="true">${svg(t.icon)}<span class="news-theme">${esc(t.label)}</span></div>
         <div class="news-body">
