@@ -1,17 +1,15 @@
 # Day 2 Evidence Index
 
-Every completion claim must point to a real artefact. Sensitive originals stay outside the repo; only redacted copies go into `docs/day2/evidence/`.
+Sensitive originals stay outside the repo. Shareable evidence masks the account ID to its last four digits.
 
-| Claim | Evidence required | File / record | Status |
+| Claim | Evidence | Where | Status |
 |---|---|---|---|
-| Guide read | Guide title, URL, access date | Report §2 | Outstanding |
-| Cloud workspace inventoried | Command output (names only) | Report §4 | Recorded |
-| Workstation inventoried | `aws --version`, OS, editor, agent versions | Report §4 | Outstanding |
-| Agent installed and signed in | Screenshot of agent with sign-in state, no tokens visible | `evidence/01-agent-signed-in.png` | Outstanding |
-| Project open in agent | Screenshot showing repo open | `evidence/02-project-open.png` | Outstanding |
-| Owner CLI authentication | Masked `sts get-caller-identity` output | `evidence/03-sts-owner.txt` | Outstanding |
-| Agent ran read-only AWS call | Agent transcript showing it executed the command, masked output | `evidence/04-sts-agent.png` | Outstanding |
-| Guide exercise complete | As the guide specifies | TBC | Outstanding |
-| Session ended | `aws logout` output or note | `evidence/05-logout.txt` | Outstanding |
-
-Redaction rule: mask account IDs to the last four digits, remove ARNs' user path if sharing publicly, crop browser address bars showing sign-in URLs, never show keys or tokens.
+| Tools installed with versions | Health check section 1 | Screenshot of `check-day2.ps1` run, 28 Oct, about 15:25 | Captured (PowerShell output) |
+| CLI signed in as gibson-admin, eu-west-2 | `sts get-caller-identity`, health check section 2 | PowerShell output, Arn `********4263:user/gibson-admin` | Captured |
+| Root session removed from CLI | `aws logout`, then overwrite prompt accepting `user/gibson-admin` | PowerShell transcript | Captured |
+| gibson-admin password reset and MFA | Console banners "Console access updated" and "MFA device assigned" | Screenshots sent in chat | Captured |
+| Agent Toolkit installed | Wizard output: 24 skills, MCP configured for Claude Code | PowerShell transcript | Captured |
+| aws-mcp connected | `claude mcp list` showing `aws-mcp ... Connected` | PowerShell output; health check section 5 | Captured |
+| Agent made its own AWS call | `claude -p` result `ARN=arn:aws:iam::********4263:user/gibson-admin` | Health check section 6 | Captured |
+| Rules file in project | `CLAUDE.md` in repo, AWS block between markers | Git repository | Captured |
+| Full green run of fixed health check | Summary "ALL CHECKS PASSED" | Screenshot to take | Outstanding |

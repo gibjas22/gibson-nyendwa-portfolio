@@ -1,53 +1,46 @@
 # Day 2 Runbook: connect, verify, disconnect
 
-Status: **draft**. Steps marked [CONFIRM] change once the official guide is read.
+Machine: Windows 11, PowerShell. Account region eu-west-2; Agent Toolkit region us-east-1.
 
-## Before you start
-- Use the personal learning account only (region eu-west-2). Never the root user.
-- Never paste passwords, MFA codes, keys or tokens into chat or any file in the repo.
-- The repo `.gitignore` must never contain an exception for `.aws/`.
+## Rules
+- Use IAM user `gibson-admin`, never root. Check the console's top-right name before `aws login`.
+- Never paste passwords, MFA codes, keys or tokens into chat or files.
 
-## 1. Install (Windows, PowerShell)
+## 1. Install (once)
 ```powershell
-# Official AWS CLI v2 MSI from AWS
-msiexec.exe /i https://awscli.amazonaws.com/AWSCLIV2.msi
-# New PowerShell window, then:
-aws --version            # record the version
-aws configure list-profiles   # lists names only; record which exist
+irm 'https://awscli.amazonaws.com/v2/install.ps1' | iex
+irm https://astral.sh/uv/install.ps1 | iex
+irm https://claude.ai/install.ps1 | iex
 ```
-[CONFIRM] Install the coding agent or extension named in the guide, from its official source only. Record publisher and version.
+Open a new PowerShell window, then `aws --version`, `uv --version`, `claude --version`.
 
-## 2. Authenticate (short-lived, named profile)
-Option A, console-credential sign-in (CLI 2.32 or later):
+## 2. Sign in (each new session, or after 90 days)
 ```powershell
-aws login --profile gibson-portfolio
-```
-A browser opens; you sign in as `gibson-admin` with MFA yourself. Session credentials are short-lived and refresh automatically for a limited time.
-
-Option B, IAM Identity Center [CONFIRM: only if the guide requires it; not set up on this account today]:
-```powershell
-aws configure sso --profile gibson-portfolio
-aws sso login --profile gibson-portfolio
-```
-
-## 3. Verify (owner)
-```powershell
+aws configure set region eu-west-2 --profile gibson-portfolio
+aws login --region eu-west-2 --profile gibson-portfolio
 aws sts get-caller-identity --profile gibson-portfolio
 ```
-Expected: an `Arn` ending `user/gibson-admin` (or the Identity Center role) and an account number. Mask all but the last four digits before sharing.
+The Arn must end `user/gibson-admin`. If it ends `:root`: `aws logout --profile gibson-portfolio`, sign the browser in as gibson-admin, repeat.
 
-## 4. Verify (agent)
-Ask the agent to run the same read-only command using `--profile gibson-portfolio`. Record whether *the agent* executed it and the masked result. If the agent cannot run AWS commands, record that plainly; do not claim layer D.
-
-## 5. Re-authenticate after expiry
+## 3. Agent Toolkit (once, or to update skills)
 ```powershell
-aws login --profile gibson-portfolio        # Option A
-aws sso login --profile gibson-portfolio    # Option B
+aws configure agent-toolkit --yes --region us-east-1 --profile gibson-portfolio
+claude mcp remove aws-mcp
+claude mcp add aws-mcp -s user -e AWS_MCP_PROXY_PROFILES=gibson-portfolio -- uvx mcp-proxy-for-aws@latest https://aws-mcp.us-east-1.api.aws/mcp --metadata INSTALL_SOURCE=aws-cli
+claude mcp list
 ```
+Re-running the toolkit setup rewrites the MCP entry, so repeat the remove and add lines afterwards.
 
-## 6. Disconnect
+## 4. Verify
 ```powershell
-aws logout --profile gibson-portfolio       # Option A
-aws sso logout                              # Option B
+cd C:\Users\gibso\gibson-nyendwa-portfolio
+powershell -ExecutionPolicy Bypass -File .\scratch\check-day2.ps1
 ```
-Then sign out of the coding agent. Removing a local profile does **not** revoke anything in AWS: to revoke, remove the policy or permission set in IAM / Identity Center, or deactivate the user's console session in IAM.
+Add `-SkipAgentTest` to skip the Claude Code call.
+
+## 5. Disconnect
+```powershell
+aws logout --profile gibson-portfolio        # ends the CLI session
+claude mcp remove aws-mcp -s user            # removes the agent's AWS connection
+```
+Deleting a local profile does not change anything in AWS. To revoke access fully, remove permissions from `gibson-admin` in IAM or deactivate its console access.

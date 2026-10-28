@@ -33,3 +33,13 @@ See the handover list in the chat: lawful-basis wording, retention statement, iM
 **Tested** with the CSP header actually enforced by a local server: 8 routes at 320, 390, 768 and 1280 px, zero CSP violations, zero console errors, zero horizontal overflow; case studies, certificate list and booking embed still work.
 
 **Note for later:** if the contact form uses a Lambda function URL instead of API Gateway, add its domain to `connect-src` in `customHttp.yml`.
+
+## 28 October 2026, afternoon: Day 2, coding agent connected to AWS
+
+- Installed AWS CLI 2.39.0, uv 0.13.6 and Claude Code 2.1.312 on Windows with the official installers.
+- Fixed IAM user `gibson-admin`: reset its console password (the Day 1 one was never confirmed) and added MFA.
+- `aws login` with profile `gibson-portfolio` as `gibson-admin` (first attempt picked up a root browser session; logged out and redid it).
+- Ran the Agent Toolkit for AWS setup: 24 AWS skills, AWS MCP Server added to Claude Code. Fixed the MCP entry to use the profile.
+- Added `CLAUDE.md`: project rules first, then the official AWS agent rules between markers.
+- Health check `scratch/check-day2.ps1` (read-only): all four MCP servers connected; Claude Code called STS through aws-mcp and reported `user/gibson-admin`.
+- Docs: `docs/day2/` report, runbook, evidence index and case study.
