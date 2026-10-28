@@ -42,7 +42,11 @@
     <h1>Insights</h1>
     <p class="section-intro">Practical ideas and personal perspectives on technology, marketing, inclusive education and creativity.</p>
     <div id="featured"></div>
-    <div class="hub-controls">
+    <section class="topics" aria-labelledby="topics-h">
+      <h2 id="topics-h" class="topics-h">Browse by topic</h2>
+      <ul class="topic-tiles" id="topic-tiles"></ul>
+    </section>
+    <div class="hub-controls" id="hub-controls">
       <div class="filters" id="cat-filters" role="group" aria-label="Filter by category"></div>
       <form class="search" role="search" id="search-form">
         <label for="q">Search insights</label>
@@ -50,9 +54,11 @@
         <button type="button" class="text-link" id="clear" hidden>Clear</button>
       </form>
     </div>
+    <div id="cat-head"></div>
     <p class="filter-status" id="status" role="status" aria-live="polite"></p>
     <ul class="gallery insights-grid" id="grid"></ul>
     <p id="more-wrap" hidden><button type="button" class="button button-quiet" id="more">Load more</button></p>
+    <section class="news-panel" id="news" aria-labelledby="news-h" hidden></section>
     <noscript><p>The Insights list needs JavaScript. <a href="../index.html">Back to the home page</a>.</p></noscript>
   </section>
 </main>
@@ -76,5 +82,6 @@
 </footer>
 <script type="module" src="../js/shell.js"></script>
 <script type="module" src="../js/hub.js"></script>
+<script type="module" src="../js/news.js"></script>
 </body>
 </html>

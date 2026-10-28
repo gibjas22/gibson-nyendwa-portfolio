@@ -53,3 +53,20 @@ See the handover list in the chat: lawful-basis wording, retention statement, iM
 - Presets: "Mix my story" and "All faders down". Reduced-motion respected.
 - Tested with the CSP enforced: keyboard, mouse drag, unlock and cancel, audio load (meters lit), YouTube embed, presets; no overflow at 320, 390, 768 and 1280 px; no console errors.
 - Content fixes: the unlock text no longer promises a 30-second excerpt that does not exist yet; Security channel colour made visible on the dark board.
+
+## 28 October 2026, evening: Insights hub redesign
+
+- Five topics now have their own colour, line icon and one-line description (`js/insights.js`): AI & Automation, Digital Marketing, Cybersecurity, SEND & Inclusive Education (spelled out as Special Educational Needs and Disabilities), Music & Creativity.
+- "Browse by topic" tiles at the top of the hub, showing article counts or "First article coming soon"; clicking a tile filters the list and shows a category header.
+- Honest placeholders: while a topic has nothing published, a dashed "Coming soon" card appears, with no invented titles, dates or reading times.
+- Article cards redesigned: category label, tags, whole card clickable; article headers take the category colour.
+- Tested with the CSP enforced: tiles, filters, search, empty and no-result states, category URLs; no overflow at 320 and 768 px; article layout previewed with labelled samples in a test browser only (nothing published).
+
+## 28 October 2026, evening: Birmingham news panel (prepared, not yet deployed)
+
+- Decision: show local news as a clearly separate, labelled panel ("Birmingham news, from Birmingham Live"), headlines and links only, never mixed with my own articles.
+- `backend/news-lambda/index.mjs`: Node.js 20 Lambda, no dependencies, reads the RSS feed, keeps only title, https link on the publisher's host and date, caches for 15 minutes, serves stale data if the feed fails.
+- `js/news.js` + panel slot on the Insights page: hidden until `NEWS_ENDPOINT` is set and the call succeeds; all text escaped.
+- Tested locally: sample feed parsing, rejection of `javascript:` and off-site links, HTML stripping, caching; panel success, failure and switched-off states under the CSP.
+- To do: confirm the feed URL and the publisher's RSS terms, deploy Lambda + API Gateway (`backend/news-lambda/README.md`), set the endpoint.
+- Update: news cards redesigned as a themed grid. Each headline gets a graphic chosen from its wording (Travel, Weather, Sport, Business, Civic, What's on, general) instead of the publisher's photos, which belong to Reach plc or picture agencies and are not licensed for this site. The function now also returns a one-sentence preview from the feed summary, capped at 160 characters. Tested at 1280 and 390 px.

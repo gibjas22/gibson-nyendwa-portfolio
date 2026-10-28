@@ -1,5 +1,5 @@
 // article.js: renders one published article from insights.js, with TOC, sources, sharing and related.
-import { bySlug, published, AUTHOR, categoryLabel, CATEGORIES, readingTime, fmtDate, esc, inline } from "./insights.js";
+import { categoryById, bySlug, published, AUTHOR, categoryLabel, CATEGORIES, readingTime, fmtDate, esc, inline } from "./insights.js";
 
 const slug = new URLSearchParams(location.search).get("slug");
 const a = bySlug(slug);
@@ -31,7 +31,7 @@ if (!a) {
   const firstIntro = cat?.intro ? `<p class="muted small">${esc(cat.label)}: ${esc(cat.intro)}.</p>` : "";
 
   box.innerHTML = `
-    <header class="case-head" style="--c:var(--primary)">
+    <header class="case-head" style="--c:${(categoryById(a.category) || {}).colour || "var(--primary)"}">
       <p class="case-cat"><a href="index.html?category=${a.category}">${esc(categoryLabel(a.category))}</a></p>
       <h1>${esc(a.title)}</h1>
       <p class="lede">${esc(a.excerpt)}</p>
