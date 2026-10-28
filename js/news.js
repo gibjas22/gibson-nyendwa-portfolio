@@ -33,7 +33,10 @@ const THEMES = [
 ];
 const DEFAULT_THEME = { id: "news", label: "Birmingham", colour: "#D82BEB",
   icon: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 9h6M7 12h10M7 15h10"/><rect x="15" y="8" width="3" height="2"/>' };
-const themeFor = title => THEMES.find(t => t.re.test(title)) || DEFAULT_THEME;
+// Serious stories (crime, deaths, accidents, emergencies) always get the neutral graphic, never a
+// playful theme like "Travel" or "What's on", whatever other words the headline contains.
+const SERIOUS = /\b(stab|stabbed|stabbing|murder|murdered|killed|kill|dead|death|died|dies|die|fatal|shooting|shot|attack|attacked|assault|rape|crash|collision|police|arrest|arrested|charged|court|jailed|sentenced|missing|fire|blaze|tragedy|tributes|victim|injured|hospitalised|chase|emergency)\b/i;
+const themeFor = title => SERIOUS.test(title) ? DEFAULT_THEME : (THEMES.find(t => t.re.test(title)) || DEFAULT_THEME);
 const svg = path => `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${path}</svg>`;
 
 function render(data) {

@@ -70,3 +70,9 @@ See the handover list in the chat: lawful-basis wording, retention statement, iM
 - Tested locally: sample feed parsing, rejection of `javascript:` and off-site links, HTML stripping, caching; panel success, failure and switched-off states under the CSP.
 - To do: confirm the feed URL and the publisher's RSS terms, deploy Lambda + API Gateway (`backend/news-lambda/README.md`), set the endpoint.
 - Update: news cards redesigned as a themed grid. Each headline gets a graphic chosen from its wording (Travel, Weather, Sport, Business, Civic, What's on, general) instead of the publisher's photos, which belong to Reach plc or picture agencies and are not licensed for this site. The function now also returns a one-sentence preview from the feed summary, capped at 160 characters. Tested at 1280 and 390 px.
+
+## 28 October 2026, 18:20: Birmingham news panel deployed
+
+- Ran `backend/news-lambda/deploy-news.ps1` as gibson-admin: feed check (25 stories), IAM role `portfolio-news-role` (CloudWatch Logs only), Lambda `portfolio-news` (Node.js 20, arm64, 128 MB, 10 s), HTTP API `portfolio-news-api` with `GET /news`, CORS limited to the Amplify site, throttling 10 burst / 5 per second. Function test and public endpoint test both returned 6 headlines.
+- First run failed: PowerShell variable names are case-insensitive, so `$fn` overwrote `$Fn` (the function name). Renamed and re-ran; the script reused the role it had already created.
+- Fix after seeing real headlines: serious stories (crime, deaths, accidents, police) now always get the neutral graphic, so a fatal stabbing mentioning "roads" can never be labelled "Travel".
