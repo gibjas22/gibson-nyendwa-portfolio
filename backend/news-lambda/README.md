@@ -14,6 +14,13 @@ Expected cost: within the Free Tier at portfolio traffic (Lambda: 1M requests/mo
 1. **Confirm the feed address** opens as RSS in a browser: `https://www.birminghammail.co.uk/news/?service=rss`. If it does not, find Birmingham Live's current feed link and use that.
 2. **Check the publisher's terms** for RSS use. This build shows headlines, a one-sentence preview and links, with attribution, and copies no images or full article text. Only add publisher images if they confirm in writing that you may.
 
+## Quickest: the deploy script
+Signed in as gibson-admin (`aws login --region eu-west-2 --profile gibson-portfolio`), from the project folder:
+```powershell
+powershell -ExecutionPolicy Bypass -File .\backend\news-lambda\deploy-news.ps1
+```
+It checks the feed first, creates or updates the role, function and API, tests both the function and the public endpoint, and sets `NEWS_ENDPOINT` in `js/news.js`. Then commit and push. Safe to run again.
+
 ## Option A: AWS console (about 15 minutes, signed in as gibson-admin, region London)
 
 ### 1. Create the function
