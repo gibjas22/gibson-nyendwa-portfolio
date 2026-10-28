@@ -16,3 +16,9 @@ raw-audio/
 .env
 *.local
 scratch/
+
+# Never commit AWS credentials or session material
+.aws/
+*.pem
+.env.*
+docs/day2/evidence/raw/

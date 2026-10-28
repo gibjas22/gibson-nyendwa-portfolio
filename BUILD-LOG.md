@@ -17,3 +17,19 @@ Add a rewrite rule in the Amplify console so unknown paths show the custom page:
 
 **Still to confirm before the legal pages are treated as final**
 See the handover list in the chat: lawful-basis wording, retention statement, iMeetify's processing location, and whether anything is ever sold through this site.
+
+## 28 October 2026: Key facts, numbers, tracklist, certificates, security headers
+
+**Why:** compared the portfolio against strong published entries for ideas (not code or wording). Gaps found: no at-a-glance facts, no measured numbers, no career timeline, certificates summarised in one line, and no security headers.
+
+**What changed**
+- About: a key-facts card (location, years with young people, current role, Gibcom start, studies, MBCS).
+- Superpowers: a by-the-numbers strip (20 years, 10 years, 500+ customers, 25+ certificates and courses, 25+ tracks).
+- New "The tracklist" section: the career timeline from LinkedIn dates, numbered like an album running order to fit The Unsaid Sound theme.
+- Qualifications: an expandable list of 25 certificates and short courses grouped by provider, with dates, taken from LinkedIn.
+- `customHttp.yml`: Content-Security-Policy (scripts only from this site; third-party frames limited to the booking, video and podcast providers), HSTS, nosniff, Referrer-Policy, Permissions-Policy, X-Frame-Options, and a week-long cache for `assets/`.
+- Moved the inline case-study script out of `project.html` into `js/project.js` so the CSP can block inline scripts.
+
+**Tested** with the CSP header actually enforced by a local server: 8 routes at 320, 390, 768 and 1280 px, zero CSP violations, zero console errors, zero horizontal overflow; case studies, certificate list and booking embed still work.
+
+**Note for later:** if the contact form uses a Lambda function URL instead of API Gateway, add its domain to `connect-src` in `customHttp.yml`.
