@@ -4,7 +4,7 @@
   title: "A clear, specific title",                       // required
   slug: "a-clear-specific-title",                         // required; lowercase letters, numbers and hyphens only; must be unique
   excerpt: "One or two sentences that say what the reader will get.",  // required; shown on cards and as the description
-  category: "ai",                                         // required; one of: ai, marketing, security, send, music
+  category: "ai",                                         // required; one of: whats-on, ai, marketing, security, send, music
   tags: ["automation", "small business"],                 // optional
   author: "Gibson Nyendwa",                               // defaults to the site author if omitted
   published: "2026-11-10",                                // required; the real publication date, YYYY-MM-DD

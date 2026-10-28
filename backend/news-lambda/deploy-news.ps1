@@ -1,4 +1,4 @@
-# deploy-news.ps1 - deploys the Birmingham news feed (Lambda + HTTP API) and switches the panel on.
+# deploy-news.ps1 - deploys the What's On in Birmingham feed (Lambda + HTTP API) and switches the panel on.
 # Run from the project folder, signed in as gibson-admin:
 #   powershell -ExecutionPolicy Bypass -File .\backend\news-lambda\deploy-news.ps1
 # Safe to run again: it reuses what already exists and updates the code.
@@ -8,8 +8,9 @@ $ErrorActionPreference = "Stop"
 $env:AWS_PAGER = ""
 $AwsProfile = "gibson-portfolio"
 $Region     = "eu-west-2"
-$FeedUrl    = "https://www.birminghammail.co.uk/news/?service=rss"
-$LinkHost   = "www.birminghammail.co.uk"
+$FeedBase   = "https://www.birminghammail.co.uk"
+# Sections served by the Lambda (must match SECTIONS in index.mjs). What's On is the primary one.
+$Feeds      = [ordered]@{ "whats-on" = "/whats-on/?service=rss"; "food-drink" = "/whats-on/food-drink-news/?service=rss"; "family" = "/whats-on/family-kids-news/?service=rss"; "music" = "/whats-on/music-nightlife-news/?service=rss"; "news" = "/news/?service=rss" }
 $Source     = "Birmingham Live"
 $Origin     = "https://main.dbthjbi29n1oo.amplifyapp.com"
 $Fn         = "portfolio-news"
@@ -34,13 +35,17 @@ if ($id.Arn -notlike "*:user/gibson-admin") { Stop-With "Signed in as $($id.Arn)
 $Account = $id.Account
 Ok ("gibson-admin, account ********" + $Account.Substring(8))
 
-Step "2. Check the feed works before creating anything"
-try {
-  $feed = Invoke-WebRequest -Uri $FeedUrl -UseBasicParsing -TimeoutSec 20 -Headers @{ "User-Agent" = "GibsonNyendwaPortfolio/1.0" }
-  $items = ([regex]::Matches($feed.Content, "<item[\s>]")).Count
-} catch { Stop-With "Could not read $FeedUrl : $($_.Exception.Message)" }
-if ($items -lt 1) { Stop-With "The address answered but contains no RSS items. Check the feed URL." }
-Ok "$items stories in the Birmingham Live feed"
+Step "2. Check the feeds work before changing anything"
+foreach ($k in $Feeds.Keys) {
+  $u = $FeedBase + $Feeds[$k]
+  try {
+    $feed = Invoke-WebRequest -Uri $u -UseBasicParsing -TimeoutSec 20 -Headers @{ "User-Agent" = "GibsonNyendwaPortfolio/1.0" }
+    $items = ([regex]::Matches($feed.Content, "<item[\s>]")).Count
+  } catch { Stop-With "Could not read $u : $($_.Exception.Message)" }
+  if ($k -eq "whats-on" -and $items -lt 1) { Stop-With "The What's On feed has no items. Check $u" }
+  if ($items -lt 1) { Write-Host "   NOTE  $k has no stories right now (the site shows an empty message for it)" -ForegroundColor Yellow }
+  else { Ok "$k : $items stories" }
+}
 
 Step "3. Execution role (CloudWatch Logs only)"
 $role = Try-Aws iam get-role --role-name $RoleName --output json
@@ -59,7 +64,7 @@ $zip = Join-Path $Tmp "news.zip"
 if (Test-Path $zip) { Remove-Item $zip }
 Compress-Archive -Path (Join-Path $Here "index.mjs") -DestinationPath $zip
 $envFile = Join-Path $Tmp "env.json"
-$envJson = @{ Variables = @{ FEED_URL = $FeedUrl; SOURCE_NAME = $Source; LINK_HOST = $LinkHost; MAX_ITEMS = "6" } } | ConvertTo-Json -Compress
+$envJson = @{ Variables = @{ FEED_BASE = $FeedBase; SOURCE_NAME = $Source; MAX_ITEMS = "9" } } | ConvertTo-Json -Compress
 WriteAscii $envFile $envJson
 $fnCheck = Try-Aws lambda get-function --function-name $Fn --output json
 if ($fnCheck.ok) {
@@ -86,7 +91,7 @@ Run-Aws lambda invoke --function-name $Fn $out | Out-Null
 $resp = Get-Content $out -Raw | ConvertFrom-Json
 if ($resp.statusCode -ne 200) { Stop-With "Function returned $($resp.statusCode): $($resp.body)" }
 $body = $resp.body | ConvertFrom-Json
-Ok "$($body.items.Count) headlines returned"
+Ok "$($body.items.Count) What's On headlines returned (section: $($body.section))"
 
 Step "6. HTTP API with CORS and throttling"
 $apis = (Run-Aws apigatewayv2 get-apis --output json | ConvertFrom-Json).Items | Where-Object { $_.Name -eq $ApiName }
@@ -124,8 +129,14 @@ for ($i = 1; $i -le 5 -and -not $live; $i++) {
   try { $live = Invoke-RestMethod -Uri $Endpoint -Headers @{ Origin = $Origin } -TimeoutSec 15 } catch { Start-Sleep -Seconds 4 }
 }
 if (-not $live) { Stop-With "Endpoint did not answer yet: $Endpoint . Wait a minute and open it in a browser." }
-Ok "$($live.items.Count) headlines from $Endpoint"
-$live.items | Select-Object -First 3 | ForEach-Object { Write-Host ("      - " + $_.title) }
+Ok "What's On: $($live.items.Count) headlines from $Endpoint"
+$live.items | Select-Object -First 3 | ForEach-Object { Write-Host ("      - " + $_.title + "  [" + ([uri]$_.link).AbsolutePath.Split('/')[1] + "]") }
+foreach ($k in @("food-drink", "family", "music", "news")) {
+  try { $r = Invoke-RestMethod -Uri "$($Endpoint)?section=$k" -Headers @{ Origin = $Origin } -TimeoutSec 15; Ok "$k : $($r.items.Count) headlines" }
+  catch { Write-Host "   NOTE  $k did not answer: $($_.Exception.Message)" -ForegroundColor Yellow }
+}
+try { Invoke-RestMethod -Uri "$($Endpoint)?section=business" -TimeoutSec 15 | Out-Null; Write-Host "   WARN  unknown section was accepted" -ForegroundColor Yellow }
+catch { Ok "Unknown sections are rejected (business has no working feed, so it is not offered)" }
 
 Step "8. Switch the panel on in js/news.js"
 $newsJs = Join-Path $Project "js\news.js"
@@ -136,4 +147,4 @@ Ok "NEWS_ENDPOINT set"
 
 Write-Host ""
 Write-Host "DONE. Endpoint: $Endpoint" -ForegroundColor Green
-Write-Host "Now publish it:  git add -A ; git commit -m 'Switch on Birmingham news panel' ; git push" -ForegroundColor Green
+Write-Host "Now publish it:  git add -A ; git commit -m 'Make Whats On the primary feed' ; git push" -ForegroundColor Green

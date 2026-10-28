@@ -555,8 +555,7 @@ body { overflow-x: clip; }
 /* ---------- Insights: topic tiles, category header, cards, placeholders ---------- */
 .topics { margin: 2rem 0 2.5rem; }
 .topics-h { font-size: 1.25rem; margin: 0 0 1rem; color: var(--text-muted); font-weight: 600; letter-spacing: .02em; }
-.topic-tiles { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1rem; }
-@media (max-width: 1100px) { .topic-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.topic-tiles { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
 @media (max-width: 700px) { .topic-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 420px) { .topic-tiles { grid-template-columns: 1fr; } }
 .topic-tile {
@@ -605,8 +604,8 @@ body { overflow-x: clip; }
 
 .article-page .case-actions { align-items: center; }
 
-/* ---------- Birmingham news panel (Insights) ---------- */
-.news-panel { margin-top: 3rem; padding: 1.6rem; background: var(--bg-section); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-card); }
+/* ---------- What's On in Birmingham panel (Insights, primary feed) ---------- */
+.news-panel { margin: 1.5rem 0 2.5rem; padding: 1.6rem; background: var(--bg-section); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-card); }
 .news-panel[hidden] { display: none; }
 .news-head h2 { margin: 0 0 .35rem; font-size: 1.5rem; }
 .news-source { margin: 0 0 1.25rem; color: var(--text-muted); font-size: .975rem; max-width: 75ch; }
@@ -636,3 +635,9 @@ body { overflow-x: clip; }
 .news-meta { margin: auto 0 0; padding-top: .3rem; font-size: .85rem; color: var(--text-muted); }
 .news-note { margin: 1rem 0 0; font-size: .9rem; color: var(--text-muted); }
 @media (prefers-reduced-motion: reduce) { .news-card, .news-card:hover { transition: none; transform: none; } }
+
+.news-kicker { margin: 0 0 .25rem; font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent, #FF8F6B); }
+.news-tabs { margin: 0 0 .5rem; }
+.news-empty { margin: 0; padding: 1.25rem; border: 1px dashed var(--border); border-radius: 14px; color: var(--text-muted); }
+#news-items[aria-busy="true"] { opacity: .6; }
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }

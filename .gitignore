@@ -22,3 +22,6 @@ scratch/
 *.pem
 .env.*
 docs/day2/evidence/raw/
+
+# Article drafts awaiting review (never pushed; insights.js is public)
+content/drafts/

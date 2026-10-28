@@ -8,6 +8,8 @@
 // {ul:["item"]}, {quote:"..."}, {code:"..."}. Text is escaped on render; links are written as [text](https://...).
 
 export const CATEGORIES = [
+  { id: "whats-on", label: "What's On Birmingham", colour: "#FF8F6B", icon: "star",
+    blurb: "Gigs, theatre, exhibitions, food and family days out across Birmingham, and the independent venues behind them." },
   { id: "ai", label: "AI & Automation", colour: "#B07CFF", icon: "chip",
     blurb: "Agents, automation and the AI tools I build and use to run small businesses." },
   { id: "marketing", label: "Digital Marketing", colour: "#5CC4F2", icon: "signal",
@@ -27,7 +29,8 @@ export const ICONS = {
   signal: '<path d="M4 20V14M9 20V10M14 20V6M19 20V3"/>',
   shield: '<path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/>',
   hands: '<path d="M7 11V6a2 2 0 0 1 4 0v5M11 10V5a2 2 0 0 1 4 0v6M15 9a2 2 0 0 1 4 0v4a8 8 0 0 1-8 8h-1a6 6 0 0 1-5-3l-2-4a2 2 0 0 1 3.5-2L7 14"/>',
-  wave: '<path d="M2 12h2l2-6 3 12 3-15 3 18 3-12 2 3h2"/>'
+  wave: '<path d="M2 12h2l2-6 3 12 3-15 3 18 3-12 2 3h2"/>',
+  star: '<path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.5 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/>'
 };
 
 export const AUTHOR = { name: "Gibson Nyendwa", url: "index.html#about" };

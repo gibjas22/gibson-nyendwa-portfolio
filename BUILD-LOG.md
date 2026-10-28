@@ -76,3 +76,11 @@ See the handover list in the chat: lawful-basis wording, retention statement, iM
 - Ran `backend/news-lambda/deploy-news.ps1` as gibson-admin: feed check (25 stories), IAM role `portfolio-news-role` (CloudWatch Logs only), Lambda `portfolio-news` (Node.js 20, arm64, 128 MB, 10 s), HTTP API `portfolio-news-api` with `GET /news`, CORS limited to the Amplify site, throttling 10 burst / 5 per second. Function test and public endpoint test both returned 6 headlines.
 - First run failed: PowerShell variable names are case-insensitive, so `$fn` overwrote `$Fn` (the function name). Renamed and re-ran; the script reused the role it had already created.
 - Fix after seeing real headlines: serious stories (crime, deaths, accidents, police) now always get the neutral graphic, so a fatal stabbing mentioning "roads" can never be labelled "Travel".
+
+## 28 October 2026, evening: What's On becomes the primary feed; article draft; AWS write-up; Studio prep
+- Insights: the news panel is now **What's On in Birmingham**, moved to the top of the page. Tabs: All What's On (default), Food & drink, Family & kids, Music & nightlife, Latest news. Business is not offered: Birmingham Live's business RSS was empty or missing when checked. New What's On themes (live music, theatre, food, family, arts, events); serious stories still get the neutral graphic. Empty, error and loading states per tab.
+- Lambda `portfolio-news`: fixed list of sections (`?section=`), unknown ones rejected, What's On sections only pass links under `/whats-on/`, per-section cache, 9 items. Needs `deploy-news.ps1` re-run to go live.
+- New Insights topic: What's On Birmingham (placeholder until the first article is published).
+- First article drafted (evergreen, sources checked 28 October 2026): `content/drafts/` (git-ignored) plus a review copy in Claude Docs. Not published.
+- `docs/AWS-SERVICES.md`: services by status (verified, pending, planned), with a read-only evidence script `docs/evidence/collect-aws-evidence.ps1`.
+- Studio: `scripts/prepare-studio-audio.sh` ready to turn the Invincible Battles master into `studio.mp3` and `invincible-clip.mp3`, keeping the original in `raw-audio/`. Playback, fader and mute path tested with a test tone in the test browser only. The master file itself has not been supplied yet.

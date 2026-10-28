@@ -1,21 +1,38 @@
-// news-lambda: fetches a public RSS feed (Birmingham Live by default) and returns the latest
-// headlines as JSON for the "Birmingham news" panel on the Insights page.
+// news-lambda: reads Birmingham Live's public RSS feeds and returns the latest headlines as JSON
+// for the "What's On in Birmingham" panel on the Insights page.
 // Headlines, links, dates and a one-sentence preview only (capped at 160 characters).
 // No images and no article text beyond that preview are copied.
 // Runtime: Node.js 20 (built-in fetch, no dependencies). Region: eu-west-2.
+//
+// GET /news                    -> What's On (the default, primary section)
+// GET /news?section=<id>       -> one of the sections below; anything else is rejected
+//
+// The section list is fixed in code on purpose: the function can only ever fetch these addresses.
+// Business is not listed because Birmingham Live's business RSS feed was empty or missing when checked
+// (28 October 2026); add it here if a working feed appears.
+//
 // Environment variables:
-//   FEED_URL     the RSS feed to read
-//   SOURCE_NAME  shown on the site as the attribution, e.g. "Birmingham Live"
-//   LINK_HOST    only links on this host are passed through, e.g. "www.birminghammail.co.uk"
-//   MAX_ITEMS    how many headlines to return (default 6)
+//   FEED_BASE    the publisher's site, default "https://www.birminghammail.co.uk"
+//   SOURCE_NAME  attribution shown on the site, default "Birmingham Live"
+//   MAX_ITEMS    headlines per section (default 9, maximum 12)
 
-const FEED_URL = process.env.FEED_URL;
+const BASE = (process.env.FEED_BASE || "https://www.birminghammail.co.uk").replace(/\/$/, "");
+const HOST = new URL(BASE).hostname;
 const SOURCE = process.env.SOURCE_NAME || "Birmingham Live";
-const LINK_HOST = process.env.LINK_HOST || "";
-const MAX = Math.min(parseInt(process.env.MAX_ITEMS || "6", 10) || 6, 12);
+const MAX = Math.min(parseInt(process.env.MAX_ITEMS || "9", 10) || 9, 12);
 const TTL_MS = 15 * 60 * 1000;   // reuse a fetched feed for 15 minutes
 
-let cache = { at: 0, body: null };
+// id -> feed path, plus the link path a story must sit under to count for that section.
+export const SECTIONS = {
+  "whats-on":   { label: "What's On",         feed: "/whats-on/?service=rss",                   under: "/whats-on/" },
+  "food-drink": { label: "Food & drink",      feed: "/whats-on/food-drink-news/?service=rss",   under: "/whats-on/" },
+  "family":     { label: "Family & kids",     feed: "/whats-on/family-kids-news/?service=rss",  under: "/whats-on/" },
+  "music":      { label: "Music & nightlife", feed: "/whats-on/music-nightlife-news/?service=rss", under: "/whats-on/" },
+  "news":       { label: "Latest news",       feed: "/news/?service=rss",                       under: "/" }
+};
+const DEFAULT_SECTION = "whats-on";
+
+const cache = new Map();   // section id -> { at, body }
 
 const decode = s => s
   .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1")
@@ -32,7 +49,7 @@ const preview = text => {
 };
 const tag = (xml, name) => { const m = xml.match(new RegExp(`<${name}[^>]*>([\\s\\S]*?)</${name}>`, "i")); return m ? decode(m[1]) : ""; };
 
-function parse(xml) {
+export function parse(xml, under = "/") {
   const items = [];
   for (const m of xml.matchAll(/<item\b[\s\S]*?<\/item>/gi)) {
     const it = m[0];
@@ -41,7 +58,7 @@ function parse(xml) {
     const date = new Date(tag(it, "pubDate"));
     let url;
     try { url = new URL(link); } catch { continue; }
-    if (url.protocol !== "https:" || (LINK_HOST && url.hostname !== LINK_HOST) || !title) continue;
+    if (url.protocol !== "https:" || url.hostname !== HOST || !url.pathname.startsWith(under) || !title) continue;
     items.push({ title, summary: preview(tag(it, "description")), link: url.href, published: isNaN(date) ? null : date.toISOString() });
     if (items.length >= MAX) break;
   }
@@ -54,20 +71,25 @@ const respond = (status, body, maxAge = 900) => ({
   body: JSON.stringify(body)
 });
 
-export const handler = async () => {
-  if (!FEED_URL) return respond(500, { error: "FEED_URL not configured" }, 60);
-  if (cache.body && Date.now() - cache.at < TTL_MS) return respond(200, cache.body);
+export const handler = async (event = {}) => {
+  const id = (event.queryStringParameters && event.queryStringParameters.section) || DEFAULT_SECTION;
+  const sec = Object.hasOwn(SECTIONS, id) ? SECTIONS[id] : null;
+  if (!sec) return respond(400, { error: "Unknown section", sections: Object.keys(SECTIONS) }, 300);
+
+  const hit = cache.get(id);
+  if (hit && Date.now() - hit.at < TTL_MS) return respond(200, hit.body);
   try {
     const ctrl = new AbortController(); const timer = setTimeout(() => ctrl.abort(), 6000);
-    const res = await fetch(FEED_URL, { signal: ctrl.signal, headers: { "user-agent": "GibsonNyendwaPortfolio/1.0 (+https://main.dbthjbi29n1oo.amplifyapp.com)" } });
+    const res = await fetch(BASE + sec.feed, { signal: ctrl.signal, headers: { "user-agent": "GibsonNyendwaPortfolio/1.0 (+https://main.dbthjbi29n1oo.amplifyapp.com)" } });
     clearTimeout(timer);
     if (!res.ok) throw new Error("feed status " + res.status);
-    const items = parse(await res.text());
-    cache = { at: Date.now(), body: { source: SOURCE, fetched: new Date().toISOString(), items } };
-    return respond(200, cache.body);
+    const items = parse(await res.text(), sec.under);
+    const body = { source: SOURCE, section: id, label: sec.label, fetched: new Date().toISOString(), items };
+    cache.set(id, { at: Date.now(), body });
+    return respond(200, body);
   } catch (err) {
-    console.error("news fetch failed:", err.message);
-    if (cache.body) return respond(200, { ...cache.body, stale: true }, 120);
-    return respond(502, { error: "Feed unavailable" }, 60);
+    console.error(`news fetch failed (${id}):`, err.message);
+    if (hit) return respond(200, { ...hit.body, stale: true }, 120);
+    return respond(502, { error: "Feed unavailable", section: id }, 60);
   }
 };

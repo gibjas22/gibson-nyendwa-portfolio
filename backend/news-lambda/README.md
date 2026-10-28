@@ -1,6 +1,8 @@
-# Birmingham news feed: deployment guide
+# What's On in Birmingham feed: deployment guide
 
-Shows the latest headlines from a public RSS feed on the Insights page: headline, a one-sentence preview (max 160 characters), date and a link to the publisher. No publisher photos are used; each card gets a themed graphic drawn by the site (travel, weather, sport, business, civic, what's on, general).
+Powers the **What's On in Birmingham** panel at the top of the Insights page. What's On is the primary section; Food & drink, Family & kids, Music & nightlife and Latest news are secondary tabs (`GET /news?section=food-drink|family|music|news`). The section list is fixed in `index.mjs`, so the function can only fetch those Birmingham Live feeds, and What's On sections only pass stories whose links sit under `/whats-on/`. Business is not offered: Birmingham Live's business RSS was empty (`/news/business/`) or missing (`/business/`) when checked on 28 October 2026.
+
+Each card shows: headline, a one-sentence preview (max 160 characters), date and a link to the publisher. No publisher photos are used; each card gets a themed graphic drawn by the site (travel, weather, sport, business, civic, what's on, general).
 
 ```
 Visitor's browser ──GET──▶ API Gateway (HTTP API, throttled, CORS) ──▶ Lambda (Node.js 20) ──▶ RSS feed
@@ -11,7 +13,7 @@ AWS services: AWS Lambda, Amazon API Gateway (HTTP API), Amazon CloudWatch Logs.
 Expected cost: within the Free Tier at portfolio traffic (Lambda: 1M requests/month free; HTTP API: 1M calls/month free for 12 months).
 
 ## Before you deploy
-1. **Confirm the feed address** opens as RSS in a browser: `https://www.birminghammail.co.uk/news/?service=rss`. If it does not, find Birmingham Live's current feed link and use that.
+1. **Confirm the feed addresses** open as RSS in a browser, starting with `https://www.birminghammail.co.uk/whats-on/?service=rss`. The deploy script checks every section for you.
 2. **Check the publisher's terms** for RSS use. This build shows headlines, a one-sentence preview and links, with attribution, and copies no images or full article text. Only add publisher images if they confirm in writing that you may.
 
 ## Quickest: the deploy script
@@ -35,10 +37,11 @@ Configuration → General: Timeout `10 sec`, Memory `128 MB`.
 Configuration → Environment variables:
 | Key | Value |
 |---|---|
-| FEED_URL | `https://www.birminghammail.co.uk/news/?service=rss` |
+| FEED_BASE | `https://www.birminghammail.co.uk` |
 | SOURCE_NAME | `Birmingham Live` |
-| LINK_HOST | `www.birminghammail.co.uk` |
-| MAX_ITEMS | `6` |
+| MAX_ITEMS | `9` |
+
+Remove the old `FEED_URL` and `LINK_HOST` variables if they are still there (the script replaces the whole set).
 
 Test tab: run a test with `{}`. Expect status 200 and an `items` list.
 
