@@ -40,15 +40,20 @@ function init() {
 
   // ----- Appearance button (header) and mobile menu entry -----
   const swatches = `<span class="theme-dots" aria-hidden="true"><i class="dot-purple"></i><i class="dot-sky-blue"></i><i class="dot-white"></i></span>`;
-  const toggle = document.createElement("button");
-  toggle.type = "button";
-  toggle.className = "appearance-toggle";
-  toggle.setAttribute("aria-haspopup", "dialog");
-  toggle.setAttribute("aria-expanded", "false");
-  toggle.setAttribute("aria-controls", "appearance-panel");
-  toggle.innerHTML = `${swatches}<span class="appearance-label">Appearance</span>`;
-  const topRight = document.querySelector(".top-right");
-  if (topRight) topRight.insertBefore(toggle, topRight.firstChild);
+  // The button is in each page's header HTML (so the header does not shift when this script runs);
+  // CSS hides it when JavaScript is off. Create it only if a page is missing it.
+  let toggle = document.querySelector(".appearance-toggle");
+  if (!toggle) {
+    toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.className = "appearance-toggle";
+    toggle.setAttribute("aria-haspopup", "dialog");
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.setAttribute("aria-controls", "appearance-panel");
+    toggle.innerHTML = `${swatches}<span class="appearance-label">Appearance</span>`;
+    const topRight = document.querySelector(".top-right");
+    if (topRight) topRight.insertBefore(toggle, topRight.firstChild);
+  }
 
   const nav = document.getElementById("site-nav");
   const navEntry = document.createElement("button");

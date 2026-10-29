@@ -14,9 +14,8 @@
   <meta property="og:image" content="https://main.dbthjbi29n1oo.amplifyapp.com/assets/img/gibson-600.jpg">
   <meta property="og:type" content="website">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="preload" href="assets/fonts/source-sans-3-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/sora-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -30,6 +29,7 @@
     <a href="index.html#contact">Contact</a>
   </nav>
   <div class="top-right">
+    <button type="button" class="appearance-toggle" aria-haspopup="dialog" aria-expanded="false" aria-controls="appearance-panel" aria-label="Appearance"><span class="theme-dots" aria-hidden="true"><i class="dot-purple"></i><i class="dot-sky-blue"></i><i class="dot-white"></i></span><span class="appearance-label">Appearance</span></button>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><span class="bars" aria-hidden="true"></span><span class="menu-label">Menu</span></button>
     <a class="hint" href="index.html#desk">
       <svg class="fader-icon" width="14" height="18" viewBox="0 0 14 18" aria-hidden="true"><rect x="6" y="1" width="2" height="16" rx="1"/><rect x="1" y="4" width="12" height="5" rx="1.5"/></svg>
@@ -43,7 +43,7 @@
   <section class="section" style="border-top:0">
     <div class="prose">
       <h1>Cookies and similar technologies</h1>
-      <p class="muted">Audited 27 October 2026, updated 29 October 2026 for the appearance setting, by inspecting the site's own code and the requests a browser makes when loading it.</p>
+      <p class="muted">Audited 27 October 2026, updated 29 October 2026 for the appearance setting and self-hosted fonts, by inspecting the site's own code and the requests a browser makes when loading it.</p>
       <h2>The short version</h2>
       <p>This site sets no cookies of its own and does not use session storage or any analytics or advertising service. It keeps one setting in your browser's local storage: the colour theme you choose under Appearance. There is no consent banner because nothing optional runs on page load.</p>
       <h2 id="settings">Cookie settings</h2>
@@ -54,7 +54,7 @@
       <table class="table" tabindex="0" aria-label="What the site loads">
         <thead><tr><th>Technology</th><th>Provider</th><th>Purpose</th><th>When it loads</th><th>Cookies or storage</th></tr></thead>
         <tbody>
-          <tr><td>Web fonts (Sora, Source Sans 3)</td><td>Google Fonts</td><td>Typography</td><td>On every page</td><td>None observed. Google receives your IP address to serve the font files; see Google's privacy policy.</td></tr>
+          <tr><td>Web fonts (Sora, Source Sans 3)</td><td>This site (self-hosted)</td><td>Typography</td><td>On every page</td><td>None. The font files are served from this site, so no request goes to Google.</td></tr>
           <tr><td>Site hosting and delivery</td><td>AWS Amplify, Amazon CloudFront (Europe, London)</td><td>Serving the pages</td><td>Every request</td><td>None set by this site. Standard server logs are kept by AWS for operating the service.</td></tr>
           <tr><td>Booking calendar</td><td>iMeetify</td><td>Choosing a call slot</td><td>Only when you press "Show calendar here" or "Book a call"</td><td>Governed by iMeetify's own cookie and privacy terms once loaded.</td></tr>
           <tr><td>Welcome video and podcast players</td><td>YouTube (no-cookie domain), Vimeo, Spotify or Apple, depending on what is configured</td><td>Playing media</td><td>Only when you press play or "Load player"</td><td>Governed by the provider once loaded. Nothing is loaded until then.</td></tr>

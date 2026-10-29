@@ -80,7 +80,9 @@ if (!a) {
       <p class="lede">${esc(a.excerpt)}</p>
       <p class="byline">By ${esc(a.author || AUTHOR.name)} · <time datetime="${a.published}">${fmtDate(a.published)}</time> · ${readingTime(a)} min read${a.updated ? ` · Updated <time datetime="${a.updated}">${fmtDate(a.updated)}</time>` : ""}</p>
     </header>
-    ${a.cover ? `<figure class="cover"><img src="../${esc(a.cover)}" alt="${esc(a.coverAlt || "")}" width="1600" height="900"></figure>` : ""}
+    ${a.cover ? `<figure class="cover">${a.coverWebp && a.coverWebp.length
+      ? `<picture><source type="image/webp" srcset="${a.coverWebp.map(w => `../${esc(a.cover.replace(/\.jpg$/i, ""))}-${w}.webp ${w}w`).join(", ")}" sizes="(max-width: 760px) calc(100vw - 2rem), 720px"><img src="../${esc(a.cover)}" alt="${esc(a.coverAlt || "")}" width="1600" height="900" fetchpriority="high" decoding="async"></picture>`
+      : `<img src="../${esc(a.cover)}" alt="${esc(a.coverAlt || "")}" width="1600" height="900">`}</figure>` : ""}
     ${firstIntro}
     ${a.video ? `<nav class="read-watch" aria-label="Read or watch"><a class="read-watch-option" href="#article-body">Read the article</a><a class="read-watch-option" href="#watch">Watch the video (${fmtLen(a.video.seconds)})</a></nav>` : ""}
     ${heads.length >= 3 ? `<nav class="toc card" aria-labelledby="toc-h"><h2 id="toc-h">On this page</h2><ol>${heads.map(h => `<li><a href="#${hid(h.h)}">${esc(h.h)}</a></li>`).join("")}</ol></nav>` : ""}

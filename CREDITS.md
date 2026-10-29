@@ -30,3 +30,6 @@ Sources considered and not used: Pixabay Sound Effects (licence prohibits redist
 | assets/img/insights/send-life-transition-digital-wellbeing-support.jpg and safeguarding-thresholds-of-need-birmingham.jpg | Article covers | Gibson Nyendwa | Made for this site from the SEND Life Transition logo, with DejaVu Sans text | 1600 x 900 JPEG |
 
 Episode videos are not copied: they play from YouTube's privacy-enhanced player only when a visitor presses play.
+
+## Fonts
+- Sora (500, 600, 700) and Source Sans 3 (400, 400 italic, 600), Latin subset, self-hosted in `assets/fonts/` from the @fontsource 5 packages. Both are under the SIL Open Font License 1.1; the licence texts are in `assets/fonts/OFL-Sora.txt` and `assets/fonts/OFL-Source-Sans-3.txt`.

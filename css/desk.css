@@ -125,10 +125,10 @@
 
 @media (max-width: 560px) {
   .desk-board { gap: .2rem; padding: .75rem .35rem 1rem; }
-  .fader { width: 26px; }
-  .fader::-webkit-slider-thumb { width: 24px; height: 14px; margin-left: -9px; }
-  .fader::-moz-range-thumb { width: 24px; height: 14px; }
-  .strip-label { font-size: .68rem; writing-mode: vertical-rl; transform: rotate(180deg); min-height: 4.8rem; justify-content: center; }
+  .fader { width: 30px; }
+  .fader::-webkit-slider-thumb { width: 28px; height: 22px; margin-left: -11px; }   /* larger grip for touch */
+  .fader::-moz-range-thumb { width: 28px; height: 22px; }
+  .strip-label { font-size: .75rem; writing-mode: vertical-rl; transform: rotate(180deg); min-height: 4.8rem; justify-content: center; }
   .strip-label .lock { display: none; }
   .meter { height: 48px; width: 8px; }
 }

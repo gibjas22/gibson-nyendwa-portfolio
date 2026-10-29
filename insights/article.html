@@ -14,9 +14,8 @@
   <meta property="og:image" content="https://main.dbthjbi29n1oo.amplifyapp.com/assets/img/gibson-600.jpg">
   <meta property="og:type" content="website">
   <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="preload" href="../assets/fonts/source-sans-3-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/sora-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
@@ -30,6 +29,7 @@
     <a href="../index.html#contact">Contact</a>
   </nav>
   <div class="top-right">
+    <button type="button" class="appearance-toggle" aria-haspopup="dialog" aria-expanded="false" aria-controls="appearance-panel" aria-label="Appearance"><span class="theme-dots" aria-hidden="true"><i class="dot-purple"></i><i class="dot-sky-blue"></i><i class="dot-white"></i></span><span class="appearance-label">Appearance</span></button>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><span class="bars" aria-hidden="true"></span><span class="menu-label">Menu</span></button>
     <a class="hint" href="../index.html#desk">
       <svg class="fader-icon" width="14" height="18" viewBox="0 0 14 18" aria-hidden="true"><rect x="6" y="1" width="2" height="16" rx="1"/><rect x="1" y="4" width="12" height="5" rx="1.5"/></svg>

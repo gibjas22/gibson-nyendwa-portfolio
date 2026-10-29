@@ -33,13 +33,22 @@ cats.forEach(c => {
 });
 
 // ---------- Cards ----------
+// Responsive cover: WebP sizes when listed in coverWebp, with the JPG as fallback.
+const coverPicture = (a, alt, sizes, lazy) => {
+  const base = "../" + esc(a.cover), stem = base.replace(/\.jpg$/i, "");
+  const img = `<img src="${base}" alt="${esc(alt)}" width="1600" height="900"${lazy ? ' loading="lazy"' : ""} decoding="async">`;
+  return a.coverWebp && a.coverWebp.length
+    ? `<picture><source type="image/webp" srcset="${a.coverWebp.map(w => `${stem}-${w}.webp ${w}w`).join(", ")}" sizes="${sizes}">${img}</picture>`
+    : img;
+};
+
 const card = a => {
   const c = categoryById(a.category) || {};
   return `
   <li class="gallery-card insight-card" style="--c:${c.colour || "var(--primary)"}">
     <a class="gallery-link" href="article.html?slug=${a.slug}" tabindex="-1" aria-hidden="true">
       ${a.cover
-        ? `<img src="../${esc(a.cover)}" alt="" width="1600" height="900" loading="lazy">`
+        ? coverPicture(a, "", "(max-width: 639px) calc(100vw - 2rem), (max-width: 1023px) 46vw, 360px", true)
         : `<div class="thumb">${icon(c.icon || "chip", "thumb-icon")}<span class="thumb-cat">${esc(c.label || "")}</span></div>`}
     </a>
     <p class="card-cat">${esc(c.label || "")}</p>
@@ -69,6 +78,7 @@ function render() {
   filters.querySelectorAll(".filter").forEach(b => { const on = b.dataset.cat === cat; b.setAttribute("aria-pressed", String(on)); b.classList.toggle("on", on); });
   tiles.querySelectorAll(".topic-tile").forEach(b => { const on = b.dataset.cat === cat; b.setAttribute("aria-pressed", String(on)); b.classList.toggle("on", on); });
   clear.hidden = cat === "all" && !query;
+  featuredBox.hidden = cat !== "all" || !!query;   // the featured card belongs to the all-insights view
   history.replaceState(null, "", (cat === "all" ? "" : `?category=${cat}`) + (query ? (cat === "all" ? "?" : "&") + `q=${encodeURIComponent(query)}` : "") || location.pathname);
 
   // Category header when one topic is selected
@@ -129,3 +139,5 @@ const params = new URLSearchParams(location.search);
 if (cats.some(c => c.id === params.get("category"))) cat = params.get("category");
 if (params.get("q")) { query = params.get("q").toLowerCase(); q.value = params.get("q"); }
 render();
+// Everything is rendered: reveal the controls (hidden until now so they do not jump as content arrives).
+document.querySelector("main.hub")?.classList.add("is-ready");

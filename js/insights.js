@@ -45,6 +45,7 @@ export const articles = [
     author: "Gibson Nyendwa",
     published: "2026-10-29",
     cover: "assets/img/insights/send-life-transition-digital-wellbeing-support.jpg",
+    coverWebp: [800, 1600],   // -800.webp and -1600.webp exist beside the JPG
     coverAlt: "The SEND Life Transition logo, a studio microphone over orange and blue swooshes, on a navy background with the words Free wellbeing support for the move to college",
     video: {
       id: "zKX9z3C3F0I",
@@ -132,6 +133,7 @@ export const articles = [
     author: "Gibson Nyendwa",
     published: "2026-10-29",
     cover: "assets/img/insights/safeguarding-thresholds-of-need-birmingham.jpg",
+    coverWebp: [800, 1600],
     coverAlt: "The SEND Life Transition logo, a studio microphone over orange and blue swooshes, on a navy background with the words Safeguarding and thresholds of need in Birmingham",
     video: {
       id: "qxrz39TA9Vs",
