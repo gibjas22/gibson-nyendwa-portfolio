@@ -102,3 +102,8 @@ See the handover list in the chat: lawful-basis wording, retention statement, iM
 - Players are click-to-load from youtube-nocookie.com, no autoplay on page load, one video at a time; starting a podcast video pauses the desk and closes the Studio video, and the other way round.
 - Episode data in `js/podcast.js`; VideoObject structured data in `index.html`; navy, electric blue and orange colours scoped to the section; "Podcast" added to the main navigation. Logo credited in `CREDITS.md`.
 - The second link's 43-second start time is kept until confirmed.
+
+## 29 October 2026, 09:15: approvals from Gibson (retention, article, 404)
+- Article "What's On in Birmingham: A Guide to Discovering Local Events and Experiences" moved from the private draft into `js/insights.js` with `status: "published"`, `published: "2026-10-29"`, featured. Two wording tweaks only ("at the top of my Insights page"). Added to `sitemap.xml`. Draft copy stays in `content/drafts/` (git-ignored).
+- `404.html` links made root-relative (`/css/styles.css` etc.) so the page keeps its styling at any missing address, and marked `noindex`.
+- Prepared `scripts/aws/apply-approved-changes-2026-10-29.ps1`: sets 30-day retention on `/aws/lambda/portfolio-news` (eu-west-2) only, and points the Amplify catch-all rule at `/404.html` with status 404, keeping a backup of the original rules and printing rollback commands. To be run by Gibson after this commit deploys.

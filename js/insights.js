@@ -36,7 +36,63 @@ export const ICONS = {
 export const AUTHOR = { name: "Gibson Nyendwa", url: "index.html#about" };
 
 export const articles = [
-  // No articles have been published yet. The hub shows its empty state until the first one is added.
+  {
+    title: "What's On in Birmingham: A Guide to Discovering Local Events and Experiences",
+    slug: "whats-on-in-birmingham-guide",
+    excerpt: "From grassroots gigs to free galleries and family days out, here is how to find what's on in Birmingham, and why the city's independent venues deserve your support.",
+    category: "whats-on",
+    tags: ["Birmingham", "events", "independent venues"],
+    author: "Gibson Nyendwa",
+    published: "2026-10-29",
+    body: [
+      { p: "Birmingham rarely sits still. Between the concert halls, the grassroots music rooms, the theatres, the galleries and the food halls, there is almost always something on, and much of it is closer and cheaper than people expect." },
+      { p: "This guide is for anyone who lives here, is visiting, or runs a business that does well when people head out. It does not list dates or prices, because those change quickly. Instead, it points you to the places worth knowing and to the official pages that keep their listings up to date." },
+      { h: "Live music, from grand halls to back rooms" },
+      { p: "Symphony Hall and Town Hall are run by the music charity B:Music, and Symphony Hall is home to the City of Birmingham Symphony Orchestra. Their programmes stretch well beyond classical, into jazz, soul, folk and rock, so it is worth browsing even if you think orchestras are not for you." },
+      { p: "For something closer to the stage, try the Hare & Hounds on Kings Heath High Street. It is a Grade II listed pub with two upstairs rooms hosting jazz, indie, reggae, hip hop, soul and club nights. Shows are standing and age limits vary by night, so check before you book. Grassroots rooms like this are where many artists start out, and your ticket there makes a real difference." },
+      { h: "Theatre and performance" },
+      { p: "Birmingham Hippodrome on Hurst Street covers ballet and dance, musicals, comedy, opera, drama and family shows, including pantomime. Birmingham Rep in Centenary Square is a producing theatre, which means it creates new shows from scratch, across three stages: The House, The Door and The Studio. If you want to see work made in the city, the Rep's smaller stages are a good place to begin." },
+      { h: "Exhibitions and culture, often free" },
+      { p: "Ikon Gallery in Brindleyplace shows contemporary art, and entry is free. Birmingham Museum & Art Gallery is reopening in phases with free general admission. The Staffordshire Hoard Gallery, the Pre-Raphaelite Galleries and the Birmingham History Galleries are open again, while parts of the upper floors are still closed, so check what is open before you travel." },
+      { p: "Out at Cannon Hill Park, mac (Midlands Arts Centre) brings together theatre, cinema, exhibitions and practical courses, and describes itself as the most visited free attraction in the West Midlands. Some shows and courses are ticketed, so check the individual listing." },
+      { h: "Food and drink worth crossing the city for" },
+      { p: "The Jewellery Quarter shows independent Birmingham at its best. Visit Birmingham counts more than 100 independent specialist retailers and craftspeople there, alongside places to eat such as Saint Paul's Market food hall and Opheem, which holds two stars in the 2026 Michelin Guide. Add the Museum of the Jewellery Quarter or the Pen Museum and you have an afternoon sorted." },
+      { p: "Beyond that, the best food tip is simple: follow the independents. Look for local traders at markets and pop-ups, ask staff where they eat on their day off, and keep an eye on the food and drink headlines in the What's On panel at the top of my Insights page." },
+      { h: "Family days out" },
+      { p: "Thinktank, Birmingham Science Museum, at Millennium Point has four floors of hands-on displays, from Birmingham's Spitfire to prehistoric sea creatures and space. Younger visitors have MiniBrum, a child-sized city of play zones. Birmingham Museum & Art Gallery's Wild City display is aimed at children too, and mac in Cannon Hill Park pairs a show or a workshop with space to run around outside." },
+      { h: "Community events and getting involved" },
+      { p: "Some of the best nights out are the small, regular ones. Alongside its gigs, the Hare & Hounds runs pub quizzes, craft clubs, comedy workshops and a monthly film club. mac runs practical courses if you would rather make something than watch." },
+      { p: "Libraries, community centres, places of worship and neighbourhood groups often carry the events you will not find on the big ticketing sites, especially around Diwali, Eid, Vaisakhi and Christmas. They are often free, and they are a brilliant way to meet the people who live around you." },
+      { h: "Why independent venues matter" },
+      { p: "Every ticket, round or meal at an independent venue keeps money moving locally and keeps stages open for the next generation of artists, chefs and makers. If you run a business, make your events easy to find: keep your own website and Google Business Profile current, post your listings early, and check whether calendars such as Visit Birmingham's accept submissions. A clear listing with the date, price, access details and age limit saves your customers a lot of guesswork." },
+      { h: "Plan your next outing" },
+      { ul: [
+        "Check the official venue page for dates, prices, accessibility and age limits before you travel.",
+        "Browse [Visit Birmingham's what's on calendar](https://visitbirmingham.com/whats-on/), the city's official tourism site, for the wider picture.",
+        "Use the What's On panel at the top of my Insights page for the latest local headlines.",
+        "Pick one independent venue you have not tried yet, and go this month."
+      ] },
+      { p: "Know a Birmingham event, venue or independent business that deserves a mention? [Get in touch](https://main.dbthjbi29n1oo.amplifyapp.com/index.html#contact) and I will consider it for a future guide." }
+    ],
+    sources: [
+      { text: "B:Music: Live music in Birmingham is back (charity responsible for Symphony Hall and Town Hall)", url: "https://bmusic.co.uk/news/live-music-in-birmingham-is-back" },
+      { text: "Hare & Hounds Kings Heath: The venue", url: "https://hareandhoundskingsheath.co.uk/the-venue" },
+      { text: "Birmingham Hippodrome: About", url: "https://www.birminghamhippodrome.com/?p=48" },
+      { text: "Birmingham Rep: About the Rep", url: "https://www.birmingham-rep.co.uk/about-us/about-the-rep/" },
+      { text: "Ikon Gallery: Visit", url: "https://www.ikon-gallery.org/visit" },
+      { text: "Birmingham Museums: Birmingham Museum & Art Gallery FAQs (free general admission)", url: "https://birminghammuseums.org.uk/birmingham-museum-and-art-gallery/about/faqs" },
+      { text: "Birmingham Museums: Birmingham Museum & Art Gallery highlights (galleries open and closed)", url: "https://www.birminghammuseums.org.uk/birmingham-museum-and-art-gallery/highlights" },
+      { text: "mac Birmingham: About", url: "https://macbirmingham.co.uk/about" },
+      { text: "Birmingham Museums: Thinktank celebrates 25 years", url: "https://www.birminghammuseums.org.uk/stories/thinktank-birmingham-science-museum-celebrates-25-years-of-inspiring-curiosity" },
+      { text: "MICHELIN Guide United Kingdom 2026: Opheem", url: "https://guide.michelin.com/en/west-midlands/birmingham/restaurant/opheem" },
+      { text: "Visit Birmingham: The Jewellery Quarter", url: "https://visitbirmingham.com/inspire-me/areas/the-jewellery-quarter/" },
+      { text: "Visit Birmingham: What's on in Birmingham", url: "https://visitbirmingham.com/whats-on/" }
+    ],
+    status: "published",
+    featured: true,
+    seoTitle: "What's On in Birmingham: Your Guide to Local Events",
+    seoDescription: "Live music, theatre, free exhibitions, food and family days out: a friendly guide to finding what's on in Birmingham and backing its independent venues."
+  }
 ];
 
 export const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;

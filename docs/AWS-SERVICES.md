@@ -38,7 +38,7 @@ Amazon CloudWatch Logs          AWS IAM: least-privilege role, MFA-protected adm
 - **Implemented:** app `dbthjbi29n1oo`, branch `main`, continuous deployment from GitHub. Each push builds and deploys automatically. `customHttp.yml` in the repository defines the security headers (Content Security Policy, HSTS, nosniff, Referrer-Policy, Permissions-Policy, X-Frame-Options) and a one-week cache for `assets/`.
 - **Evidence:** pushes on 28 October 2026 (`cfbddde` mixing desk, `3170553` Insights redesign, `675a11a` news fix) went live without manual uploads; `675a11a` was confirmed on the live site in Chrome the same evening. The Content Security Policy is observably enforced: the What's On panel can only call the API because `connect-src` allows `*.execute-api.eu-west-2.amazonaws.com`.
 - **Security headers, verified live on 29 October 2026:** all six headers from `customHttp.yml` are served on pages and static files (CSP, HSTS without preload, nosniff, Referrer-Policy, Permissions-Policy, X-Frame-Options DENY). Values and assessment: [`docs/evidence/2026-10-29-live-checks.md`](evidence/2026-10-29-live-checks.md).
-- **Known gap:** unknown URLs return 404 but show the home page, because no Amplify rewrite points them at `404.html` yet (an Amplify setting, so it waits for approval).
+- **Custom 404 (approved 29 October 2026):** the catch-all rule `/<*>` is pointed at `/404.html` with status 404 by `scripts/aws/apply-approved-changes-2026-10-29.ps1`, which backs up the original rules and checks valid pages and missing addresses afterwards. Result recorded in `docs/evidence/aws-changes-2026-10-29.txt` once run.
 - **Deployments, from the evidence run (29 October 2026, 07:56 UTC):** the last five Amplify jobs all succeeded, each matching a GitHub push: `1a8a52b`, `675a11a`, `2705cd3`, `f2900b1` (28 October) and `08c886e` (29 October, 07:49 UTC). The script's own header check also found all six headers present. Sanitised output: [`docs/evidence/aws-evidence-2026-10-29.txt`](evidence/aws-evidence-2026-10-29.txt).
 
 ### 2. AWS Lambda: `portfolio-news`
@@ -73,7 +73,7 @@ Amazon CloudWatch Logs          AWS IAM: least-privilege role, MFA-protected adm
 - **Role:** records each function run and any feed failures, and counts invocations and errors.
 - **Implemented:** Lambda writes to the log group `/aws/lambda/portfolio-news` (eu-west-2) through its basic execution role: a START, END and REPORT line for every run, plus `news fetch failed (<section>)` when a feed fails.
 - **Evidence (verified):** the log group exists (8.4 KB stored, retention "never expires"); its three newest log streams last received events at 07:30:49, 07:30:51 and 07:55:22 UTC, matching the live checks made that morning. A harmless test request `GET /news?section=music` at 07:57:12 UTC returned 3 items, and its run appeared in the logs at 07:57:13 UTC: `REPORT RequestId: 73f0b106... Duration: 783.48 ms, Billed Duration: 784 ms, Memory Size: 128 MB, Max Memory Used: 112 MB`. CloudWatch metrics for the previous 24 hours: 40 invocations, 0 errors, 0 throttles; 0 feed failures logged.
-- **Gap, needs approval:** log retention is "never expires". Recommended: 30 days, so logs do not grow without limit.
+- **Retention:** approved by Gibson on 29 October 2026: 30 days, applied with `scripts/aws/apply-approved-changes-2026-10-29.ps1` (before and after values recorded in `docs/evidence/aws-changes-2026-10-29.txt` once run).
 
 ### 7. AWS Budgets
 - **Role:** cost guardrail.
