@@ -36,7 +36,7 @@ function init() {
     </div>
     <div class="desk-board" role="group" aria-label="Mixing desk faders">
       ${channels.map(c => strip(c)).join("")}
-      <div class="strip strip-master" style="--c:#E4C1FF">
+      <div class="strip strip-master" style="--c:var(--master-strip)">
         <div class="meter" aria-hidden="true">${"<i></i>".repeat(10)}</div>
         <label class="strip-fader">
           <span class="visually-hidden">Master volume</span>

@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#100818">
+  <script src="js/theme-boot.js"></script>
   <title>Cookies</title>
   <meta name="description" content="What this site loads, which third parties are involved, and why there is no cookie banner.">
   <link rel="canonical" href="https://main.dbthjbi29n1oo.amplifyapp.com/cookies.html">
@@ -42,19 +43,22 @@
   <section class="section" style="border-top:0">
     <div class="prose">
       <h1>Cookies and similar technologies</h1>
-      <p class="muted">Audited 27 October 2026 by inspecting the site's own code and the requests a browser makes when loading it.</p>
+      <p class="muted">Audited 27 October 2026, updated 29 October 2026 for the appearance setting, by inspecting the site's own code and the requests a browser makes when loading it.</p>
       <h2>The short version</h2>
-      <p>This site sets no cookies of its own and does not use local storage, session storage or any analytics or advertising service. There is no consent banner because there is nothing optional to consent to on page load.</p>
+      <p>This site sets no cookies of its own and does not use session storage or any analytics or advertising service. It keeps one setting in your browser's local storage: the colour theme you choose under Appearance. There is no consent banner because nothing optional runs on page load.</p>
       <h2 id="settings">Cookie settings</h2>
-      <p>There are no settings to change, because no optional technology runs until you ask for it. The controls that exist are the buttons described below: nothing from a third party loads before you press them.</p>
+      <p>No optional technology runs until you ask for it. The controls that exist are the buttons described below: nothing from a third party loads before you press them.</p>
+      <h2 id="appearance">Your appearance setting</h2>
+      <p>When you pick Purple, Sky Blue, White or Automatic, or close the theme chooser, the site saves that one word in your browser's local storage under the name <code>gn-appearance</code>, so the next page and your next visit use the same theme. It holds nothing else, is never sent to this site or anyone else, and stays on this browser only. To go back to the rotating theme, choose Automatic under Appearance. To remove the entry entirely, clear this site's data in your browser settings. If your browser blocks storage, the theme still works for the page you are on.</p>
       <h2>What the site does load</h2>
-      <table class="table">
+      <table class="table" tabindex="0" aria-label="What the site loads">
         <thead><tr><th>Technology</th><th>Provider</th><th>Purpose</th><th>When it loads</th><th>Cookies or storage</th></tr></thead>
         <tbody>
           <tr><td>Web fonts (Sora, Source Sans 3)</td><td>Google Fonts</td><td>Typography</td><td>On every page</td><td>None observed. Google receives your IP address to serve the font files; see Google's privacy policy.</td></tr>
           <tr><td>Site hosting and delivery</td><td>AWS Amplify, Amazon CloudFront (Europe, London)</td><td>Serving the pages</td><td>Every request</td><td>None set by this site. Standard server logs are kept by AWS for operating the service.</td></tr>
           <tr><td>Booking calendar</td><td>iMeetify</td><td>Choosing a call slot</td><td>Only when you press "Show calendar here" or "Book a call"</td><td>Governed by iMeetify's own cookie and privacy terms once loaded.</td></tr>
           <tr><td>Welcome video and podcast players</td><td>YouTube (no-cookie domain), Vimeo, Spotify or Apple, depending on what is configured</td><td>Playing media</td><td>Only when you press play or "Load player"</td><td>Governed by the provider once loaded. Nothing is loaded until then.</td></tr>
+          <tr><td>Appearance setting</td><td>This site</td><td>Remembering the colour theme you chose</td><td>Only when you choose a theme or close the theme chooser</td><td>One local storage entry, <code>gn-appearance</code>, kept in your browser and never sent anywhere.</td></tr>
           <tr><td>Contact form</td><td>AWS (API Gateway, Lambda, SES)</td><td>Sending your message</td><td>Only when you press Send message</td><td>None. The form uses no storage; the request carries only what you typed.</td></tr>
         </tbody>
       </table>
@@ -85,5 +89,6 @@
   <p class="small">Built for the AWS Student Builder Challenge 2026. Hosted on AWS Amplify.</p>
 </footer>
 <script type="module" src="js/shell.js"></script>
+<script type="module" src="js/theme.js"></script>
 </body>
 </html>

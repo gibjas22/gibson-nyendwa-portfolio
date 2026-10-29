@@ -2,6 +2,8 @@
 # Applies the two AWS changes Gibson approved on 29 October 2026, and nothing else:
 #   A. CloudWatch Logs: 30-day retention on /aws/lambda/portfolio-news (eu-west-2) only.
 #   B. Amplify: unknown URLs show /404.html with HTTP status 404 (app dbthjbi29n1oo).
+#      Amplify status "404-200" serves the target in place with a 404 status; "404" redirects to it
+#      (first run on 29 October used "404", which redirected to /404.html with status 200; fixed here).
 # Run from the project folder, signed in as gibson-admin, AFTER the commit containing the
 # root-relative 404.html has been pushed and deployed:
 #   powershell -ExecutionPolicy Bypass -File .\scripts\aws\apply-approved-changes-2026-10-29.ps1
@@ -26,7 +28,11 @@ function Stop-With($t) { Say "STOP: $t" "Red"; exit 1 }
 function Run { $ErrorActionPreference = "Continue"; $o = & aws.exe @args --profile $AwsProfile --region $Region --output json 2>&1; if ($LASTEXITCODE -ne 0) { throw ($o | Out-String) }; $t = ($o | Out-String).Trim(); if ($t) { return ($t | ConvertFrom-Json) } }
 function WriteAscii($path, $text) { [IO.File]::WriteAllText($path, $text, (New-Object Text.ASCIIEncoding)) }
 function Status($path) {
-  try { $r = Invoke-WebRequest -Uri ($Site + $path) -UseBasicParsing -TimeoutSec 20 -MaximumRedirection 0; return @{ code = [int]$r.StatusCode; body = $r.Content } }
+  try {
+    $r = Invoke-WebRequest -Uri ($Site + $path) -UseBasicParsing -TimeoutSec 20 -MaximumRedirection 0
+    $body = if ($r.Content -is [string]) { $r.Content } else { "" }   # audio and images come back as bytes
+    return @{ code = [int]$r.StatusCode; body = $body }
+  }
   catch {
     $resp = $_.Exception.Response
     if (-not $resp) { return @{ code = 0; body = $_.Exception.Message } }
@@ -75,13 +81,13 @@ $new = @()
 if ($catch) {
   foreach ($r in $rules) {
     if ($r.source -eq "/<*>" -and ($r.status -eq "404" -or $r.status -eq "404-200")) {
-      $o = [ordered]@{ source = "/<*>"; target = "/404.html"; status = "404" }; if ($r.condition) { $o.condition = $r.condition }; $new += [pscustomobject]$o
+      $o = [ordered]@{ source = "/<*>"; target = "/404.html"; status = "404-200" }; if ($r.condition) { $o.condition = $r.condition }; $new += [pscustomobject]$o
     } else { $new += $r }
   }
-  Say "Change: the existing catch-all rule now points at /404.html with status 404. Other rules unchanged."
+  Say "Change: the existing catch-all rule now shows /404.html in place (status 404-200: HTTP 404, address unchanged). Other rules unchanged."
 } else {
-  $new = $rules + @([pscustomobject][ordered]@{ source = "/<*>"; target = "/404.html"; status = "404" })
-  Say "Change: no catch-all rule existed; added '/<*>' -> '/404.html' (404) after the existing rules."
+  $new = $rules + @([pscustomobject][ordered]@{ source = "/<*>"; target = "/404.html"; status = "404-200" })
+  Say "Change: no catch-all rule existed; added '/<*>' -> '/404.html' (404-200) after the existing rules."
 }
 $rulesFile = Join-Path $Scratch "amplify-custom-rules-new-$Stamp.json"
 WriteAscii $rulesFile (ConvertTo-Json -InputObject @($new) -Depth 6)

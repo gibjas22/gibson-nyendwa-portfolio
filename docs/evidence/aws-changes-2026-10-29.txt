@@ -1,0 +1,31 @@
+﻿Run started 29 October 2026 13:12:27 (Europe/London), region eu-west-2
+
+== 1. Who is signed in ==
+Signed in as arn:aws:iam::********4263:user/gibson-admin
+
+== A. CloudWatch Logs retention ==
+Log group: /aws/lambda/portfolio-news (eu-west-2) | stored 8.4 KB | retention before: 30 days
+Already 30 days; no change made.
+Rollback: aws logs delete-retention-policy --log-group-name /aws/lambda/portfolio-news --region eu-west-2 --profile gibson-portfolio   (back to never expires)
+
+== B. Amplify custom 404 page ==
+Live /404.html is the updated version (root-relative links): OK
+Rules before (1); original rules already saved in scratch\amplify-custom-rules-original-2026-10-29.json:
+  source '/<*>' -> target '/404.html' | status 404
+Change: the existing catch-all rule now shows /404.html in place (status 404-200: HTTP 404, address unchanged). Other rules unchanged.
+Rules after (1):
+  source '/<*>' -> target '/404.html' | status 404-200
+Rollback: aws amplify update-app --app-id dbthjbi29n1oo --custom-rules file://scratch/amplify-custom-rules-original-2026-10-29.json --region eu-west-2 --profile gibson-portfolio
+
+== C. Live checks (rules can take a minute to apply) ==
+/                                                          200 normal content  OK
+/index.html                                                200 normal content  OK
+/insights/                                                 200 normal content  OK
+/insights/article.html?slug=whats-on-in-birmingham-guide   200 normal content  OK
+/css/styles.css                                            200 normal content  OK
+/assets/audio/classroom.mp3                                200 normal content  OK
+/no-such-page                                              0 normal content  UNEXPECTED (wanted 404)
+/insights/missing-article.html                             0 normal content  UNEXPECTED (wanted 404)
+/a/b/c                                                     0 normal content  UNEXPECTED (wanted 404)
+What's On API: 200, 9 items (separate domain, unaffected)
+3 check(s) unexpected. If the rule has only just been saved, wait a minute and re-run this script (it is safe to run again).
