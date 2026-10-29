@@ -33,3 +33,11 @@ Episode videos are not copied: they play from YouTube's privacy-enhanced player 
 
 ## Fonts
 - Sora (500, 600, 700) and Source Sans 3 (400, 400 italic, 600), Latin subset, self-hosted in `assets/fonts/` from the @fontsource 5 packages. Both are under the SIL Open Font License 1.1; the licence texts are in `assets/fonts/OFL-Sora.txt` and `assets/fonts/OFL-Source-Sans-3.txt`.
+
+## Home page portrait reel
+| File | What | Source | Changes |
+|---|---|---|---|
+| assets/video/hero-talk-white-shirt.mp4, hero-talk-headphones.mp4 | Six-second clips of Gibson talking to camera | Gibson's own phone videos, supplied 29 October 2026 | Cropped square (576 x 576), 24 fps, H.264, audio removed |
+| assets/img/hero/*-poster.webp | First frame of each clip | From the clips above | WebP |
+| assets/img/hero/colmore-*.webp | Gibson outside the Colmore Building, Birmingham | Gibson's own photo, supplied 29 October 2026 | Cropped square; flipped left to right so the building's sign reads correctly (the selfie was mirrored) |
+| assets/img/hero/smile-*.webp | Gibson smiling in a white shirt | Gibson's own photo, supplied 29 October 2026 | Cropped square |

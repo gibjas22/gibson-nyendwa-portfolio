@@ -1050,3 +1050,40 @@ html:not([data-theme]) .appearance-toggle { display: none; }
 }/* Long words in big headings (for example "Birmingham") must not spill past the edge on 320px screens. */
 h1, h2 { overflow-wrap: break-word; }
 @media (max-width: 380px) { h1 { font-size: 2.35rem; } }
+
+/* ---------- Hero portrait reel (js/hero.js) ---------- */
+.reel-stage { position: relative; aspect-ratio: 1 / 1; border-radius: var(--radius) var(--radius) 0 0; overflow: hidden; background: var(--surface); box-shadow: var(--shadow-deep), 0 0 0 1px var(--border); }
+.reel-slide { position: absolute; inset: 0; }
+.reel-slide img, .reel-slide video { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 0; box-shadow: none; }
+.hero-reel .reel-slide picture img { border-radius: 0; box-shadow: none; }
+/* Without JavaScript only the first photo shows. */
+.hero-reel:not(.reel-ready) .reel-slide:not(:first-child) { display: none; }
+.reel-ready .reel-slide { opacity: 0; visibility: hidden; transition: opacity 700ms ease, visibility 0s linear 700ms; }
+.reel-ready .reel-slide.is-active { opacity: 1; visibility: visible; transition: opacity 700ms ease, visibility 0s; }
+.reel-controls { display: flex; align-items: center; justify-content: center; gap: .35rem; margin-top: .6rem; }
+.reel-btn, .reel-dot {
+  display: inline-grid; place-items: center; width: 44px; height: 44px; padding: 0; cursor: pointer;
+  border-radius: 50%; border: 1px solid var(--border); background: var(--surface); color: var(--text-heading);
+  font: 600 1.5rem/1 var(--body); transition: background var(--t), border-color var(--t);
+}
+.reel-btn:hover { background: var(--surface-raised); border-color: var(--selected-border); }
+.reel-btn:focus-visible, .reel-dot:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+.reel-dots { display: flex; }
+.reel-dot { border: 0; background: transparent; }
+.reel-dot span { width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--text-muted); transition: background var(--t), transform var(--t); }
+.reel-dot[aria-current] span { background: var(--selected-border); border-color: var(--selected-border); transform: scale(1.25); }
+.reel-dot:hover span { border-color: var(--text-heading); }
+/* Pause and play icons drawn in CSS so they follow the theme. */
+.reel-icon { position: relative; width: 14px; height: 16px; }
+.reel-icon::before, .reel-icon::after { content: ""; position: absolute; top: 0; width: 5px; height: 16px; background: currentColor; border-radius: 1px; }
+.reel-icon::before { left: 0; } .reel-icon::after { right: 0; }
+.reel-toggle.is-paused .reel-icon::before { left: 2px; width: 0; height: 0; background: none; border-radius: 0; border-style: solid; border-width: 8px 0 8px 13px; border-color: transparent transparent transparent currentColor; }
+.reel-toggle.is-paused .reel-icon::after { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reel-ready .reel-slide, .reel-ready .reel-slide.is-active { transition: none; }
+}
+.reel-dot { width: 32px; }
+@media (max-width: 400px) { .reel-prev, .reel-next { display: none; } }
+.hero-reel .channel-strip { position: relative; }  /* keep the colour strip above the stage shadow */
+/* Controls keep their space from the first paint (no jump when the script starts); hidden without JavaScript. */
+.hero-reel:not(.reel-ready) .reel-controls { visibility: hidden; }

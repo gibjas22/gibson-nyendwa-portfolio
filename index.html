@@ -71,14 +71,36 @@
         <a class="button button-quiet" href="https://cal.imeetify.com/gibsonnyendwa/eventbooking" target="_blank" rel="noopener">Book a call</a>
       </div>
     </div>
-    <figure class="hero-photo">
-      <picture>
-        <source type="image/webp" srcset="assets/img/gibson-480.webp 480w, assets/img/gibson-800.webp 800w, assets/img/gibson-1200.webp 1200w" sizes="(max-width: 860px) calc(100vw - 2rem), 460px">
-        <img src="assets/img/gibson.jpg" width="1200" height="1200" fetchpriority="high" decoding="async" alt="Gibson Nyendwa, smiling, in a white shirt and blue waistcoat">
-      </picture>
+    <figure class="hero-photo hero-reel" id="hero-reel" aria-roledescription="carousel" aria-label="Photos and short silent clips of Gibson">
+      <div class="reel-stage">
+        <div class="reel-slide is-active" role="group" aria-roledescription="slide" aria-label="1 of 5">
+          <picture>
+            <source type="image/webp" srcset="assets/img/gibson-480.webp 480w, assets/img/gibson-800.webp 800w, assets/img/gibson-1200.webp 1200w" sizes="(max-width: 860px) calc(100vw - 2rem), 460px">
+            <img src="assets/img/gibson.jpg" width="1200" height="1200" fetchpriority="high" decoding="async" alt="Gibson Nyendwa, smiling, in a white shirt and blue waistcoat">
+          </picture>
+        </div>
+        <div class="reel-slide" role="group" aria-roledescription="slide" aria-label="2 of 5">
+          <video muted playsinline preload="none" width="576" height="576" data-src="assets/video/hero-talk-white-shirt.mp4" data-poster="assets/img/hero/hero-talk-white-shirt-poster.webp" aria-label="Silent six-second clip: Gibson talking to camera in a white shirt"></video>
+        </div>
+        <div class="reel-slide" role="group" aria-roledescription="slide" aria-label="3 of 5">
+          <img width="800" height="800" alt="Gibson in a dark jacket outside the Colmore Building, Birmingham" data-srcset="assets/img/hero/colmore-480.webp 480w, assets/img/hero/colmore-800.webp 800w" sizes="(max-width: 860px) calc(100vw - 2rem), 460px">
+        </div>
+        <div class="reel-slide" role="group" aria-roledescription="slide" aria-label="4 of 5">
+          <video muted playsinline preload="none" width="576" height="576" data-src="assets/video/hero-talk-headphones.mp4" data-poster="assets/img/hero/hero-talk-headphones-poster.webp" aria-label="Silent six-second clip: Gibson talking to camera wearing headphones"></video>
+        </div>
+        <div class="reel-slide" role="group" aria-roledescription="slide" aria-label="5 of 5">
+          <img width="800" height="800" alt="Gibson smiling in a white shirt at home" data-srcset="assets/img/hero/smile-480.webp 480w, assets/img/hero/smile-800.webp 800w" sizes="(max-width: 860px) calc(100vw - 2rem), 460px">
+        </div>
+      </div>
       <div class="channel-strip" aria-hidden="true">
         <span style="--c:#FF8F33"></span><span style="--c:#3FA34D"></span><span style="--c:#0E243F"></span>
         <span style="--c:#4DA8DA"></span><span style="--c:#F2C14E"></span><span style="--c:#7B5EA7"></span><span style="--c:#D7263D"></span>
+      </div>
+      <div class="reel-controls">
+        <button type="button" class="reel-btn reel-toggle" aria-label="Pause the slideshow"><span class="reel-icon" aria-hidden="true"></span></button>
+        <button type="button" class="reel-btn reel-prev" aria-label="Previous slide"><span aria-hidden="true">&lsaquo;</span></button>
+        <div class="reel-dots" role="group" aria-label="Choose a slide"></div>
+        <button type="button" class="reel-btn reel-next" aria-label="Next slide"><span aria-hidden="true">&rsaquo;</span></button>
       </div>
     </figure>
   </section>
@@ -448,6 +470,7 @@
 <script type="module" src="js/welcome-video.js"></script>
 <script type="module" src="js/podcast.js"></script>
 <script type="module" src="js/gallery.js"></script>
+<script type="module" src="js/hero.js"></script>
 <script type="module" src="js/theme.js"></script>
 </body>
 </html>
