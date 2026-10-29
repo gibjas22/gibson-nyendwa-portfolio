@@ -46,7 +46,8 @@ const card = a => {
     <h3><a class="card-title" href="article.html?slug=${a.slug}">${esc(a.title)}</a></h3>
     <p>${esc(a.excerpt)}</p>
     ${(a.tags || []).length ? `<p class="card-tags">${a.tags.slice(0, 3).map(t => `<span>${esc(t)}</span>`).join("")}</p>` : ""}
-    <p class="built"><time datetime="${a.published}">${fmtDate(a.published)}</time> · ${readingTime(a)} min read</p>
+    <p class="built"><time datetime="${a.published}">${fmtDate(a.published)}</time> · ${readingTime(a)} min read${a.video ? " · with video" : ""}</p>
+    ${a.video ? `<p class="card-actions"><a href="article.html?slug=${a.slug}">Read article<span class="visually-hidden">: ${esc(a.title)}</span></a><a href="article.html?slug=${a.slug}#watch">Watch video<span class="visually-hidden">: ${esc(a.title)}</span></a></p>` : ""}
   </li>`;
 };
 

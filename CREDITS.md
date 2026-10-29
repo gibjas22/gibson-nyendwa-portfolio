@@ -27,4 +27,6 @@ Sources considered and not used: Pixabay Sound Effects (licence prohibits redist
 |---|---|---|---|---|
 | assets/img/send-life-transition/slt-logo-320.webp | SEND Life Transition channel logo | Gibson Nyendwa, SEND Life Transition | Profile image of https://www.youtube.com/@SENDLifeTransition (800 x 800 original, fetched 29 October 2026) | Scaled to 320 x 320, WebP quality 85. Not redrawn or altered |
 
+| assets/img/insights/send-life-transition-digital-wellbeing-support.jpg and safeguarding-thresholds-of-need-birmingham.jpg | Article covers | Gibson Nyendwa | Made for this site from the SEND Life Transition logo, with DejaVu Sans text | 1600 x 900 JPEG |
+
 Episode videos are not copied: they play from YouTube's privacy-enhanced player only when a visitor presses play.

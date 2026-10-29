@@ -680,3 +680,18 @@ body { overflow-x: clip; }
 .news-empty { margin: 0; padding: 1.25rem; border: 1px dashed var(--border); border-radius: 14px; color: var(--text-muted); }
 #news-items[aria-busy="true"] { opacity: .6; }
 .visually-hidden { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* ---------- Insights: read or watch (articles adapted from SEND Life Transition videos) ---------- */
+.card-actions { display: flex; flex-wrap: wrap; gap: .5rem 1.1rem; margin: .4rem 0 0; position: relative; z-index: 2; }
+.card-actions a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
+.read-watch { display: flex; flex-wrap: wrap; gap: .75rem; margin: 0 0 1.5rem; }
+.read-watch-option { display: inline-flex; align-items: center; min-height: 44px; padding: .5rem 1.1rem; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--text-heading); font-weight: 600; text-decoration: none; }
+.read-watch-option:hover { border-color: var(--primary-hover); color: var(--text-heading); }
+.watch .slt-watch { margin-top: 1rem; }
+.slt-watch .slt-player { border-radius: var(--radius-sm); overflow: hidden; }
+.slt-chapters h3 { margin: 1.1rem 0 .5rem; font-size: 1rem; color: var(--slt-text); }
+.slt-chapters ol { list-style: none; margin: 0 0 .75rem; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: .5rem; }
+.slt-chapter { width: 100%; min-height: 44px; display: flex; align-items: center; gap: .6rem; padding: .45rem .75rem; text-align: left; font: inherit; color: var(--slt-text); background: rgba(255,255,255,.05); border: 1px solid var(--slt-line); border-radius: 10px; cursor: pointer; }
+.slt-chapter:hover { border-color: var(--slt-blue); }
+.slt-chapter-time { font-family: var(--head); font-weight: 700; color: var(--slt-orange-hi); min-width: 2.6rem; }
+.slt-watch .slt-captions, .slt-watch .slt-episode-actions { margin: .5rem 0 0; }
