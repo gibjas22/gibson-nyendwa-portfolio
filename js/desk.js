@@ -124,7 +124,7 @@ function init() {
       const box = $("unlock-player");
       box.innerHTML = `<div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(u.video)}?autoplay=1&rel=0"
         title="${esc(u.videoTitle || "The Unsaid Sound")}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe></div>
-        <p class="evidence">The desk has been turned down so you can hear the track. <button type="button" class="text-link" id="unduck">Bring the desk back up</button></p>`;
+        <p class="evidence">The desk is silent while the video is open, so you only hear the track. <button type="button" class="text-link" id="unduck">Bring the desk back up</button></p>`;
       $("unduck").addEventListener("click", () => duck(false));
     });
   }
@@ -236,25 +236,32 @@ function init() {
     masterGain.connect(duckGain).connect(masterAnalyser).connect(ctx.destination);
 
     const startAt = ctx.currentTime + 0.25;
+    const failed = []; let placeholder = false;
     await Promise.all(channels.map(async c => {
       const gain = ctx.createGain(); gain.gain.value = 0;
       const analyser = ctx.createAnalyser(); analyser.fftSize = 256;
       gain.connect(analyser).connect(masterGain);
       nodes[c.id] = { gain, analyser };
       try {
+        if (c.stemReady === false) throw new Error("placeholder");
         const res = await fetch(c.stem);
         if (!res.ok) throw new Error("missing");
         const buf = await ctx.decodeAudioData(await res.arrayBuffer());
         const src = ctx.createBufferSource(); src.buffer = buf; src.loop = true;
         src.connect(gain); src.start(startAt);
       } catch {
-        if (c.unlock) synthPad(gain, startAt);   // Studio placeholder until the master stem is added
+        if (c.unlock) { synthPad(gain, startAt); placeholder = true; }   // Studio placeholder until the master stem is added
+        else failed.push(c.label);
       }
       applyGain(c.id, true);
     }));
     await ctx.resume();
     loading = false; soundOn = true;
     reflectPower();
+    const notes = [];
+    if (failed.length) notes.push(`${failed.join(", ")} could not load and will stay silent.`);
+    if (placeholder) notes.push("Studio plays a placeholder pad until the final track is added.");
+    if (notes.length) status.textContent += " " + notes.join(" ");
   }
 
   // A soft chord pad generated in the browser, used for the Studio channel until its stem exists.
@@ -290,7 +297,7 @@ function init() {
     if (!ctx) return;
     const g = duckGain.gain, now = ctx.currentTime;
     g.cancelScheduledValues(now); g.setValueAtTime(g.value, now);
-    g.linearRampToValueAtTime(on ? desk.duckLevel * 0.3 : 1, now + 0.6);
+    g.linearRampToValueAtTime(on ? desk.duckLevel : 1, now + 0.6);
   }
 
   // ---------- Meters ----------

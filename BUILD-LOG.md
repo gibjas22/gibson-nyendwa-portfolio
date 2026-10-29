@@ -85,3 +85,12 @@ See the handover list in the chat: lawful-basis wording, retention statement, iM
 - `docs/AWS-SERVICES.md`: services by status (verified, pending, planned), with a read-only evidence script `docs/evidence/collect-aws-evidence.ps1`.
 - Studio: `scripts/prepare-studio-audio.sh` ready to turn the Invincible Battles master into `studio.mp3` and `invincible-clip.mp3`, keeping the original in `raw-audio/`. Playback, fader and mute path tested with a test tone in the test browser only. The master file itself has not been supplied yet.
 - 19:05: deployed and pushed (`2705cd3`). Live check in Chrome: panel at the top, five tabs load, links open Birmingham Live. Found shopping deals and a competition in All What's On, so the Lambda now accepts only event sub-sections and cards take their theme from the publisher's sub-section (e.g. a Diwali story in Family & kids gets the Family graphic). Needs one more deploy-script run.
+
+## 29 October 2026, morning: checks, fixes and evidence
+- Live What's On check (07:30 UTC): panel first on Insights, all five tabs load, every link is https on www.birminghammail.co.uk with `target="_blank"` and `rel="noopener noreferrer"`, two sample links matched their headlines. Found "Â·" in the card date line.
+- Fix: `js/news.js` is now pure ASCII (`&middot;`); `deploy-news.ps1` reads and writes `js/news.js` as UTF-8 and leaves it alone when the endpoint has not changed.
+- Security headers verified live; no change needed. Evidence: `docs/evidence/2026-10-29-live-checks.md`.
+- Evidence script: CloudWatch section now makes one public test request and finds its REPORT line; Budgets section lists thresholds, alert state and masked recipients; a masked copy is saved to `docs/evidence/` for review.
+- Studio: placeholder made explicit with `stemReady: false` (no request for the missing file); status line says Studio is a placeholder; desk goes fully silent while the track video is open; a stem that fails to load is named in the status line.
+- Article draft re-checked: Birmingham Museum & Art Gallery gallery list and Opheem's two Michelin stars corrected. Still unpublished.
+- Report: `docs/2026-10-29-completion-report.md`.

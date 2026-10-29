@@ -34,7 +34,7 @@ const THEMES = [
     icon: '<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>' },
   { id: "stage", label: "Theatre & stage", colour: "#C9A7FF", re: /\b(theatre|theater|panto|pantomime|musical|hippodrome|rep|play|stage|comedy|comedian|ballet|opera|show|shows)\b/i,
     icon: '<path d="M4 4h16v6a8 8 0 0 1-16 0z"/><path d="M9 9h.01M15 9h.01M9 13a4 4 0 0 0 6 0"/>' },
-  { id: "food", label: "Food & drink", colour: "#F2C14E", re: /\b(restaurant|restaurants|food|foodie|menu|chef|cafe|cafÃ©|bar|bars|pub|pubs|brunch|dinner|lunch|breakfast|curry|pizza|burger|bakery|takeaway|drink|drinks|cocktail|beer|wine|dining|eat|eats)\b/i,
+  { id: "food", label: "Food & drink", colour: "#F2C14E", re: /\b(restaurant|restaurants|food|foodie|menu|chef|cafe|caf\u00e9|bar|bars|pub|pubs|brunch|dinner|lunch|breakfast|curry|pizza|burger|bakery|takeaway|drink|drinks|cocktail|beer|wine|dining|eat|eats)\b/i,
     icon: '<path d="M7 3v8a2 2 0 0 0 4 0V3M9 11v10M17 3c-2 0-3 2-3 5s1 4 3 4v9"/>' },
   { id: "family", label: "Family day out", colour: "#6BDB8C", re: /\b(family|families|kids|children|child|half term|half-term|school holidays|zoo|farm|park|playground|trail|santa|grotto|soft play|sea life|cadbury world)\b/i,
     icon: '<circle cx="8" cy="6" r="2.5"/><circle cx="16.5" cy="8" r="2"/><path d="M4 21v-6a4 4 0 0 1 8 0v6M13.5 21v-4.5a3 3 0 0 1 6 0V21"/>' },
@@ -89,7 +89,7 @@ function cards(data) {
         <div class="news-body">
           <h3><a href="${esc(i.link)}" target="_blank" rel="noopener noreferrer">${esc(i.title)}<span class="visually-hidden"> (opens ${esc(source)} in a new tab)</span></a></h3>
           ${i.summary ? `<p class="news-summary">${esc(i.summary)}</p>` : ""}
-          <p class="news-meta">${i.published ? `<time datetime="${esc(i.published)}">${when(i.published)}</time> Â· ` : ""}Read on ${esc(source)}</p>
+          <p class="news-meta">${i.published ? `<time datetime="${esc(i.published)}">${when(i.published)}</time> &middot; ` : ""}Read on ${esc(source)}</p>
         </div>
       </li>`;
     }).join("")}

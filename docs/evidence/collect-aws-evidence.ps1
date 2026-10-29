@@ -78,23 +78,61 @@ if ($api) {
   }
 } else { Say "API not found" "Yellow" }
 
-Head "7. Amazon CloudWatch (logs and metrics, last 24 hours)"
-$lg = (Q logs describe-log-groups --log-group-name-prefix "/aws/lambda/$Fn").logGroups
-if ($lg) { $lg | ForEach-Object { Say "Log group $($_.logGroupName) | retention $(if ($_.retentionInDays) { "$($_.retentionInDays) days" } else { 'never expires' }) | stored $([math]::Round($_.storedBytes/1KB,1)) KB" } }
-else { Say "No log group yet for $Fn" "Yellow" }
+Head "7. Amazon CloudWatch Logs and metrics"
+$lgName = "/aws/lambda/$Fn"
+$lg = (Q logs describe-log-groups --log-group-name-prefix $lgName).logGroups | Where-Object { $_.logGroupName -eq $lgName }
+if ($lg) {
+  Say "Log group $lgName | retention $(if ($lg.retentionInDays) { "$($lg.retentionInDays) days" } else { 'never expires' }) | stored $([math]::Round($lg.storedBytes/1KB,1)) KB"
+  $streams = (Q logs describe-log-streams --log-group-name $lgName --order-by LastEventTime --descending --max-items 3).logStreams
+  $streams | ForEach-Object { Say ("Latest stream (name truncated): " + $_.logStreamName.Substring(0, [Math]::Min(18, $_.logStreamName.Length)) + "... | last event " + [DateTimeOffset]::FromUnixTimeMilliseconds($_.lastEventTimestamp).UtcDateTime.ToString("yyyy-MM-dd HH:mm:ss 'UTC'")) }
+} else { Say "No log group named $lgName in $Region" "Yellow" }
+
+# Harmless test request: one public GET, then look for the matching Lambda run in the logs.
+if ($api -and $lg) {
+  $t0 = [DateTimeOffset]::UtcNow
+  try { $tr = Invoke-RestMethod -Uri "$($api.ApiEndpoint)/news?section=music" -Headers @{ Origin = $Site } -TimeoutSec 15; Say ("Test request at " + $t0.UtcDateTime.ToString("HH:mm:ss 'UTC'") + ": GET /news?section=music -> $($tr.items.Count) items") }
+  catch { Say "Test request failed: $($_.Exception.Message)" "Yellow" }
+  $found = $null
+  for ($i = 0; $i -lt 6 -and -not $found; $i++) {
+    Start-Sleep -Seconds 10
+    $ev = Q logs filter-log-events --log-group-name $lgName --start-time ($t0.ToUnixTimeMilliseconds() - 5000) --filter-pattern '"REPORT RequestId"'
+    if ($ev -and $ev.events.Count) { $found = $ev.events | Select-Object -Last 1 }
+  }
+  if ($found) {
+    $line = [regex]::Replace($found.message.Trim(), 'RequestId: ([0-9a-f]{8})[0-9a-f-]+', 'RequestId: $1...')
+    Say ("Matching log entry at " + [DateTimeOffset]::FromUnixTimeMilliseconds($found.timestamp).UtcDateTime.ToString("HH:mm:ss 'UTC'") + ": " + ($line -replace '\s+', ' '))
+    Say "Note: a 15-minute cache can answer repeat requests inside the same Lambda instance; the REPORT line still records every run."
+  } else { Say "No REPORT line found within 60 s of the test request (log delivery can lag; run the script again)" "Yellow" }
+}
+
 $start = (Get-Date).ToUniversalTime().AddDays(-1).ToString("yyyy-MM-ddTHH:mm:ssZ"); $end = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
 foreach ($m in "Invocations", "Errors", "Throttles") {
   $d = Q cloudwatch get-metric-statistics --namespace AWS/Lambda --metric-name $m --dimensions "Name=FunctionName,Value=$Fn" --start-time $start --end-time $end --period 86400 --statistics Sum
   Say ("Lambda $m (24 h): " + $(if ($d -and $d.Datapoints) { ($d.Datapoints | Measure-Object Sum -Sum).Sum } else { 0 }))
 }
 if ($lg) {
-  $f = Q logs filter-log-events --log-group-name "/aws/lambda/$Fn" --start-time ([DateTimeOffset]::UtcNow.AddDays(-1).ToUnixTimeMilliseconds()) --filter-pattern '"news fetch failed"'
+  $f = Q logs filter-log-events --log-group-name $lgName --start-time ([DateTimeOffset]::UtcNow.AddDays(-1).ToUnixTimeMilliseconds()) --filter-pattern '"news fetch failed"'
   Say ("Feed failures logged (24 h): " + $(if ($f) { $f.events.Count } else { "could not read" }))
 }
 
-Head "8. AWS Budgets"
+Head "8. AWS Budgets (read-only; no test notification is sent)"
+function MaskMail($a) { if ($a -match '^(.)[^@]*@(.+)$') { return "$($Matches[1])***@$($Matches[2])" } else { return "(hidden)" } }
 $b = Q budgets describe-budgets --account-id $id.Account
-if ($b -and $b.Budgets) { $b.Budgets | ForEach-Object { Say "Budget $($_.BudgetName) | limit $($_.BudgetLimit.Amount) $($_.BudgetLimit.Unit) per $($_.TimeUnit.ToLower())" } } else { Say "No budgets found or no permission" "Yellow" }
+if ($b -and $b.Budgets) {
+  foreach ($bd in $b.Budgets) {
+    Say "Budget: $($bd.BudgetName) | type $($bd.BudgetType) | period $($bd.TimeUnit) | limit $($bd.BudgetLimit.Amount) $($bd.BudgetLimit.Unit)"
+    if ($bd.CalculatedSpend.ActualSpend) { Say "  Actual spend this period: $($bd.CalculatedSpend.ActualSpend.Amount) $($bd.CalculatedSpend.ActualSpend.Unit)" }
+    $n = Q budgets describe-notifications-for-budget --account-id $id.Account --budget-name $bd.BudgetName
+    if ($n -and $n.Notifications) {
+      foreach ($no in $n.Notifications) {
+        $subs = Q budgets describe-subscribers-for-notification --account-id $id.Account --budget-name $bd.BudgetName --notification ("NotificationType=$($no.NotificationType),ComparisonOperator=$($no.ComparisonOperator),Threshold=$($no.Threshold),ThresholdType=$(if ($no.ThresholdType) { $no.ThresholdType } else { 'PERCENTAGE' })")
+        $who = if ($subs -and $subs.Subscribers) { ($subs.Subscribers | ForEach-Object { "$($_.SubscriptionType) " + $(if ($_.SubscriptionType -eq 'EMAIL') { MaskMail $_.Address } else { '(topic)' }) }) -join ", " } else { "no subscribers found" }
+        Say "  Alert: $($no.NotificationType) $($no.ComparisonOperator) $($no.Threshold)$(if ($no.ThresholdType -eq 'ABSOLUTE_VALUE') { '' } else { '%' }) | state $($no.NotificationState) | to: $who"
+      }
+    } else { Say "  No alerts configured on this budget" "Yellow" }
+  }
+  Say "Budgets send alerts only; they do not stop spending or switch services off."
+} else { Say "No budgets found, or no permission to read them" "Yellow" }
 
 Head "9. Planned services (expected to be absent until deployed)"
 $c = Q lambda get-function-configuration --function-name portfolio-contact
@@ -103,4 +141,6 @@ $ses = Q sesv2 get-account
 Say ("Amazon SES: " + $(if ($ses) { "production access $($ses.ProductionAccessEnabled), sending enabled $($ses.SendingEnabled)" } else { "not set up or not readable" }))
 
 $script:lines | Set-Content -Path $Out -Encoding UTF8
-Write-Host ""; Write-Host "Saved: $Out (check it, then share or screenshot)" -ForegroundColor Green
+$Pub = Join-Path $Project ("docs\evidence\aws-evidence-" + (Get-Date -Format "yyyy-MM-dd") + ".txt")
+$script:lines | Set-Content -Path $Pub -Encoding UTF8
+Write-Host ""; Write-Host "Saved: $Out (private) and $Pub (masked copy for the repo; read it before committing)" -ForegroundColor Green

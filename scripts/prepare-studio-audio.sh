@@ -57,4 +57,5 @@ for f in studio invincible-clip; do
   ffprobe -v error -show_entries format=duration,bit_rate -of csv=p=0 "$out" | tr '\n' ' '
   ffmpeg -nostats -i "$out" -af loudnorm=print_format=summary -f null - 2>&1 | grep "Input Integrated" || true
 done
-echo "Done. Test the Studio fader locally, then: git add assets/audio/studio.mp3 assets/audio/invincible-clip.mp3"
+echo "Done. Next: in js/channels.js set stemReady: true on the studio channel, test the Studio fader locally,"
+echo "then: git add assets/audio/studio.mp3 assets/audio/invincible-clip.mp3 js/channels.js"

@@ -73,13 +73,17 @@ export const channels = [
     label: "Studio",
     colour: "#D7263D",
     stem: "assets/audio/studio.mp3",
+    // PLACEHOLDER: the Invincible Battles master has not been supplied yet, so this channel plays a
+    // soft synth pad generated in the browser. After running scripts/prepare-studio-audio.sh and
+    // checking assets/audio/studio.mp3, set stemReady to true.
+    stemReady: false,
     title: "The Unsaid Sound",
     story:
       "Locked until the fader hits 100. Then: The Unsaid Sound, and the Parsifal tour as 1st Grail Knight across Ruskin Mill Trust provisions.",
     link: { text: "The Unsaid Sound", href: "https://www.youtube.com/@theUnsaidSoundMusic" },
     unlock: {
       holdMs: 2000,
-      clip: "assets/audio/invincible-clip.mp3",
+      clip: "assets/audio/invincible-clip.mp3",   // 30 s preview, made by the same script; not used yet
       video: "MrCM49wi91E",
       videoTitle: "Invincible Battles (Official Final Mix)",
       title: "The Unsaid Sound",
@@ -94,7 +98,7 @@ export const channels = [
 export const desk = {
   masterDefault: 80,
   rampSeconds: 0.15,
-  duckLevel: 0.3,
+  duckLevel: 0,     // the desk falls silent while the track video is open, so two things never play at once
   hintLabel: "Hear my story",
   prompt: "Push a fader up. Every channel is a part of my life."
 };

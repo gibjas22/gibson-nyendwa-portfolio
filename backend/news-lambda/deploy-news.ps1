@@ -140,10 +140,12 @@ catch { Ok "Unknown sections are rejected (business has no working feed, so it i
 
 Step "8. Switch the panel on in js/news.js"
 $newsJs = Join-Path $Project "js\news.js"
-$code = Get-Content $newsJs -Raw
-$code = [regex]::Replace($code, 'const NEWS_ENDPOINT = "[^"]*";', ('const NEWS_ENDPOINT = "' + $Endpoint + '";'))
-[IO.File]::WriteAllText($newsJs, $code, (New-Object Text.UTF8Encoding $false))
-Ok "NEWS_ENDPOINT set"
+# Read and write as UTF-8 explicitly: Windows PowerShell 5 otherwise reads the file as ANSI and
+# corrupts any non-ASCII character (this turned the middle dot into "A-circumflex + dot" on 28 October 2026).
+$code = [IO.File]::ReadAllText($newsJs, [Text.Encoding]::UTF8)
+$new  = [regex]::Replace($code, 'const NEWS_ENDPOINT = "[^"]*";', ('const NEWS_ENDPOINT = "' + $Endpoint + '";'))
+if ($new -ceq $code) { Ok "NEWS_ENDPOINT already set; js/news.js left unchanged" }
+else { [IO.File]::WriteAllText($newsJs, $new, (New-Object Text.UTF8Encoding $false)); Ok "NEWS_ENDPOINT set" }
 
 Write-Host ""
 Write-Host "DONE. Endpoint: $Endpoint" -ForegroundColor Green

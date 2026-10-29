@@ -1,7 +1,7 @@
 # AWS services used
 
 Portfolio of Gibson Nyendwa, built for the AWS Student Builder Challenge 2026.
-Live site: https://main.dbthjbi29n1oo.amplifyapp.com · Region: eu-west-2 (London) · Last reviewed: 28 October 2026
+Live site: https://main.dbthjbi29n1oo.amplifyapp.com · Region: eu-west-2 (London) · Last reviewed: 29 October 2026
 
 This section explains what each AWS service does in the application, how it connects to a feature, what has been built, and what evidence shows it works. Services are grouped by how far they are proven, so nothing is claimed beyond its evidence. The account ID is masked to its last four digits, and no credentials, keys or secret values appear here.
 
@@ -37,7 +37,9 @@ Amazon CloudWatch Logs          AWS IAM: least-privilege role, MFA-protected adm
 - **Connects to:** every page, including the Unsaid Sound mixing desk and the Insights hub.
 - **Implemented:** app `dbthjbi29n1oo`, branch `main`, continuous deployment from GitHub. Each push builds and deploys automatically. `customHttp.yml` in the repository defines the security headers (Content Security Policy, HSTS, nosniff, Referrer-Policy, Permissions-Policy, X-Frame-Options) and a one-week cache for `assets/`.
 - **Evidence:** pushes on 28 October 2026 (`cfbddde` mixing desk, `3170553` Insights redesign, `675a11a` news fix) went live without manual uploads; `675a11a` was confirmed on the live site in Chrome the same evening. The Content Security Policy is observably enforced: the What's On panel can only call the API because `connect-src` allows `*.execute-api.eu-west-2.amazonaws.com`.
-- **Still to capture:** a header check of the live response and the Amplify job list (script sections 2 and 3).
+- **Security headers, verified live on 29 October 2026:** all six headers from `customHttp.yml` are served on pages and static files (CSP, HSTS without preload, nosniff, Referrer-Policy, Permissions-Policy, X-Frame-Options DENY). Values and assessment: [`docs/evidence/2026-10-29-live-checks.md`](evidence/2026-10-29-live-checks.md).
+- **Known gap:** unknown URLs return 404 but show the home page, because no Amplify rewrite points them at `404.html` yet (an Amplify setting, so it waits for approval).
+- **Still to capture:** the Amplify job list (script section 2).
 
 ### 2. AWS Lambda: `portfolio-news`
 - **Role:** server-side reader for the **What's On in Birmingham** panel. It fetches Birmingham Live's public RSS feeds, keeps only headline, link, date and a one-sentence preview, and returns JSON. Browsers cannot read the feeds directly, so this is the piece that makes the panel possible.
@@ -69,12 +71,16 @@ Amazon CloudWatch Logs          AWS IAM: least-privilege role, MFA-protected adm
 ### 6. Amazon CloudWatch Logs and metrics
 - **Role:** records each function run and any feed failures, and counts invocations and errors.
 - **Implemented:** Lambda writes to `/aws/lambda/portfolio-news` through its basic execution role; the code logs `news fetch failed (<section>)` on errors.
-- **Evidence still needed:** the log group, its retention, 24-hour invocation and error counts (script section 7). Recommended follow-up, with your approval: set log retention to 14 or 30 days so logs do not grow without limit.
+- **Expected log group:** `/aws/lambda/portfolio-news` in eu-west-2. Lambda writes a START, END and REPORT line for every run, plus `news fetch failed (<section>)` when a feed fails.
+- **Evidence still needed:** not yet read from AWS. The evidence script (section 7) lists the log group and its retention, shows the latest streams, makes one harmless public request (`GET /news?section=music`), finds the matching REPORT line with its timestamp, and gives 24-hour invocation, error and throttle counts. Until that output is captured, logging is described as configured, not verified.
+- **Recommended, needs approval:** set log retention to 30 days so logs do not grow without limit.
 
 ### 7. AWS Budgets
 - **Role:** cost guardrail.
 - **Implemented:** monthly budget "Personal-Learning-Budget", about USD 13 (roughly £10), seen in the Billing console.
-- **Evidence still needed:** the budget listing from the CLI (script section 8). Expected running cost of this build: within the AWS Free Tier at portfolio traffic.
+- **Evidence still needed:** not yet read from AWS. The script (section 8) records the name, period, amount, currency, each alert's threshold and state, and who it goes to (email addresses masked). It sends no test alert, so a configured alert is reported as configured, not as delivered.
+- **Important:** an AWS Budget only sends alerts. It does not stop spending or switch services off.
+- Expected running cost of this build: within the AWS Free Tier at portfolio traffic.
 
 ## Planned (not deployed)
 
