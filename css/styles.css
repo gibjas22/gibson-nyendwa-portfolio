@@ -364,25 +364,64 @@ body { overflow-x: clip; }
 .video-play:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: -3px; }
 
 /* ---------- Podcast section ---------- */
-.podcast-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(260px, .8fr); gap: 1.5rem; align-items: start; }
-.podcast-card h3, .podcast-links h3 { margin-top: 0; }
-.podcast-frame {
-  position: relative; min-height: 200px; border-radius: var(--radius-sm); overflow: hidden;
-  background: var(--bg-section); border: 1px solid var(--border);
-  box-shadow: 0 10px 24px rgba(8,2,16,.5), 0 0 24px rgba(150,46,255,.18);
+/* ---------- SEND Life Transition video podcast ----------
+   Colours sampled from the channel logo (navy lettering #0F2D75, blue swoosh #4F9ADB, orange #F98522)
+   and adjusted for contrast on a dark surface. Design choices, not official brand specifications. */
+.slt {
+  --slt-navy: #0A1B47; --slt-navy-2: #122A66; --slt-line: #2B4A8F;
+  --slt-blue: #5CB2FF; --slt-orange: #F98522; --slt-orange-hi: #FFB066;
+  --slt-text: #FFFFFF; --slt-muted: #C9D6F0;
+  background: linear-gradient(160deg, var(--slt-navy-2) 0%, var(--slt-navy) 55%);
+  border: 1px solid var(--slt-line); border-radius: var(--radius); box-shadow: var(--shadow-card);
+  padding: clamp(1.1rem, 3vw, 2rem); color: var(--slt-text); overflow: hidden; position: relative;
 }
-.podcast-frame.ratio { aspect-ratio: 16 / 9; }
-.podcast-frame.fixed-height { min-height: 0; }
-.podcast-frame > iframe { width: 100%; border: 0; display: block; background: #000; }
-.podcast-frame.ratio > iframe { position: absolute; inset: 0; height: 100%; }
-.podcast-placeholder {
-  min-height: 200px; display: grid; place-items: center; gap: 1rem; padding: 1.5rem;
-  background: radial-gradient(70% 90% at 50% 100%, rgba(216,43,235,.22), transparent 70%), linear-gradient(180deg, var(--surface-raised), var(--bg-section));
-}
-.eq-large { height: 56px; gap: 6px; margin: 0; }
-.eq-large span { width: 8px; border-radius: 4px; }
-.podcast-links p:last-of-type { margin-bottom: 1rem; }
-@media (max-width: 860px) { .podcast-grid { grid-template-columns: 1fr; } }
+.slt::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 4px; background: linear-gradient(90deg, var(--slt-orange), var(--slt-blue)); }
+.slt p { color: var(--slt-muted); }
+.slt a:not(.slt-button) { color: var(--slt-text); text-decoration-color: var(--slt-orange); }
+.slt a:not(.slt-button):hover { color: var(--slt-orange-hi); }
+.slt :is(a, button, summary):focus-visible { outline: 3px solid var(--slt-blue); outline-offset: 3px; border-radius: 6px; }
+.slt-intro { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(1rem, 3vw, 1.75rem); align-items: center; margin-bottom: 1.75rem; }
+.slt-logo { width: clamp(96px, 14vw, 160px); height: auto; aspect-ratio: 1; border-radius: 50%; background: #fff; object-fit: cover; box-shadow: 0 0 0 4px var(--slt-navy), 0 0 0 6px var(--slt-blue), 0 10px 30px rgba(0,0,0,.45); }
+.slt-label, .slt-kicker { margin: 0 0 .3rem; font-family: var(--head); font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--slt-orange-hi) !important; }
+.slt-title { margin: 0 0 .5rem; font-size: clamp(1.5rem, 3vw, 2.1rem); color: var(--slt-text); }
+.slt-intro-text p { max-width: 62ch; }
+.slt-topics { font-size: .975rem; }
+.slt-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.25rem; margin: 1rem 0 0; }
+.slt-button { display: inline-flex; align-items: center; min-height: 44px; padding: .6rem 1.15rem; border-radius: 999px; background: var(--slt-orange); color: var(--slt-navy); font-family: var(--head); font-weight: 700; text-decoration: none; box-shadow: 0 8px 20px rgba(249,133,34,.3); transition: background var(--t), transform var(--t); }
+.slt-button:hover { background: var(--slt-orange-hi); color: var(--slt-navy); transform: translateY(-1px); }
+.slt-link { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
+.slt-episodes { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 1.25rem; align-items: start; }
+.slt-episode { background: rgba(255,255,255,.04); border: 1px solid var(--slt-line); border-radius: var(--radius-sm); overflow: hidden; }
+.slt-episode h3 { margin: 0 0 .35rem; font-size: 1.2rem; line-height: 1.3; color: var(--slt-text); }
+.slt-episode-main h3 { font-size: clamp(1.25rem, 2.2vw, 1.5rem); }
+.slt-episode-body { padding: 1rem 1.15rem 1.15rem; }
+.slt-episode-body p { margin: 0 0 .75rem; }
+.slt-meta { font-size: .9rem; }
+.slt-audience, .slt-captions { font-size: .95rem; }
+.slt-audience strong { color: var(--slt-text); }
+.slt-episode-actions { margin: 0 !important; }
+.slt-details { margin: 0 0 .9rem; border-top: 1px solid var(--slt-line); border-bottom: 1px solid var(--slt-line); padding: .25rem 0; }
+.slt-details summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; font-weight: 600; color: var(--slt-text); }
+.slt-details h4 { margin: .6rem 0 .3rem; font-size: .95rem; color: var(--slt-orange-hi); }
+.slt-details ul, .slt-details ol { margin: 0 0 .6rem; padding-left: 1.2rem; color: var(--slt-muted); }
+.slt-details li { margin-bottom: .3rem; }
+.slt-player { position: relative; aspect-ratio: 16 / 9; background: var(--slt-navy); }
+.slt-player > iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; background: #000; }
+.slt-play { position: absolute; inset: 0; width: 100%; display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-rows: 1fr auto; align-items: center; gap: .5rem 1rem; padding: clamp(.9rem, 3vw, 1.6rem); border: 0; cursor: pointer; text-align: left; color: var(--slt-text); font: inherit;
+  background: radial-gradient(120% 90% at 85% 15%, rgba(92,178,255,.35), transparent 55%), radial-gradient(90% 80% at 0% 100%, rgba(249,133,34,.32), transparent 60%), var(--slt-navy-2); }
+.slt-play-logo { width: clamp(56px, 9vw, 96px); height: auto; border-radius: 50%; background: #fff; box-shadow: 0 0 0 3px var(--slt-blue); }
+.slt-play-title { font-family: var(--head); font-weight: 700; font-size: clamp(1rem, 2.2vw, 1.45rem); line-height: 1.25; }
+.slt-episode:not(.slt-episode-main) .slt-play-title { font-size: clamp(.95rem, 1.6vw, 1.1rem); }
+.slt-play-cta { grid-column: 1 / -1; display: inline-flex; align-items: center; gap: .6rem; justify-self: start; min-height: 44px; padding: .45rem 1rem .45rem .5rem; border-radius: 999px; background: var(--slt-orange); color: var(--slt-navy); font-family: var(--head); font-weight: 700; transition: background var(--t), transform var(--t); }
+.slt-play-icon { width: 30px; height: 30px; border-radius: 50%; background: var(--slt-navy); position: relative; }
+.slt-play-icon::after { content: ""; position: absolute; left: 11px; top: 8px; border-style: solid; border-width: 7px 0 7px 11px; border-color: transparent transparent transparent var(--slt-orange); }
+.slt-play:hover .slt-play-cta { background: var(--slt-orange-hi); transform: translateY(-1px); }
+.slt-play:focus-visible { outline: 3px solid var(--slt-blue) !important; outline-offset: -3px !important; }
+.slt-play-length { position: absolute; right: .75rem; bottom: .75rem; padding: .15rem .55rem; border-radius: 6px; background: rgba(5,12,34,.8); font-size: .85rem; font-weight: 600; }
+.slt-privacy { margin: 1.25rem 0 0; font-size: .9rem; max-width: 80ch; }
+@media (max-width: 900px) { .slt-episodes { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .slt-intro { grid-template-columns: 1fr; justify-items: start; } }
+@media (prefers-reduced-motion: reduce) { .slt-button, .slt-play-cta { transition: none; } .slt-button:hover, .slt-play:hover .slt-play-cta { transform: none; } }
 
 /* ---------- Anchor offset beneath the sticky header ---------- */
 .section, .cta-band, #top { scroll-margin-top: 90px; }

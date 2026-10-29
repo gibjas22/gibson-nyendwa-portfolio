@@ -15,6 +15,10 @@
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Person","name":"Gibson Nyendwa","url":"https://main.dbthjbi29n1oo.amplifyapp.com/","image":"https://main.dbthjbi29n1oo.amplifyapp.com/assets/img/gibson-600.jpg","jobTitle":"Tutor Assistant and Support Worker; Founder and Director, Gibcom Marketing Support Ltd","address":{"@type":"PostalAddress","addressLocality":"Birmingham","addressCountry":"GB"},"email":"mailto:info@gcmarketingsupport.co","sameAs":["https://www.linkedin.com/in/gibson-nyendwa-uk/","https://github.com/gibjas22","https://www.youtube.com/@theUnsaidSoundMusic","https://www.youtube.com/@SENDLifeTransition","https://soundcloud.com/theunsaidsoundmusic","https://www.facebook.com/gibson.nyendwa/","https://www.instagram.com/nyendwagibson/"]}
   </script>
+  <!-- VideoObject data for the podcast section: keep in step with EPISODES in js/podcast.js (checked 29 October 2026). -->
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@graph": [{"@type": "VideoObject", "name": "Navigating and Managing Emotional Experience in College", "description": "Two hosts talk through the emotional side of college life: homesickness, pressure, loneliness and the way small setbacks can feel huge. They share a simple approach: name the feeling, accept it rather than fight it, then use practical ways to cope.", "thumbnailUrl": "https://i.ytimg.com/vi/3cPgHy1TrQ0/maxresdefault.jpg", "uploadDate": "2026-01-12T13:23:21-08:00", "duration": "PT12M8S", "embedUrl": "https://www.youtube-nocookie.com/embed/3cPgHy1TrQ0", "url": "https://www.youtube.com/watch?v=3cPgHy1TrQ0", "inLanguage": "en-GB", "publisher": {"@type": "Organization", "name": "SEND Life Transition", "url": "https://www.youtube.com/@SENDLifeTransition"}}, {"@type": "VideoObject", "name": "SEND Life Transition: Official Channel Introduction", "description": "An eight-second animated introduction to the channel, built around the SEND Life Transition logo.", "thumbnailUrl": "https://i.ytimg.com/vi/UhY_1r3UIg8/maxresdefault.jpg", "uploadDate": "2026-01-12T11:51:06-08:00", "duration": "PT8S", "embedUrl": "https://www.youtube-nocookie.com/embed/UhY_1r3UIg8", "url": "https://www.youtube.com/watch?v=UhY_1r3UIg8", "inLanguage": "en-GB", "publisher": {"@type": "Organization", "name": "SEND Life Transition", "url": "https://www.youtube.com/@SENDLifeTransition"}}]}
+  </script>
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,6 +36,7 @@
     <a href="#about">About</a>
     <a href="#superpowers">Superpowers</a>
     <a href="#projects">Projects</a>
+    <a href="#podcast">Podcast</a>
     <a href="insights/index.html">Insights</a>
     <a href="#contact">Contact</a>
   </nav>
@@ -257,27 +262,26 @@
     </ol>
   </section>
 
-  <section id="podcast" class="section podcast">
-    <h2>The podcast <span class="eq" aria-hidden="true"><span style="--h:40%"></span><span style="--h:85%"></span><span style="--h:55%"></span><span style="--h:100%"></span><span style="--h:60%"></span></span></h2>
-    <p class="section-intro">SEND Life Transition: conversations for families and professionals helping young people with SEND move into adult life. Honest, practical, recorded in Birmingham.</p>
-    <div class="podcast-grid">
-      <div class="card podcast-card">
-        <h3>Latest episode</h3>
-        <div class="podcast-frame" id="podcast-player">
-          <div class="podcast-placeholder">
-            <span class="eq eq-large" aria-hidden="true"><span style="--h:35%"></span><span style="--h:70%"></span><span style="--h:100%"></span><span style="--h:55%"></span><span style="--h:80%"></span><span style="--h:40%"></span><span style="--h:65%"></span></span>
-            <span class="video-soon">Podcast player coming soon</span>
-          </div>
+  <section id="podcast" class="section podcast" aria-labelledby="podcast-h">
+    <h2 id="podcast-h">The podcast <span class="eq" aria-hidden="true"><span style="--h:40%"></span><span style="--h:85%"></span><span style="--h:55%"></span><span style="--h:100%"></span><span style="--h:60%"></span></span></h2>
+    <div class="slt">
+      <div class="slt-intro">
+        <img class="slt-logo" src="assets/img/send-life-transition/slt-logo-320.webp" width="160" height="160" alt="SEND Life Transition logo: a studio microphone over orange and blue swooshes">
+        <div class="slt-intro-text">
+          <p class="slt-label">Video podcast</p>
+          <h3 class="slt-title">SEND Life Transition</h3>
+          <p>Practical conversations and guidance for young people with SEND, families and professionals navigating education, independence and adult life.</p>
+          <p class="slt-topics">Topics include EHCPs, post-16 SEND support, college, preparing for adulthood, neurodiversity and emotional wellbeing.</p>
+          <p class="slt-actions">
+            <a class="slt-button" href="https://www.youtube.com/@SENDLifeTransition" target="_blank" rel="noopener noreferrer">Visit the YouTube channel<span class="visually-hidden"> (opens in a new tab)</span></a>
+            <a class="slt-link" href="https://www.youtube.com/@SENDLifeTransition?sub_confirmation=1" target="_blank" rel="noopener noreferrer">Subscribe on YouTube<span class="visually-hidden"> (opens YouTube in a new tab, where you can choose to subscribe)</span></a>
+          </p>
         </div>
-        <p class="video-caption" id="podcast-caption">The player will appear here once the first episode is published.</p>
       </div>
-      <div class="card podcast-links">
-        <h3>Listen and watch</h3>
-        <p>The video episodes live on YouTube now. Audio platforms will be added as they go live.</p>
-        <ul class="social" id="podcast-platforms">
-          <li><a href="https://www.youtube.com/@SENDLifeTransition" target="_blank" rel="noopener">YouTube, SEND Life Transition</a></li>
-        </ul>
+      <div class="slt-episodes" id="slt-episodes">
+        <noscript><p>The episode players need JavaScript. Watch on YouTube instead: <a href="https://www.youtube.com/watch?v=3cPgHy1TrQ0&amp;t=43s">Navigating and Managing Emotional Experience in College</a> and <a href="https://www.youtube.com/watch?v=UhY_1r3UIg8">SEND Life Transition: Official Channel Introduction</a>.</p></noscript>
       </div>
+      <p class="slt-privacy">Videos load from YouTube's privacy-enhanced domain (youtube-nocookie.com), and only when you press play. Once a video loads, YouTube processes data under its own policies: privacy-enhanced mode reduces this but does not remove it. <a href="cookies.html">How this site handles third parties</a>.</p>
     </div>
   </section>
 

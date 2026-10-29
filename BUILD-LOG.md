@@ -95,3 +95,10 @@ See the handover list in the chat: lawful-basis wording, retention statement, iM
 - Article draft re-checked: Birmingham Museum & Art Gallery gallery list and Opheem's two Michelin stars corrected. Still unpublished.
 - Report: `docs/2026-10-29-completion-report.md`.
 - 07:56 UTC evidence run (`docs/evidence/aws-evidence-2026-10-29.txt`): Amplify jobs 16 to 20 succeeded; Lambda, role and API configuration read back; CloudWatch logged the test request at 07:57:13 UTC; budget 13 USD monthly with 80% actual and 100% forecast email alerts; no contact Lambda, SES in sandbox. Evidence script fixed (a PowerShell quoting error on line 38) and parse-checked.
+
+## 29 October 2026, morning: SEND Life Transition video podcast section
+- Replaced the podcast placeholder ("Podcast player coming soon") with a SEND Life Transition section: circular channel logo, "Video podcast" label, introduction, "Visit the YouTube channel" and "Subscribe on YouTube" links, and two episode cards.
+- Episodes checked on YouTube (29 October 2026): "Navigating and Managing Emotional Experience in College" (3cPgHy1TrQ0, 12 January 2026, 12:08, latest, summary from its transcript) and "SEND Life Transition | Official Channel Introduction" (UhY_1r3UIg8, 12 January 2026, 0:08). Both public, embeddable, owned by @SENDLifeTransition, automatic English captions.
+- Players are click-to-load from youtube-nocookie.com, no autoplay on page load, one video at a time; starting a podcast video pauses the desk and closes the Studio video, and the other way round.
+- Episode data in `js/podcast.js`; VideoObject structured data in `index.html`; navy, electric blue and orange colours scoped to the section; "Podcast" added to the main navigation. Logo credited in `CREDITS.md`.
+- The second link's 43-second start time is kept until confirmed.

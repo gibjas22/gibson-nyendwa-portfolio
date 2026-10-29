@@ -20,3 +20,11 @@ The Studio loop and the Invincible Battles clip are my own work (The Unsaid Soun
 Original downloads are kept locally and are not committed. Processing was done with ffmpeg 4.4; the manifest with sizes and SHA-256 checksums is in `scratch/report/sound_manifest.csv` (local only).
 
 Sources considered and not used: Pixabay Sound Effects (licence prohibits redistributing files as standalone content, which a public repository would do) and BBC Sound Effects (RemArc licence is for personal, educational and research use only, no redistribution).
+
+## Images
+
+| File | What it is | Owner | Source | Processing |
+|---|---|---|---|---|
+| assets/img/send-life-transition/slt-logo-320.webp | SEND Life Transition channel logo | Gibson Nyendwa, SEND Life Transition | Profile image of https://www.youtube.com/@SENDLifeTransition (800 x 800 original, fetched 29 October 2026) | Scaled to 320 x 320, WebP quality 85. Not redrawn or altered |
+
+Episode videos are not copied: they play from YouTube's privacy-enhanced player only when a visitor presses play.

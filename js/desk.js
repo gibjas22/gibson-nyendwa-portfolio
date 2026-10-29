@@ -121,6 +121,7 @@ function init() {
     btn.addEventListener("click", () => {
       const u = studio.unlock;
       duck(true);
+      window.dispatchEvent(new CustomEvent("site-media-play", { detail: { source: "desk" } }));
       const box = $("unlock-player");
       box.innerHTML = `<div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(u.video)}?autoplay=1&rel=0"
         title="${esc(u.videoTitle || "The Unsaid Sound")}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe></div>
@@ -322,6 +323,17 @@ function init() {
     tick();
   }
   function clearMeters() { root.querySelectorAll(".meter i.on").forEach(i => i.classList.remove("on")); }
+
+  // Another player on the page started (the podcast): pause the desk and close the Studio video,
+  // so two things never play at once. "Turn the sound on" brings the desk back.
+  window.addEventListener("site-media-play", ev => {
+    if (ev.detail?.source === "desk") return;
+    if (document.querySelector("#unlock-player iframe")) { duck(false); active = null; showStory(studio.id); }
+    if (ctx && soundOn) {
+      soundOn = false; ctx.suspend(); reflectPower();
+      status.textContent = "Desk paused while a video plays. Press \u201cTurn the sound on\u201d to bring it back.";
+    }
+  });
 
   // Pause when the tab is hidden, to save battery.
   document.addEventListener("visibilitychange", () => {
