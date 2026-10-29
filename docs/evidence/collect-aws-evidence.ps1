@@ -35,7 +35,12 @@ if ($app) {
   Say ("Custom headers configured: " + $(if ($app.app.customHeaders) { "yes" } else { "none in app settings (customHttp.yml in the repo is used instead)" }))
 }
 $jobs = Q amplify list-jobs --app-id $AppId --branch-name main --max-results 5
-if ($jobs) { $jobs.jobSummaries | ForEach-Object { Say ("Deploy job $($_.jobId): $($_.status) | $(("" + $_.commitId).PadRight(7).Substring(0,7)) | $($_.startTime)") } }
+if ($jobs) {
+  foreach ($j in $jobs.jobSummaries) {
+    $commit = ([string]$j.commitId).PadRight(7).Substring(0, 7)
+    Say ("Deploy job " + $j.jobId + ": " + $j.status + " | commit " + $commit + " | " + $j.startTime)
+  }
+}
 
 Head "3. Security headers on the live site"
 try {
@@ -90,7 +95,8 @@ if ($lg) {
 # Harmless test request: one public GET, then look for the matching Lambda run in the logs.
 if ($api -and $lg) {
   $t0 = [DateTimeOffset]::UtcNow
-  try { $tr = Invoke-RestMethod -Uri "$($api.ApiEndpoint)/news?section=music" -Headers @{ Origin = $Site } -TimeoutSec 15; Say ("Test request at " + $t0.UtcDateTime.ToString("HH:mm:ss 'UTC'") + ": GET /news?section=music -> $($tr.items.Count) items") }
+  $testOk = $false
+  try { $tr = Invoke-RestMethod -Uri "$($api.ApiEndpoint)/news?section=music" -Headers @{ Origin = $Site } -TimeoutSec 15; Say ("Test request at " + $t0.UtcDateTime.ToString("HH:mm:ss 'UTC'") + ": GET /news?section=music -> $($tr.items.Count) items"); $testOk = $true }
   catch { Say "Test request failed: $($_.Exception.Message)" "Yellow" }
   $found = $null
   for ($i = 0; $i -lt 6 -and -not $found; $i++) {
@@ -100,7 +106,7 @@ if ($api -and $lg) {
   }
   if ($found) {
     $line = [regex]::Replace($found.message.Trim(), 'RequestId: ([0-9a-f]{8})[0-9a-f-]+', 'RequestId: $1...')
-    Say ("Matching log entry at " + [DateTimeOffset]::FromUnixTimeMilliseconds($found.timestamp).UtcDateTime.ToString("HH:mm:ss 'UTC'") + ": " + ($line -replace '\s+', ' '))
+    Say ($(if ($testOk) { "Matching log entry at " } else { "Most recent run logged at " }) + [DateTimeOffset]::FromUnixTimeMilliseconds($found.timestamp).UtcDateTime.ToString("HH:mm:ss 'UTC'") + ": " + ($line -replace '\s+', ' '))
     Say "Note: a 15-minute cache can answer repeat requests inside the same Lambda instance; the REPORT line still records every run."
   } else { Say "No REPORT line found within 60 s of the test request (log delivery can lag; run the script again)" "Yellow" }
 }

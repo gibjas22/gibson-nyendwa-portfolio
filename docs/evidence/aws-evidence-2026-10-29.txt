@@ -1,0 +1,68 @@
+﻿Evidence run: 29 October 2026 07:56, region eu-west-2 (read-only)
+
+== 1. Identity (IAM user, never root) ==
+Signed in as: arn:aws:iam::********4263:user/gibson-admin
+MFA devices on gibson-admin: 1
+
+== 2. AWS Amplify Hosting ==
+App: gibson-nyendwa-portfolio | platform WEB | domain dbthjbi29n1oo.amplifyapp.com
+Repository: https://github.com/gibjas22/gibson-nyendwa-portfolio
+Custom headers configured: none in app settings (customHttp.yml in the repo is used instead)
+Deploy job 20: SUCCEED | commit 08c886e | 2026-10-29T07:49:04.314000+00:00
+Deploy job 19: SUCCEED | commit f2900b1 | 2026-10-28T18:58:25.061000+00:00
+Deploy job 18: SUCCEED | commit 2705cd3 | 2026-10-28T18:53:05.748000+00:00
+Deploy job 17: SUCCEED | commit 675a11a | 2026-10-28T18:24:33.794000+00:00
+Deploy job 16: SUCCEED | commit 1a8a52b | 2026-10-28T18:21:45.080000+00:00
+
+== 3. Security headers on the live site ==
+Content-Security-Policy    present
+Strict-Transport-Security  present
+X-Content-Type-Options     present
+Referrer-Policy            present
+Permissions-Policy         present
+X-Frame-Options            present
+
+== 4. AWS Lambda (portfolio-news) ==
+Runtime nodejs20.x | arm64 | 128 MB | timeout 10 s | last modified 2026-10-28T18:57:48.000+0000
+Environment variable names (values not shown): SOURCE_NAME, FEED_BASE, MAX_ITEMS
+Execution role: portfolio-news-role
+
+== 5. IAM execution role (portfolio-news-role): permissions ==
+Attached: AWSLambdaBasicExecutionRole
+Inline policies: none
+
+== 6. Amazon API Gateway (HTTP API) ==
+API portfolio-news-api (776bh82jm8) | protocol HTTP | endpoint https://776bh82jm8.execute-api.eu-west-2.amazonaws.com
+CORS origins: https://main.dbthjbi29n1oo.amplifyapp.com | methods: GET
+Route: GET /news
+Stage $default | auto-deploy True | burst 10 | rate 5.0/s
+GET /news (default) -> 200 | section whats-on | 9 items | link paths: whats-on
+GET /news?section=food-drink -> 200 | section food-drink | 9 items | link paths: whats-on
+GET /news?section=family -> 200 | section family | 9 items | link paths: whats-on
+GET /news?section=music -> 200 | section music | 3 items | link paths: whats-on
+GET /news?section=news -> 200 | section news | 9 items | link paths: news
+GET /news?section=business -> The remote server returned an error: (400) Bad Request.
+
+== 7. Amazon CloudWatch Logs and metrics ==
+Log group /aws/lambda/portfolio-news | retention never expires | stored 8.4 KB
+Latest stream (name truncated): 2026/10/29/[$LATES... | last event 2026-10-29 07:55:22 UTC
+Latest stream (name truncated): 2026/10/29/[$LATES... | last event 2026-10-29 07:30:51 UTC
+Latest stream (name truncated): 2026/10/29/[$LATES... | last event 2026-10-29 07:30:49 UTC
+Test request at 07:57:12 UTC: GET /news?section=music -> 3 items
+Matching log entry at 07:57:13 UTC: REPORT RequestId: 73f0b106... Duration: 783.48 ms Billed Duration: 784 ms Memory Size: 128 MB Max Memory Used: 112 MB
+Note: a 15-minute cache can answer repeat requests inside the same Lambda instance; the REPORT line still records every run.
+Lambda Invocations (24 h): 40
+Lambda Errors (24 h): 0
+Lambda Throttles (24 h): 0
+Feed failures logged (24 h): 0
+
+== 8. AWS Budgets (read-only; no test notification is sent) ==
+Budget: Personal-Learning-Budget | type COST | period MONTHLY | limit 13.0 USD
+  Actual spend this period: 0.0 USD
+  Alert: ACTUAL GREATER_THAN 80.0% | state OK | to: EMAIL n***@gmail.com
+  Alert: FORECASTED GREATER_THAN 100.0% | state OK | to: EMAIL n***@gmail.com
+Budgets send alerts only; they do not stop spending or switch services off.
+
+== 9. Planned services (expected to be absent until deployed) ==
+Contact form Lambda: not deployed (planned)
+Amazon SES: production access False, sending enabled True

@@ -39,7 +39,7 @@ Amazon CloudWatch Logs          AWS IAM: least-privilege role, MFA-protected adm
 - **Evidence:** pushes on 28 October 2026 (`cfbddde` mixing desk, `3170553` Insights redesign, `675a11a` news fix) went live without manual uploads; `675a11a` was confirmed on the live site in Chrome the same evening. The Content Security Policy is observably enforced: the What's On panel can only call the API because `connect-src` allows `*.execute-api.eu-west-2.amazonaws.com`.
 - **Security headers, verified live on 29 October 2026:** all six headers from `customHttp.yml` are served on pages and static files (CSP, HSTS without preload, nosniff, Referrer-Policy, Permissions-Policy, X-Frame-Options DENY). Values and assessment: [`docs/evidence/2026-10-29-live-checks.md`](evidence/2026-10-29-live-checks.md).
 - **Known gap:** unknown URLs return 404 but show the home page, because no Amplify rewrite points them at `404.html` yet (an Amplify setting, so it waits for approval).
-- **Still to capture:** the Amplify job list (script section 2).
+- **Deployments, from the evidence run (29 October 2026, 07:56 UTC):** the last five Amplify jobs all succeeded, each matching a GitHub push: `1a8a52b`, `675a11a`, `2705cd3`, `f2900b1` (28 October) and `08c886e` (29 October, 07:49 UTC). The script's own header check also found all six headers present. Sanitised output: [`docs/evidence/aws-evidence-2026-10-29.txt`](evidence/aws-evidence-2026-10-29.txt).
 
 ### 2. AWS Lambda: `portfolio-news`
 - **Role:** server-side reader for the **What's On in Birmingham** panel. It fetches Birmingham Live's public RSS feeds, keeps only headline, link, date and a one-sentence preview, and returns JSON. Browsers cannot read the feeds directly, so this is the piece that makes the panel possible.
@@ -47,6 +47,7 @@ Amazon CloudWatch Logs          AWS IAM: least-privilege role, MFA-protected adm
 - **Implemented:** Node.js 20 on arm64, 128 MB, 10 second timeout, no dependencies. 15-minute in-memory cache per section, falls back to the last good copy if the feed fails. Only `https` links on the publisher's host pass through. The allowed sections are fixed in code (What's On, Food & drink, Family & kids, Music & nightlife, Latest news), so the function cannot be pointed at any other address; unknown sections return 400.
 - **Evidence:** the deploy script (`backend/news-lambda/deploy-news.ps1`) run on 28 October 2026 reported "function test: 6 headlines" (direct invoke) and "public endpoint: 6 headlines". The live panel showed six cards whose links all opened on birminghammail.co.uk in a new tab.
 - **What's On update (28 October 2026, evening):** deploy script re-run successfully: direct invoke returned 9 What's On headlines; the public endpoint returned What's On 9, Food & drink 9, Family & kids 9, Music & nightlife 3, Latest news 9, and rejected the unknown `business` section. The live panel was then checked in Chrome on all five tabs, with every link opening birminghammail.co.uk in a new tab. That check found shopping deals and a competition filed under `/whats-on/`, so the function now accepts only the event sub-sections (What's On news, food and drink, family, music and nightlife, arts and culture, theatre, film).
+- **Evidence run (29 October 2026, 07:56 UTC):** configuration read back from AWS: Node.js 20, arm64, 128 MB, 10 s, environment variable names `SOURCE_NAME`, `FEED_BASE`, `MAX_ITEMS` (values not printed), role `portfolio-news-role` with only `AWSLambdaBasicExecutionRole` and no inline policies. Public calls: default 200 with 9 What's On items, food-drink 9, family 9, music 3, news 9; `business` refused with 400 as designed.
 
 ### 3. Amazon API Gateway (HTTP API): `portfolio-news-api`
 - **Role:** the public HTTPS front door to the Lambda function.
@@ -66,19 +67,18 @@ Amazon CloudWatch Logs          AWS IAM: least-privilege role, MFA-protected adm
 - **Implemented:** AWS CLI 2.39.0, profile `gibson-portfolio`, region eu-west-2; Agent Toolkit for AWS skills installed; AWS MCP Server connected to Claude Code; project rules in `CLAUDE.md` (read-only by default, ask before changes or cost).
 - **Evidence:** Day 2 health check ("agent test" returned the gibson-admin ARN, `aws-mcp ... Connected`). Full detail in `docs/day2/`.
 
-## Configured, verification pending
+## Verified by the evidence run, 29 October 2026
 
 ### 6. Amazon CloudWatch Logs and metrics
 - **Role:** records each function run and any feed failures, and counts invocations and errors.
-- **Implemented:** Lambda writes to `/aws/lambda/portfolio-news` through its basic execution role; the code logs `news fetch failed (<section>)` on errors.
-- **Expected log group:** `/aws/lambda/portfolio-news` in eu-west-2. Lambda writes a START, END and REPORT line for every run, plus `news fetch failed (<section>)` when a feed fails.
-- **Evidence still needed:** not yet read from AWS. The evidence script (section 7) lists the log group and its retention, shows the latest streams, makes one harmless public request (`GET /news?section=music`), finds the matching REPORT line with its timestamp, and gives 24-hour invocation, error and throttle counts. Until that output is captured, logging is described as configured, not verified.
-- **Recommended, needs approval:** set log retention to 30 days so logs do not grow without limit.
+- **Implemented:** Lambda writes to the log group `/aws/lambda/portfolio-news` (eu-west-2) through its basic execution role: a START, END and REPORT line for every run, plus `news fetch failed (<section>)` when a feed fails.
+- **Evidence (verified):** the log group exists (8.4 KB stored, retention "never expires"); its three newest log streams last received events at 07:30:49, 07:30:51 and 07:55:22 UTC, matching the live checks made that morning. A harmless test request `GET /news?section=music` at 07:57:12 UTC returned 3 items, and its run appeared in the logs at 07:57:13 UTC: `REPORT RequestId: 73f0b106... Duration: 783.48 ms, Billed Duration: 784 ms, Memory Size: 128 MB, Max Memory Used: 112 MB`. CloudWatch metrics for the previous 24 hours: 40 invocations, 0 errors, 0 throttles; 0 feed failures logged.
+- **Gap, needs approval:** log retention is "never expires". Recommended: 30 days, so logs do not grow without limit.
 
 ### 7. AWS Budgets
 - **Role:** cost guardrail.
-- **Implemented:** monthly budget "Personal-Learning-Budget", about USD 13 (roughly £10), seen in the Billing console.
-- **Evidence still needed:** not yet read from AWS. The script (section 8) records the name, period, amount, currency, each alert's threshold and state, and who it goes to (email addresses masked). It sends no test alert, so a configured alert is reported as configured, not as delivered.
+- **Evidence (verified configuration):** budget `Personal-Learning-Budget`, type COST, period MONTHLY, limit 13.0 USD (roughly £10). Actual spend this period at 29 October 2026: 0.0 USD. Two alerts, both by email to a Gmail address (masked as `n***@gmail.com`): actual spend over 80%, and forecast spend over 100%. Both are in state OK (not triggered).
+- **Not verified:** delivery. No alert has fired yet and no test alert was sent, so the alerts are configured but their arrival in the inbox has not been seen.
 - **Important:** an AWS Budget only sends alerts. It does not stop spending or switch services off.
 - Expected running cost of this build: within the AWS Free Tier at portfolio traffic.
 
@@ -86,7 +86,7 @@ Amazon CloudWatch Logs          AWS IAM: least-privilege role, MFA-protected adm
 
 ### 8. Contact form: AWS Lambda + Amazon API Gateway + Amazon SES
 - **Role:** send messages from the contact form to Gibson's inbox without exposing an email address.
-- **Status:** function code is in `backend/contact-lambda/` and the guide in `backend/README.md`; `ENDPOINT` in `js/contact.js` is empty, so the site shows the email and booking fallback. Nothing exists in AWS yet; SES identity verification and sending limits are still to do.
+- **Status:** function code is in `backend/contact-lambda/` and the guide in `backend/README.md`; `ENDPOINT` in `js/contact.js` is empty, so the site shows the email and booking fallback. The evidence run confirms no `portfolio-contact` function exists. Amazon SES in eu-west-2 is in its default sandbox (production access off), so identity verification and a production-access request are still to do.
 
 ### 9. Not claimed
 Amplify runs on AWS-managed infrastructure (for example a content delivery network and storage). Those parts are managed by Amplify and were not configured separately, so they are not listed as services used.
@@ -96,4 +96,4 @@ Signed in as gibson-admin, from the project folder:
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\docs\evidence\collect-aws-evidence.ps1
 ```
-It is read-only, masks the account ID, prints no secret values, and saves a dated copy to `scratch\` (git-ignored). Paste or screenshot its output into the submission alongside this page.
+It is read-only apart from one public GET to the site's own feed, masks the account ID and email addresses, prints no secret values, and sends no test alert. It saves a private copy to `scratch\` (git-ignored) and a masked copy to `docs\evidence\aws-evidence-<date>.txt` for review before committing.

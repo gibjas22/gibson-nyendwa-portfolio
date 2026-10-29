@@ -94,3 +94,4 @@ See the handover list in the chat: lawful-basis wording, retention statement, iM
 - Studio: placeholder made explicit with `stemReady: false` (no request for the missing file); status line says Studio is a placeholder; desk goes fully silent while the track video is open; a stem that fails to load is named in the status line.
 - Article draft re-checked: Birmingham Museum & Art Gallery gallery list and Opheem's two Michelin stars corrected. Still unpublished.
 - Report: `docs/2026-10-29-completion-report.md`.
+- 07:56 UTC evidence run (`docs/evidence/aws-evidence-2026-10-29.txt`): Amplify jobs 16 to 20 succeeded; Lambda, role and API configuration read back; CloudWatch logged the test request at 07:57:13 UTC; budget 13 USD monthly with 80% actual and 100% forecast email alerts; no contact Lambda, SES in sandbox. Evidence script fixed (a PowerShell quoting error on line 38) and parse-checked.
