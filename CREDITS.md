@@ -44,15 +44,14 @@ Episode videos are not copied: they play from YouTube's privacy-enhanced player 
 | assets/img/hero/with-son-*.webp | Gibson with his son | Gibson's own photo, supplied 29 October 2026; added at his request on 30 October 2026 | Screenshot border trimmed; shown whole over a blurred copy of itself |
 
 ## Project logos
-Supplied by Gibson on 30 October 2026. The untouched uploads are kept in `assets/img/logos/source/`; the website copies were trimmed of empty canvas (artwork plus a 4% margin), resized and saved as WebP. Nothing was recoloured, redrawn or removed.
+Supplied by Gibson on 30 October 2026. The uploads used are kept unchanged in `assets/img/logos/source/`; the website copies were trimmed of empty canvas (artwork plus a 4% margin), resized and saved as WebP. Nothing was recoloured, redrawn or removed.
 
-| File | Project | Background |
+| File | Project | Source |
 |---|---|---|
-| gibcom-marketing-support-logo.webp | Gibcom Marketing Support | Transparent |
-| clara-gibcom-inbound-ai-logo.webp | Clara | White, as supplied |
-| aibos-command-centre-logo.webp | AIBOS Command Centre | White, as supplied |
-| send-life-transition-logo.webp | SEND Life Transition | Transparent |
-| gibson-portfolio-aws-student-builder-logo.webp | This portfolio | White, as supplied |
-| the-unsaid-sound-logo.webp | The Unsaid Sound | Purple square, as supplied |
-
-Birmingham Local Biz Support has no logo yet and keeps its initials.
+| gibcom-marketing-support-logo.webp | Gibcom Marketing Support | Supplied transparent |
+| birmingham-local-biz-support-logo.webp | Birmingham Local Biz Support | Supplied on black; the flat black background was made transparent at Gibson's request (only black touching the edges, with the soft edge of the pin kept) |
+| clara-gibcom-inbound-ai-logo.webp | Clara | Supplied transparent |
+| aibos-command-centre-logo.webp | AIBOS Command Centre | Supplied transparent |
+| send-life-transition-logo.webp | SEND Life Transition | Supplied transparent |
+| gibson-portfolio-aws-student-builder-logo.webp | This portfolio | Supplied transparent |
+| the-unsaid-sound-logo.webp | The Unsaid Sound | Supplied transparent |

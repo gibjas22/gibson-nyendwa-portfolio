@@ -41,7 +41,7 @@ export const projects = [
   },
   {
     id: "blbs",
-    // logo: not supplied yet. Add one like the others and the initials disappear.
+    logo: { src: "assets/img/logos/birmingham-local-biz-support-logo.webp", width: 308, height: 400, shape: "square", plate: false, alt: "Birmingham Local Biz Support logo" },
     title: "Birmingham Local Biz Support",
     category: "web",
     colour: "#F6D264",
@@ -87,7 +87,7 @@ export const projects = [
   },
   {
     id: "aibos",
-    logo: { src: "assets/img/logos/aibos-command-centre-logo.webp", width: 720, height: 240, shape: "wide", plate: true, alt: "AIBOS Command Centre logo" },
+    logo: { src: "assets/img/logos/aibos-command-centre-logo.webp", width: 720, height: 239, shape: "wide", plate: true, alt: "AIBOS Command Centre logo" },
     title: "AIBOS Command Centre",
     category: "ai",
     colour: "#B07CFF",
@@ -133,7 +133,7 @@ export const projects = [
   },
   {
     id: "portfolio",
-    logo: { src: "assets/img/logos/gibson-portfolio-aws-student-builder-logo.webp", width: 400, height: 451, shape: "square", plate: true, alt: "AWS Student Builder personal project badge for Gibson Nyendwa" },
+    logo: { src: "assets/img/logos/gibson-portfolio-aws-student-builder-logo.webp", width: 353, height: 400, shape: "square", plate: false, alt: "AWS Student Builder personal project badge for Gibson Nyendwa" },
     title: "This portfolio",
     category: "web",
     colour: "#FF4D6D",
@@ -157,7 +157,7 @@ export const projects = [
   },
   {
     id: "unsaid",
-    logo: { src: "assets/img/logos/the-unsaid-sound-logo.webp", width: 400, height: 400, shape: "square", plate: false, alt: "The Unsaid Sound logo" },
+    logo: { src: "assets/img/logos/the-unsaid-sound-logo.webp", width: 400, height: 297, shape: "landscape", plate: true, alt: "The Unsaid Sound logo" },
     title: "The Unsaid Sound",
     category: "music",
     colour: "#FF4D6D",

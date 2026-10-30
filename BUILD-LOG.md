@@ -149,3 +149,10 @@ See the handover list in the chat: lawful-basis wording, retention statement, iM
 - Navy wordmarks (Clara, AIBOS) and the portfolio badge keep their supplied white background, so they read on the dark themes.
 - To replace a logo later: put the new file in `assets/img/logos/`, then edit the project's `logo` entry in `js/projects.js` (src, width, height, shape "wide" or "square", plate true if it needs the white backing, alt). Removing the entry brings the initials back.
 - Checks: seven pages at 360, 390, 768, 1024, 1440 and 640 px (1280 at 200% zoom) in all three themes, no overflow, overlap, failed requests or console errors; 55 logo checks (alt text, hover, tilt limit, reset, reduced motion, touch, keyboard, fallback, navigation between projects, reload); existing suites 64/64 theme, 58/58 click-through, 20/20 reel, 42/42 mobile; axe on the home page and all seven project pages in three themes at 1440 and 390 px: no new issues (one existing best-practice note on the home page's complementary landmark).
+
+## 30 October 2026, afternoon: all seven logos, transparent
+- Birmingham Local Biz Support now has its logo, so no project shows initials. Its black background was made transparent: only the black touching the edges was removed and the pin's soft edge was kept, so no part of the artwork changed.
+- Clara, AIBOS, the portfolio badge and The Unsaid Sound now use the transparent versions Gibson supplied instead of the white or purple-square ones. Every logo file is now transparent.
+- Clara, AIBOS and The Unsaid Sound have dark lettering, which cannot be read on the Purple and Sky Blue themes. On those two themes they sit on a soft light surface; on the White theme they have no backing at all. Set `plate: false` in `js/projects.js` to remove it.
+- New shape "landscape" (The Unsaid Sound) sits between the wide wordmarks and the square badges.
+- Checks: seven pages at 360, 390, 768, 1024, 1440 and 640 px in all three themes, no overflow, overlap or errors; 63 logo checks; 64/64 theme, 58/58 click-through; axe on the home page and seven project pages in three themes, no new issues.

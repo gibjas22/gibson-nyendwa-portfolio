@@ -1113,7 +1113,11 @@ h1, h2 { overflow-wrap: break-word; }
    badges look equally prominent. Width/height attributes on the img reserve the space before it loads. ---------- */
 .project-logo { display: inline-grid; place-items: center; box-sizing: border-box; }
 .project-logo img { display: block; width: 100%; height: auto; }
-.logo-plate { background: #fff; border: 1px solid rgba(10, 27, 71, .12); border-radius: 14px; padding: .6rem .8rem; }
+/* Logos are transparent. "plate" logos have dark lettering, so on the dark themes (Purple, Sky Blue) they sit on a
+   soft light surface to stay readable; on the White theme there is no backing at all. */
+.logo-plate { border-radius: 14px; padding: .6rem .8rem; }
+html:not([data-theme="white"]) .logo-plate { background: rgba(255, 255, 255, .94); box-shadow: inset 0 0 0 1px rgba(10, 27, 71, .08); }
+html[data-theme="white"] .logo-plate { padding: 0; }
 .logo-missing { font: 700 1.1rem/1.25 var(--head); color: var(--text-heading); text-align: center; padding: 1rem; border: 1px dashed var(--border); border-radius: 14px; background: var(--bg-section); }
 
 /* Cards */
@@ -1125,6 +1129,7 @@ h1, h2 { overflow-wrap: break-word; }
 .thumb-logo.logo-square.logo-plate img { height: min(calc(100cqh - .8rem), 150px); }
 .thumb-logo.logo-square.logo-plate { padding: .4rem; }
 .thumb-logo.logo-wide.logo-plate { padding: .5rem .7rem; }
+.thumb-logo.logo-landscape img { height: min(calc(100cqh - 1.2rem), 125px); width: auto; }
 
 /* Case-study header: logo beside the text on wide screens, above it on narrow ones. */
 .case-head.has-logo { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1.5rem 2.5rem; align-items: center; }
@@ -1135,7 +1140,8 @@ h1, h2 { overflow-wrap: break-word; }
 .case-logo.logo-wide { width: clamp(240px, 28vw, 340px); }
 .case-logo.logo-wide img { max-height: 150px; object-fit: contain; }
 .case-logo.logo-square { width: clamp(130px, 14vw, 170px); }
-.case-logo.logo-square:not(.logo-plate) img { filter: drop-shadow(0 0 0 transparent); }
+.case-logo.logo-square img { max-height: 180px; object-fit: contain; }
+.case-logo.logo-landscape { width: clamp(180px, 17vw, 240px); }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .case-logo:hover { --lift: -3px; --s: 1.04; box-shadow: 0 10px 28px -10px color-mix(in srgb, var(--c) 70%, transparent), 0 0 0 1px color-mix(in srgb, var(--c) 35%, transparent); }
   .gallery-link:hover .thumb-logo { transform: translateY(-2px) scale(1.03); }
@@ -1148,5 +1154,7 @@ h1, h2 { overflow-wrap: break-word; }
   .case-head.has-logo .case-head-text { grid-row: 2; }
   .case-logo.logo-wide { width: min(280px, 100%); }
   .case-logo.logo-wide img { max-height: 120px; }
-  .case-logo.logo-square { width: 120px; }
+  .case-logo.logo-square { width: 130px; }
+  .case-logo.logo-square img { max-height: 130px; }
+  .case-logo.logo-landscape { width: 190px; }
 }
