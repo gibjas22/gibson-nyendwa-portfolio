@@ -1,5 +1,5 @@
 // project.js: renders one case study from projects.js (moved out of project.html so a strict CSP can block inline scripts).
-import { byId, projects, categoryLabel } from "./projects.js";
+import { byId, projects, categoryLabel, logoHTML, watchLogos, tiltLogos } from "./projects.js";
 const id = new URLSearchParams(location.search).get("id");
 const p = byId(id);
 const body = document.getElementById("case-body");
@@ -14,7 +14,9 @@ if (!p) {
   const related = p.related.map(byId).filter(Boolean);
   const sec = (h, inner) => inner ? `<section class="case-section"><h2>${h}</h2>${inner}</section>` : "";
   body.innerHTML = `
-    <header class="case-head" style="--c:${p.colour}">
+    <header class="case-head${p.logo ? " has-logo" : ""}" style="--c:${p.colour}">
+      ${p.logo ? logoHTML(p, { cls: "case-logo" }) : ""}
+      <div class="case-head-text">
       <p class="case-cat">${esc(categoryLabel(p.category))} · ${esc(p.year)}</p>
       <h1>${esc(p.title)}</h1>
       <p class="lede">${esc(p.summary)}</p>
@@ -22,6 +24,7 @@ if (!p) {
         ${p.live ? `<a class="button" href="${p.live}" target="_blank" rel="noopener">${p.live.includes("github.com") ? "View the repository" : "Visit the live project"}</a>` : ""}
         <a class="button button-quiet" href="index.html#contact">Talk to me about this</a>
       </p>
+      </div>
     </header>
     ${sec("Overview", `<p>${esc(p.overview)}</p>`)}
     ${sec("The problem", `<p>${esc(p.problem)}</p>`)}
@@ -32,6 +35,7 @@ if (!p) {
     ${sec("What I learned", `<p>${esc(p.lessons)}</p>`)}
     ${related.length ? sec("Related projects", `<ul class="related">${related.map(r=>`<li style="--c:${r.colour}"><a href="project.html?id=${r.id}">${esc(r.title)}</a><span class="muted"> ${esc(categoryLabel(r.category))}</span></li>`).join("")}</ul>`) : ""}
     <p class="crumbs"><a href="index.html#projects">All projects</a></p>`;
+  watchLogos(body); tiltLogos(body);
 }
 // mobile menu on this page
 const nav = document.getElementById("site-nav"), toggle = document.querySelector(".menu-toggle");

@@ -17,6 +17,7 @@ export const CATEGORIES = [
 export const projects = [
   {
     id: "gibcom",
+    logo: { src: "assets/img/logos/gibcom-marketing-support-logo.webp", width: 720, height: 259, shape: "wide", plate: false, alt: "Gibcom Marketing Support Ltd logo" },
     title: "Gibcom Marketing Support",
     category: "web",
     colour: "#5CC4F2",
@@ -40,6 +41,7 @@ export const projects = [
   },
   {
     id: "blbs",
+    // logo: not supplied yet. Add one like the others and the initials disappear.
     title: "Birmingham Local Biz Support",
     category: "web",
     colour: "#F6D264",
@@ -62,6 +64,7 @@ export const projects = [
   },
   {
     id: "clara",
+    logo: { src: "assets/img/logos/clara-gibcom-inbound-ai-logo.webp", width: 720, height: 248, shape: "wide", plate: true, alt: "Clara, Gibcom Inbound AI logo" },
     title: "Clara, the Gibcom inbound line",
     category: "ai",
     colour: "#B07CFF",
@@ -84,6 +87,7 @@ export const projects = [
   },
   {
     id: "aibos",
+    logo: { src: "assets/img/logos/aibos-command-centre-logo.webp", width: 720, height: 240, shape: "wide", plate: true, alt: "AIBOS Command Centre logo" },
     title: "AIBOS Command Centre",
     category: "ai",
     colour: "#B07CFF",
@@ -106,6 +110,7 @@ export const projects = [
   },
   {
     id: "sendlife",
+    logo: { src: "assets/img/logos/send-life-transition-logo.webp", width: 400, height: 406, shape: "square", plate: false, alt: "SEND Life Transition logo" },
     title: "SEND Life Transition",
     category: "education",
     colour: "#FFA152",
@@ -128,6 +133,7 @@ export const projects = [
   },
   {
     id: "portfolio",
+    logo: { src: "assets/img/logos/gibson-portfolio-aws-student-builder-logo.webp", width: 400, height: 451, shape: "square", plate: true, alt: "AWS Student Builder personal project badge for Gibson Nyendwa" },
     title: "This portfolio",
     category: "web",
     colour: "#FF4D6D",
@@ -151,6 +157,7 @@ export const projects = [
   },
   {
     id: "unsaid",
+    logo: { src: "assets/img/logos/the-unsaid-sound-logo.webp", width: 400, height: 400, shape: "square", plate: false, alt: "The Unsaid Sound logo" },
     title: "The Unsaid Sound",
     category: "music",
     colour: "#FF4D6D",
@@ -175,3 +182,43 @@ export const projects = [
 
 export const byId = id => projects.find(p => p.id === id);
 export const categoryLabel = id => (CATEGORIES.find(c => c.id === id) || {}).label || id;
+
+// Shared logo display for project cards and case-study pages.
+// decorative: true where the project name is already next to it (cards), so screen readers hear it once.
+export function logoHTML(p, { decorative = false, cls = "" } = {}) {
+  const l = p.logo;
+  if (!l) return "";
+  return `<span class="project-logo ${cls} logo-${l.shape}${l.plate ? " logo-plate" : ""}" data-name="${p.title.replace(/"/g, "&quot;")}">`
+    + `<img src="${l.src}" width="${l.width}" height="${l.height}" alt="${decorative ? "" : l.alt.replace(/"/g, "&quot;")}" decoding="async"></span>`;
+}
+
+// If a logo file fails to load, show the project name instead of a broken image, and say so in the console
+// so a missing file is noticed during testing.
+export function watchLogos(root = document) {
+  root.querySelectorAll(".project-logo img").forEach(img => {
+    const fail = () => {
+      const box = img.parentElement;
+      console.warn("Project logo failed to load:", img.getAttribute("src"));
+      box.classList.add("logo-missing");
+      box.textContent = box.dataset.name;
+    };
+    if (img.complete && img.naturalWidth === 0) fail(); else img.addEventListener("error", fail, { once: true });
+  });
+}
+
+// Gentle pointer-following tilt (at most 3 degrees) on the case-study logo. Mouse and trackpad only;
+// nothing happens on touch screens or when the visitor asks for reduced motion. Resets on leave.
+export function tiltLogos(root = document) {
+  if (!matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)");
+  root.querySelectorAll(".case-logo").forEach(box => {
+    box.addEventListener("pointermove", e => {
+      if (reduce.matches || e.pointerType !== "mouse") return;
+      const r = box.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      box.style.setProperty("--ry", (x * 6).toFixed(2) + "deg");
+      box.style.setProperty("--rx", (-y * 6).toFixed(2) + "deg");
+    });
+    box.addEventListener("pointerleave", () => { box.style.removeProperty("--rx"); box.style.removeProperty("--ry"); });
+  });
+}

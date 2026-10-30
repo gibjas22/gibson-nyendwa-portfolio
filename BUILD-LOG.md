@@ -140,3 +140,12 @@ See the handover list in the chat: lawful-basis wording, retention statement, iM
 
 ## 30 October 2026, morning: reel decisions
 - Gibson confirmed the reel should move by itself (no change needed) and asked for the photo with his son to be added. It is now slide 4 of 6, shown whole (it is a landscape photo) over a blurred copy of itself; his son is not named on the page.
+
+## 30 October 2026: project logos replace the initials
+- Six of the seven project cards and case-study headers now show the project's own logo instead of initials. Birmingham Local Biz Support keeps "BL" until its logo is supplied (the upload set had no matching file).
+- Case-study pages: the logo sits beside the title on wide screens and above it on phones; the title stays as real text. Wide wordmarks are up to 340 px wide, square badges up to 170 px, phones 120 px. Width and height attributes reserve the space, so nothing jumps while it loads.
+- Hover (mouse only): lifts 3 px, grows to 1.04 and gains a soft glow in the project's colour over 250 ms, with a tilt of at most 3 degrees that follows the pointer and resets when it leaves. Nothing moves on touch screens or with reduced motion. Logos are not links and add no tab stops. On cards the image is decorative (the project name is next to it); on case studies it has alt text such as "AIBOS Command Centre logo".
+- If a logo file fails to load, the project name appears in its place and the browser console says which file failed.
+- Navy wordmarks (Clara, AIBOS) and the portfolio badge keep their supplied white background, so they read on the dark themes.
+- To replace a logo later: put the new file in `assets/img/logos/`, then edit the project's `logo` entry in `js/projects.js` (src, width, height, shape "wide" or "square", plate true if it needs the white backing, alt). Removing the entry brings the initials back.
+- Checks: seven pages at 360, 390, 768, 1024, 1440 and 640 px (1280 at 200% zoom) in all three themes, no overflow, overlap, failed requests or console errors; 55 logo checks (alt text, hover, tilt limit, reset, reduced motion, touch, keyboard, fallback, navigation between projects, reload); existing suites 64/64 theme, 58/58 click-through, 20/20 reel, 42/42 mobile; axe on the home page and all seven project pages in three themes at 1440 and 390 px: no new issues (one existing best-practice note on the home page's complementary landmark).

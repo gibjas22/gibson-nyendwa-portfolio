@@ -1108,3 +1108,45 @@ h1, h2 { overflow-wrap: break-word; }
 /* A landscape photo in the square reel: shown whole, over a soft blurred copy of itself. */
 .reel-slide-wide img:not(.reel-backdrop) { position: absolute; inset: 0; object-fit: contain; }
 .reel-slide-wide .reel-backdrop { position: absolute; inset: -20%; width: 140%; height: 140%; max-width: none; object-fit: cover; filter: blur(18px) brightness(.75); }
+
+/* ---------- Project logos (replaces the initials). Sizes are per shape so wide wordmarks and square
+   badges look equally prominent. Width/height attributes on the img reserve the space before it loads. ---------- */
+.project-logo { display: inline-grid; place-items: center; box-sizing: border-box; }
+.project-logo img { display: block; width: 100%; height: auto; }
+.logo-plate { background: #fff; border: 1px solid rgba(10, 27, 71, .12); border-radius: 14px; padding: .6rem .8rem; }
+.logo-missing { font: 700 1.1rem/1.25 var(--head); color: var(--text-heading); text-align: center; padding: 1rem; border: 1px dashed var(--border); border-radius: 14px; background: var(--bg-section); }
+
+/* Cards */
+.thumb.has-logo { padding: .9rem 1rem 2.7rem; container-type: size; }
+.thumb-logo { max-width: 100cqw; max-height: 100cqh; }
+.thumb-logo.logo-wide { width: min(78cqw, 300px); }
+.thumb-logo.logo-wide img { max-height: calc(100cqh - 1.2rem); object-fit: contain; }
+.thumb-logo.logo-square img { height: min(100cqh, 160px); width: auto; }
+.thumb-logo.logo-square.logo-plate img { height: min(calc(100cqh - .8rem), 150px); }
+.thumb-logo.logo-square.logo-plate { padding: .4rem; }
+.thumb-logo.logo-wide.logo-plate { padding: .5rem .7rem; }
+
+/* Case-study header: logo beside the text on wide screens, above it on narrow ones. */
+.case-head.has-logo { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1.5rem 2.5rem; align-items: center; }
+.case-head.has-logo .case-logo { grid-column: 2; grid-row: 1; }
+.case-head.has-logo .case-head-text { grid-column: 1; grid-row: 1; min-width: 0; }
+.case-logo { perspective: 600px; transition: transform .25s ease, box-shadow .25s ease, filter .25s ease; border-radius: 16px;
+  transform: translateY(var(--lift, 0)) scale(var(--s, 1)) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
+.case-logo.logo-wide { width: clamp(240px, 28vw, 340px); }
+.case-logo.logo-wide img { max-height: 150px; object-fit: contain; }
+.case-logo.logo-square { width: clamp(130px, 14vw, 170px); }
+.case-logo.logo-square:not(.logo-plate) img { filter: drop-shadow(0 0 0 transparent); }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .case-logo:hover { --lift: -3px; --s: 1.04; box-shadow: 0 10px 28px -10px color-mix(in srgb, var(--c) 70%, transparent), 0 0 0 1px color-mix(in srgb, var(--c) 35%, transparent); }
+  .gallery-link:hover .thumb-logo { transform: translateY(-2px) scale(1.03); }
+  .thumb-logo { transition: transform .25s ease; }
+}
+@media (prefers-reduced-motion: reduce) { .case-logo { transition: none; transform: none; } }
+@media (max-width: 760px) {
+  .case-head.has-logo { grid-template-columns: minmax(0, 1fr); }
+  .case-head.has-logo .case-logo { grid-column: 1; grid-row: 1; justify-self: start; }
+  .case-head.has-logo .case-head-text { grid-row: 2; }
+  .case-logo.logo-wide { width: min(280px, 100%); }
+  .case-logo.logo-wide img { max-height: 120px; }
+  .case-logo.logo-square { width: 120px; }
+}

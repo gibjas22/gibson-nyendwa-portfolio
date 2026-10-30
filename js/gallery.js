@@ -2,7 +2,7 @@
 // The static list in the HTML stays as the no-JavaScript fallback; this replaces it when it runs.
 // Filter state lives in the URL hash (#projects?filter=ai) so a filtered view can be shared.
 
-import { projects, CATEGORIES, categoryLabel } from "./projects.js";
+import { projects, CATEGORIES, categoryLabel, logoHTML, watchLogos } from "./projects.js";
 
 const section = document.getElementById("projects");
 const list = section?.querySelector(".projects");
@@ -26,7 +26,7 @@ if (section && list) {
   const tile = p => `
     <li class="gallery-card" style="--c:${p.colour}">
       <a class="gallery-link" href="project.html?id=${p.id}">
-        <div class="thumb" aria-hidden="true"><span class="thumb-mark">${p.title.split(/\s+/).slice(0,2).map(w=>w[0]).join("").toUpperCase()}</span><span class="thumb-cat">${categoryLabel(p.category)}</span></div>
+        <div class="thumb${p.logo ? " has-logo" : ""}" aria-hidden="true">${p.logo ? logoHTML(p, { decorative: true, cls: "thumb-logo" }) : `<span class="thumb-mark">${p.title.split(/\s+/).slice(0,2).map(w=>w[0]).join("").toUpperCase()}</span>`}<span class="thumb-cat">${categoryLabel(p.category)}</span></div>
         <h3>${p.title}</h3>
       </a>
       <p>${p.summary}</p>
@@ -40,6 +40,7 @@ if (section && list) {
   const render = filter => {
     const items = projects.filter(p => filter === "all" || p.category === filter);
     list.innerHTML = items.length ? items.map(tile).join("") : `<li class="gallery-empty">No projects in ${categoryLabel(filter)} yet. <button type="button" class="text-link" data-filter="all">Show all projects</button></li>`;
+    watchLogos(list);
     bar.querySelectorAll(".filter").forEach(b => { const on = b.dataset.filter === filter; b.setAttribute("aria-pressed", String(on)); b.classList.toggle("on", on); });
     status.textContent = filter === "all" ? `Showing all ${items.length} projects` : `Showing ${items.length} in ${categoryLabel(filter)}`;
   };
