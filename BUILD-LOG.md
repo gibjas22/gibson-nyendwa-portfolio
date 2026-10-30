@@ -137,3 +137,6 @@ See the handover list in the chat: lawful-basis wording, retention statement, iM
 - Nothing else loads with the page: each slide is fetched shortly before it shows, and the opening photo stays 8 seconds. Lab result on a phone: performance 95 to 98, layout shift 0.
 - Not used: the photo with Gibson's son (awaiting Gibson's decision), the cherry blossom photo (other people at the edges), the third clip (possible second person in the background) and the later part of the headphones clip (shows a product web page).
 - Mobile test of the reel (Chromium phone emulation: iPhone SE, iPhone 13, Pixel 7, Galaxy S9+, iPad Mini, iPhone 13 landscape; 42 checks) found and fixed: Play did nothing after a tap on phones (tapping gave the button focus, which paused the reel), no swipe, photos soft on high-density screens, controls off screen in landscape, and the first-visit chooser covering the whole portrait on phones. Swipe left or right now changes slide; 1080 px photo sizes added; landscape shows a smaller reel; the chooser is shorter on phones.
+
+## 30 October 2026, morning: reel decisions
+- Gibson confirmed the reel should move by itself (no change needed) and asked for the photo with his son to be added. It is now slide 4 of 6, shown whole (it is a landscape photo) over a blurred copy of itself; his son is not named on the page.

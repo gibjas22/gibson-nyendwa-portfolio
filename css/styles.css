@@ -1105,3 +1105,6 @@ h1, h2 { overflow-wrap: break-word; }
   .chooser-later span { display: none; }
   .chooser-actions .button { padding: .55rem .9rem; }
 }
+/* A landscape photo in the square reel: shown whole, over a soft blurred copy of itself. */
+.reel-slide-wide img:not(.reel-backdrop) { position: absolute; inset: 0; object-fit: contain; }
+.reel-slide-wide .reel-backdrop { position: absolute; inset: -20%; width: 140%; height: 140%; max-width: none; object-fit: cover; filter: blur(18px) brightness(.75); }

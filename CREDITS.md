@@ -41,3 +41,4 @@ Episode videos are not copied: they play from YouTube's privacy-enhanced player 
 | assets/img/hero/*-poster.webp | First frame of each clip | From the clips above | WebP |
 | assets/img/hero/colmore-*.webp | Gibson outside the Colmore Building, Birmingham | Gibson's own photo, supplied 29 October 2026 | Cropped square; flipped left to right so the building's sign reads correctly (the selfie was mirrored) |
 | assets/img/hero/smile-*.webp | Gibson smiling in a white shirt | Gibson's own photo, supplied 29 October 2026 | Cropped square |
+| assets/img/hero/with-son-*.webp | Gibson with his son | Gibson's own photo, supplied 29 October 2026; added at his request on 30 October 2026 | Screenshot border trimmed; shown whole over a blurred copy of itself |
