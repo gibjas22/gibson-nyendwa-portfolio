@@ -446,6 +446,15 @@
       </div>
 
       <div class="contact-details">
+        <div class="card voice-agent" id="voice-agent" hidden>
+          <h3>Talk to my AI assistant</h3>
+          <p>Ask a voice assistant about my work, from SEND education to Gibcom and The Unsaid Sound. It is an AI, not me, and it can point you to a call with the real Gibson.</p>
+          <button class="button" type="button" id="va-start">Start a voice chat</button>
+          <button class="button button-quiet" type="button" id="va-stop" hidden>End chat</button>
+          <div class="voice-embed" id="va-embed" hidden></div>
+          <p class="va-status" id="va-status" role="status" aria-live="polite"></p>
+          <p class="muted small">Runs on Tough Tongue AI and loads from toughtongueai.com only when you press Start. Uses your microphone; chats end after five minutes and are not recorded. <a href="privacy.html">Privacy notice</a>.</p>
+        </div>
         <div class="card booking" id="booking">
           <h3>Book a 30-minute call</h3>
           <p>A project discovery call with me, online. Pick a slot that suits you.</p>
@@ -498,6 +507,7 @@
 <script type="module" src="js/main.js"></script>
 <script type="module" src="js/desk.js"></script>
 <script type="module" src="js/contact.js"></script>
+<script type="module" src="js/voice-agent.js"></script>
 <script type="module" src="js/podcast.js"></script>
 <script type="module" src="js/gallery.js"></script>
 <script type="module" src="js/hero.js"></script>
