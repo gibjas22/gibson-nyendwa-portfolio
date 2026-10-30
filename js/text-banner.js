@@ -82,7 +82,7 @@ function init(root) {
   function step(now) {
     raf = 0;
     if (!running) return;
-    const dt = Math.min(64, now - (last || now));
+    const dt = Math.min(250, now - (last || now));   // keeps the speed steady on slow devices; larger gaps (tab switches) are capped
     last = now;
     if (now >= holdUntil) {
       const t = Math.min(1, (now - Math.max(rampStart, holdUntil)) / rampMs);
