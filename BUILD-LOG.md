@@ -184,3 +184,8 @@ Worked through the "Fix and verify first" list in the 30 October recommendations
 - Repository check: public, GitHub and the local copy both at `d1ab957`, `index.html` at the top level, no access keys, no full account ID, only the public enquiries email.
 - The one gap was a written `plan.md`. Wrote it up from what is already on the site; it stays on my computer (added to `.gitignore`), as the guide advises.
 - `README.md` brought up to date: current sections, folders, and how to rebuild the case-study pages.
+
+## 30 October 2026, evening: Day 4 checked against the published guide; submission guide
+- AWS published "How to put your website online" on 30 October. The site has been on Amplify Hosting since 27 October; compared step by step in `docs/day4/AWS_Day4_Guide_Check.md`.
+- Live checks, read-only: HTTPS; home, case study, Insights and What's On pages 200; styles, scripts and audio served; the Day 3 commit `506f886` is live; missing pages return the 404 page with status 404; all six security headers present; 492 file references checked for upper/lower-case mismatches, none found.
+- Added `docs/SUBMISSION-GUIDE.md`: where each day stands, the steps to finish before 6 November, material for the submission form, and how to take the site down after judging.

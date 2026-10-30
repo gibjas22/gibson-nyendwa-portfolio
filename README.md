@@ -30,7 +30,8 @@ css/                  styles.css, desk.css
 js/                   desk.js, channels.js, projects.js, theme.js and the other page scripts
 assets/               audio, images, logos, fonts, video
 backend/              the news Lambda function and the (not yet deployed) contact function
-docs/                 day-by-day AWS setup records (day2, day3), services, themes, evidence
+docs/                 day-by-day AWS setup records (day2, day3, day4), services, themes, evidence,
+                      and SUBMISSION-GUIDE.md
 scripts/              build-projects.mjs and AWS helper scripts
 BUILD-LOG.md          daily notes that become the write-up
 CREDITS.md            audio, image, font and logo sources and licences
