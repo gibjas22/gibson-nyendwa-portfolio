@@ -1349,3 +1349,29 @@ html[data-theme="white"] .text-banner { --tb-bg: #1E0E34; --tb-edge: #3B2257; bo
   .text-banner .text-banner-line[aria-hidden="true"] { display: none; }
   .text-banner .tb-w { color: #000 !important; transition: none; }
 }
+
+/* ---------- Motion hero (js/hero-motion.js) ----------
+   Seven channel-coloured waveform ribbons in perspective behind the hero, full width.
+   Faded under the words so the text keeps its contrast; still frame for reduced motion. */
+.hero { overflow: visible; }
+.hero-motion {
+  position: absolute; z-index: -1; pointer-events: none;
+  top: 0; bottom: 0; left: 50%; width: 100vw; height: 100%; transform: translateX(-50%);
+  opacity: 0; transition: opacity 900ms ease;
+  -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,.35) 0%, rgba(0,0,0,.55) 35%, #000 70%), linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
+  -webkit-mask-composite: source-in; mask-composite: intersect;
+  mask-image: linear-gradient(to right, rgba(0,0,0,.35) 0%, rgba(0,0,0,.55) 35%, #000 70%), linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
+}
+.hero-motion.is-ready { opacity: 1; }
+.hero-motion.is-light { opacity: .85; }
+@media (max-width: 860px) {
+  .hero-motion { -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.45) 25%, #000 70%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.45) 25%, #000 70%, transparent 100%); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-text > * { animation: hero-rise 700ms cubic-bezier(.2,.7,.2,1) both; }
+  .hero-text > :nth-child(2) { animation-delay: 90ms; }
+  .hero-text > :nth-child(3) { animation-delay: 180ms; }
+  .hero-text > :nth-child(4) { animation-delay: 260ms; }
+  .hero-photo { animation: hero-rise 800ms 120ms cubic-bezier(.2,.7,.2,1) both; }
+}
+@keyframes hero-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
