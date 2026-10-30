@@ -178,3 +178,9 @@ Worked through the "Fix and verify first" list in the 30 October recommendations
 - The guide's own check prompt, run as `claude -p`, could not call AWS at first because non-interactive mode cannot approve the AWS tools. With `--allowedTools "mcp__aws-mcp"` it passed: MCP connected, signed in as `gibson-admin`, Region eu-west-2, read-only calls only.
 - Runbook: skills update command, a list command that does not stop at "-- More --", and the 12-hour sign-in note.
 - Guidance level set to high (Gibson's choice, new to AWS), recorded as a project rule in `CLAUDE.md`.
+
+## 30 October 2026, evening: Day 3 checked against the published guide
+- AWS published "How to plan and build your portfolio" on 29 October, after this site was built. Compared it step by step: `docs/day3/AWS_Day3_Guide_Check.md`.
+- Repository check: public, GitHub and the local copy both at `d1ab957`, `index.html` at the top level, no access keys, no full account ID, only the public enquiries email.
+- The one gap was a written `plan.md`. Wrote it up from what is already on the site; it stays on my computer (added to `.gitignore`), as the guide advises.
+- `README.md` brought up to date: current sections, folders, and how to rebuild the case-study pages.

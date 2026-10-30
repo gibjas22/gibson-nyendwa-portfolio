@@ -25,3 +25,6 @@ docs/day2/evidence/raw/
 
 # Article drafts awaiting review (never pushed; insights.js is public)
 content/drafts/
+
+# My portfolio plan (Day 3 guide: keep it out of the public repository)
+plan.md
