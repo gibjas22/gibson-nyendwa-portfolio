@@ -15,4 +15,4 @@ Sensitive originals stay outside the repo. Shareable evidence masks the account 
 | Full green run of fixed health check | Summary "ALL CHECKS PASSED", 20 of 20 | PowerShell output, 30 Oct about 16:20; recorded in `AWS_Day2_Guide_Recheck_2026-10-30.md` | Captured |
 | Setup matches the published Day 2 guide | Step-by-step comparison | `AWS_Day2_Guide_Recheck_2026-10-30.md` | Written 30 Oct |
 | Skills updated with `update-skill --all` | `aws-sdk-js-v3-usage` updated to v2 for every agent | PowerShell output, 30 Oct | Captured |
-| Guide's own check prompt passes | First run: server loaded, AWS tools not approved in non-interactive mode | PowerShell output, 30 Oct | Partly captured; re-run with `--allowedTools "mcp__aws-mcp"` |
+| Guide's own check prompt passes | Second run with `--allowedTools "mcp__aws-mcp"`: MCP connected, `gibson-admin`, account ending 4263, eu-west-2 | PowerShell output, 30 Oct about 16:28 | Captured |

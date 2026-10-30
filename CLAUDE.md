@@ -13,6 +13,7 @@ Static HTML, CSS and ES modules, no build step, hosted on AWS Amplify Hosting.
 - Visitor-facing text: British English, no em dashes, no invented facts, credentials or testimonials.
 - Live site: https://main.dbthjbi29n1oo.amplifyapp.com
 - Record notable changes in `BUILD-LOG.md`.
+- Guidance level: high (Gibson is new to AWS, chosen 30 October 2026). Explain what each AWS step does and why before doing it, name the service and Region involved, and say what it could cost.
 
 <!-- BEGIN AWS AGENT TOOLKIT RULES (aws-agent-rules.md; re-running setup replaces this block) -->
 # AWS Guidance

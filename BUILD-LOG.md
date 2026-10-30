@@ -175,5 +175,6 @@ Worked through the "Fix and verify first" list in the 30 October recommendations
 ## 30 October 2026, late afternoon: Day 2 re-checked against the published guide
 - AWS published the Day 2 article ("How to connect your coding agent to AWS") after the setup was done on 28 October. Compared it step by step: `docs/day2/AWS_Day2_Guide_Recheck_2026-10-30.md`.
 - Re-run today, read-only: signed in as `gibson-admin` (not root) in eu-west-2; `aws agent-toolkit update-skill --all` updated one skill; `aws-mcp` Connected; health check 20 of 20, "ALL CHECKS PASSED" (closes the outstanding Day 2 evidence item).
-- The guide's own check prompt, run as `claude -p`, could not call AWS because non-interactive mode cannot approve the AWS tools; the runbook now adds `--allowedTools "mcp__aws-mcp"`.
+- The guide's own check prompt, run as `claude -p`, could not call AWS at first because non-interactive mode cannot approve the AWS tools. With `--allowedTools "mcp__aws-mcp"` it passed: MCP connected, signed in as `gibson-admin`, Region eu-west-2, read-only calls only.
 - Runbook: skills update command, a list command that does not stop at "-- More --", and the 12-hour sign-in note.
+- Guidance level set to high (Gibson's choice, new to AWS), recorded as a project rule in `CLAUDE.md`.
