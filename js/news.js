@@ -1,4 +1,5 @@
-// news.js: the "What's On in Birmingham" panel at the top of the Insights page.
+// news.js: the "What's On in Birmingham" panel: three headlines below the original articles on the
+// Insights page, and the full panel with section tabs on insights/whats-on.html.
 // Headlines come from an AWS Lambda behind API Gateway (backend/news-lambda), which reads Birmingham
 // Live's public RSS feeds. What's On is the primary section; Latest news is a secondary tab.
 // Shown: headline, a one-sentence preview, the date and a link to the publisher. No publisher photos
@@ -19,6 +20,8 @@ const SECTIONS = [
 const DEFAULT_SECTION = "whats-on";
 
 const box = document.getElementById("news");
+// data-limit="3" (Insights page): three What's On headlines and a link to the full page; no tabs.
+const LIMIT = box ? +box.dataset.limit || 0 : 0;
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const when = iso => {
   if (!iso) return "";
@@ -77,7 +80,7 @@ function load(id) {
 const sectionLabel = id => (SECTIONS.find(s => s.id === id) || {}).label || "this section";
 
 function cards(data) {
-  const items = (data.items || []).filter(i => /^https:\/\//.test(i.link)).slice(0, 9);
+  const items = (data.items || []).filter(i => /^https:\/\//.test(i.link)).slice(0, LIMIT || 9);
   if (!items.length) {
     return `<p class="news-empty">No ${esc(id2noun(data.section))} stories from ${esc(source)} right now. Try another tab, or check back later: the feed refreshes every 15 minutes.</p>`;
   }
@@ -105,12 +108,13 @@ function build() {
       <h2 id="news-h">What's On in Birmingham</h2>
       <p class="news-source">Gigs, theatre, food, family days out and community events, with the latest headlines from <strong>${esc(source)}</strong>. Selected automatically from their public feeds, not written by me; each story opens on their site. Graphics are mine, not the publisher's photos.</p>
     </div>
-    <div class="filters news-tabs" role="group" aria-label="Choose a section">
+    ${LIMIT ? "" : `<div class="filters news-tabs" role="group" aria-label="Choose a section">
       ${SECTIONS.map(s => `<button type="button" class="filter" data-section="${s.id}" aria-pressed="false">${esc(s.label)}</button>`).join("")}
-    </div>
+    </div>`}
     <p class="filter-status" id="news-status" role="status" aria-live="polite"></p>
-    <div id="news-items"></div>`;
-  box.querySelector(".news-tabs").addEventListener("click", e => { const b = e.target.closest("[data-section]"); if (b) show(b.dataset.section); });
+    <div id="news-items"></div>
+    ${LIMIT ? `<p class="news-more"><a class="button button-quiet" href="whats-on.html">More What's On in Birmingham</a></p>` : ""}`;
+  box.querySelector(".news-tabs")?.addEventListener("click", e => { const b = e.target.closest("[data-section]"); if (b) show(b.dataset.section); });
   built = true;
 }
 

@@ -1,4 +1,5 @@
-// hub.js: Insights listing. Topic tiles, category filter, search, newest-first order and Load more.
+// hub.js: Insights listing. Featured original article first, then one category filter, search,
+// newest-first order and Load more. The Birmingham news panel (news.js) sits below the original work.
 // While a category has no published articles, it shows an honest "coming soon" placeholder card:
 // no invented titles, dates or reading times.
 import { CATEGORIES, ICONS, published, categoryLabel, categoryById, readingTime, fmtDate, esc } from "./insights.js";
@@ -7,25 +8,20 @@ const PAGE = 9;
 const all = published();
 const $ = id => document.getElementById(id);
 const grid = $("grid"), status = $("status"), filters = $("cat-filters"), q = $("q"), clear = $("clear");
-const more = $("more"), moreWrap = $("more-wrap"), featuredBox = $("featured"), tiles = $("topic-tiles"), catHead = $("cat-head");
+const more = $("more"), moreWrap = $("more-wrap"), featuredBox = $("featured"), catHead = $("cat-head");
 let cat = "all", query = "", shown = PAGE;
+const featSlug = (all.find(a => a.featured) || {}).slug;   // shown once, as the featured card, in the all-insights view
 
 const countIn = id => all.filter(a => a.category === id).length;
 const icon = (name, cls = "topic-icon") => `<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICONS[name] || ""}</svg>`;
 
-// ---------- Topic tiles ----------
-tiles.innerHTML = CATEGORIES.map(c => {
-  const n = countIn(c.id);
-  return `<li><button type="button" class="topic-tile" data-cat="${c.id}" style="--c:${c.colour}" aria-pressed="false">
-    ${icon(c.icon)}
-    <span class="topic-name">${esc(c.label)}</span>
-    <span class="topic-blurb">${esc(c.blurb)}</span>
-    <span class="topic-count">${n ? `${n} article${n === 1 ? "" : "s"}` : "First article coming soon"}</span>
-  </button></li>`;
-}).join("");
-
 // ---------- Filter buttons ----------
-const cats = [{ id: "all", label: "All insights" }, ...CATEGORIES];
+// One set of controls: only topics that have published articles get a button. Topics still being
+// written are named once, in the "Coming next" note below the list.
+const cats = [{ id: "all", label: "All insights" }, ...CATEGORIES.filter(c => countIn(c.id))];
+const upcoming = CATEGORIES.filter(c => !countIn(c.id));
+const next = $("coming-next");
+if (next && upcoming.length) { next.innerHTML = `<strong>Coming next:</strong> ${upcoming.map(c => esc(c.label)).join(", ")}.`; next.hidden = false; }
 cats.forEach(c => {
   const b = document.createElement("button");
   b.type = "button"; b.className = "filter"; b.dataset.cat = c.id; b.textContent = c.label; b.setAttribute("aria-pressed", "false");
@@ -72,11 +68,10 @@ const placeholder = c => `
 const matches = a => (cat === "all" || a.category === cat) && (!query || [a.title, a.excerpt, ...(a.tags || [])].join(" ").toLowerCase().includes(query));
 
 function render() {
-  const items = all.filter(matches);
+  const items = all.filter(matches).filter(a => !(cat === "all" && !query && a.slug === featSlug));
   const slice = items.slice(0, shown);
 
   filters.querySelectorAll(".filter").forEach(b => { const on = b.dataset.cat === cat; b.setAttribute("aria-pressed", String(on)); b.classList.toggle("on", on); });
-  tiles.querySelectorAll(".topic-tile").forEach(b => { const on = b.dataset.cat === cat; b.setAttribute("aria-pressed", String(on)); b.classList.toggle("on", on); });
   clear.hidden = cat === "all" && !query;
   featuredBox.hidden = cat !== "all" || !!query;   // the featured card belongs to the all-insights view
   history.replaceState(null, "", (cat === "all" ? "" : `?category=${cat}`) + (query ? (cat === "all" ? "?" : "&") + `q=${encodeURIComponent(query)}` : "") || location.pathname);
@@ -111,7 +106,6 @@ function setCat(id, scroll) {
 }
 function resetAll() { cat = "all"; query = ""; q.value = ""; shown = PAGE; render(); q.focus(); }
 
-tiles.addEventListener("click", e => { const b = e.target.closest("[data-cat]"); if (b) setCat(b.dataset.cat === cat ? "all" : b.dataset.cat, true); });
 filters.addEventListener("click", e => { const b = e.target.closest("[data-cat]"); if (b) setCat(b.dataset.cat, false); });
 filters.addEventListener("keydown", e => {
   if (!["ArrowRight", "ArrowLeft"].includes(e.key)) return;
@@ -136,7 +130,7 @@ if (feat) {
 
 // Initial state from the URL
 const params = new URLSearchParams(location.search);
-if (cats.some(c => c.id === params.get("category"))) cat = params.get("category");
+if ([{ id: "all" }, ...CATEGORIES].some(c => c.id === params.get("category"))) cat = params.get("category");
 if (params.get("q")) { query = params.get("q").toLowerCase(); q.value = params.get("q"); }
 render();
 // Everything is rendered: reveal the controls (hidden until now so they do not jump as content arrives).

@@ -1,5 +1,11 @@
 # Theme system
 
+> **Changed 30 October 2026** (website review): Purple is now the default for every visitor who has not
+> chosen. The first-visit chooser was removed. White, Sky Blue and Automatic (the 14-day rotation below)
+> are explicit choices in the Appearance panel. Where this document describes the chooser or Automatic
+> as the default, it records the earlier design.
+
+
 Three colour themes share one stylesheet. The page's `<html>` element carries a single attribute,
 `data-theme="purple"`, `"sky-blue"` or `"white"`, and every component reads semantic colour tokens
 (CSS custom properties). No component refers to a theme by name.

@@ -73,9 +73,29 @@ function init() {
   const masterFader = $("fader-master");
 
   // ---------- Stories ----------
+  // On phones the desk is a list of rows, so the story appears straight after the row that was moved
+  // (without moving focus). On wider screens it stays below the board.
+  const narrow = matchMedia("(max-width: 760px)");
+  const board = root.querySelector(".desk-board");
+  function placeStory() {
+    const strip = active && narrow.matches ? root.querySelector(`.strip[data-id="${active}"]`) : null;
+    if (strip) { if (strip.nextElementSibling !== storyBox) strip.after(storyBox); }
+    else if (board.nextElementSibling !== storyBox) board.after(storyBox);
+  }
+  narrow.addEventListener?.("change", placeStory);
+  // A short, debounced announcement of the story title, rather than one for every slider step.
+  const announcer = document.createElement("p");
+  announcer.className = "visually-hidden"; announcer.setAttribute("aria-live", "polite");
+  root.appendChild(announcer);
+  let announceTimer = 0;
+  function announce(text) { clearTimeout(announceTimer); announceTimer = setTimeout(() => { announcer.textContent = text; }, 700); }
+
   function showStory(id) {
     if (id === active) return;
     active = id;
+    placeStory();
+    const ch = channels.find(x => x.id === id);
+    if (ch) announce(`Story: ${ch.unlock && !unlocked ? ch.label + ", locked" : (ch.unlock && unlocked ? ch.unlock.title : ch.title)}`);
     const c = channels.find(x => x.id === id);
     if (!c) { storyBox.innerHTML = `<p class="desk-story-empty">${esc(desk.prompt)}</p>`; return; }
     if (c.unlock && !unlocked) {

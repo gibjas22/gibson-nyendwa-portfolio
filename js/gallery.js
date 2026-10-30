@@ -25,14 +25,14 @@ if (section && list) {
 
   const tile = p => `
     <li class="gallery-card" style="--c:${p.colour}">
-      <a class="gallery-link" href="project.html?id=${p.id}">
+      <a class="gallery-link" href="projects/${p.id}.html">
         <div class="thumb${p.logo ? " has-logo" : ""}" aria-hidden="true">${p.logo ? logoHTML(p, { decorative: true, cls: "thumb-logo" }) : `<span class="thumb-mark">${p.title.split(/\s+/).slice(0,2).map(w=>w[0]).join("").toUpperCase()}</span>`}<span class="thumb-cat">${categoryLabel(p.category)}</span></div>
         <h3>${p.title}</h3>
       </a>
       <p>${p.summary}</p>
       <p class="built">My role: ${p.role}</p>
       <p class="card-actions">
-        <a class="text-link" href="project.html?id=${p.id}">Case study</a>
+        <a class="text-link" href="projects/${p.id}.html">Case study</a>
         ${p.live ? `<a class="text-link" href="${p.live}" target="_blank" rel="noopener">Visit${p.live.includes("github.com") ? " the repository" : ""}</a>` : ""}
       </p>
     </li>`;

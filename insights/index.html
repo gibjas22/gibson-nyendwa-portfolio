@@ -23,8 +23,9 @@
 <header class="top">
   <a class="wordmark" href="../index.html">Gibson Nyendwa</a>
   <nav id="site-nav" aria-label="Sections">
+    <a href="../index.html#projects">Work</a>
+    <a href="../index.html#desk">Stories</a>
     <a href="../index.html#about">About</a>
-    <a href="../index.html#projects">Projects</a>
     <a href="../insights/index.html" class="current" aria-current="page">Insights</a>
     <a href="../index.html#contact">Contact</a>
   </nav>
@@ -42,12 +43,8 @@
   <section class="section" style="border-top:0">
     <h1>Insights</h1>
     <p class="section-intro">Practical ideas and personal perspectives on technology, marketing, inclusive education and creativity, plus what's on in Birmingham.</p>
-    <section class="news-panel" id="news" aria-labelledby="news-h" hidden></section>
     <div id="featured"></div>
-    <section class="topics" aria-labelledby="topics-h">
-      <h2 id="topics-h" class="topics-h">Browse by topic</h2>
-      <ul class="topic-tiles" id="topic-tiles"></ul>
-    </section>
+    <h2 class="latest-h" id="latest-h">Latest articles</h2>
     <div class="hub-controls" id="hub-controls">
       <div class="filters" id="cat-filters" role="group" aria-label="Filter by category"></div>
       <form class="search" role="search" id="search-form">
@@ -60,6 +57,8 @@
     <p class="filter-status" id="status" role="status" aria-live="polite"></p>
     <ul class="gallery insights-grid" id="grid"></ul>
     <p id="more-wrap" hidden><button type="button" class="button button-quiet" id="more">Load more</button></p>
+    <p class="coming-next" id="coming-next" hidden></p>
+    <section class="news-panel news-compact" id="news" data-limit="3" aria-labelledby="news-h" hidden></section>
     <noscript><p>The Insights list needs JavaScript. <a href="../index.html">Back to the home page</a>.</p></noscript>
   </section>
 </main>

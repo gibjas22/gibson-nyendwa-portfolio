@@ -1,7 +1,7 @@
 /* theme-boot.js: sets the colour theme before the page paints.
    Loaded as a normal blocking script in <head> on every page (the CSP allows only same-site
    scripts, so this cannot be inline). It is the single source of truth for the theme schedule and
-   the saved preference; js/theme.js (the Appearance control and first-visit chooser) reuses it
+   the saved preference; js/theme.js (the Appearance control) reuses it
    through window.GNTheme.
 
    To change the rotation, edit CONFIG only. See docs/THEMES.md. */
@@ -78,7 +78,9 @@
   function storageAvailable() {
     try { var k = "gn-storage-test"; window.localStorage.setItem(k, "1"); window.localStorage.removeItem(k); return true; } catch (e) { return false; }
   }
-  function resolve(pref, t) { return pref && pref !== "auto" ? pref : scheduled(t); }
+  // No saved preference: Purple, the stable default. The 14-day rotation applies only when a visitor
+  // chooses Automatic in the Appearance panel.
+  function resolve(pref, t) { return pref === "auto" ? scheduled(t) : (pref || "purple"); }
 
   function apply(theme, pref) {
     var root = document.documentElement;

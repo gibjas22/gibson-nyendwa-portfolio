@@ -4,6 +4,9 @@
 // category: one of CATEGORIES below. colour: a channel colour from the desk, so the gallery
 // rhymes with the rest of the site. live: a public URL or "" if there is nothing public to link.
 // outcomes: only verified facts. evidence: editorial notes on what would strengthen the page (not shown).
+// status: where the project stands today, only as supported by the record. measure: shown when there are
+// no measured outcomes yet, saying what will be measured next instead of inventing a result.
+// shots: genuine screenshots with alt text and a caption (paths from the site root).
 
 export const CATEGORIES = [
   { id: "all", label: "All projects" },
@@ -17,6 +20,8 @@ export const CATEGORIES = [
 export const projects = [
   {
     id: "gibcom",
+    status: "Trading since 2016",
+    shots: [{ src: "assets/img/work/gibcom-website-700.webp", width: 700, height: 394, alt: "The Gibcom Marketing Support website home page: Better websites. Smarter marketing.", caption: "The Gibcom website home page, gcmarketingsupport.co.uk, captured 30 October 2026." }],
     logo: { src: "assets/img/logos/gibcom-marketing-support-logo.webp", width: 720, height: 259, shape: "wide", plate: false, alt: "Gibcom Marketing Support Ltd logo" },
     title: "Gibcom Marketing Support",
     category: "web",
@@ -41,6 +46,7 @@ export const projects = [
   },
   {
     id: "blbs",
+    status: "Live since 2021",
     logo: { src: "assets/img/logos/birmingham-local-biz-support-logo.webp", width: 308, height: 400, shape: "square", plate: false, alt: "Birmingham Local Biz Support logo" },
     title: "Birmingham Local Biz Support",
     category: "web",
@@ -64,6 +70,8 @@ export const projects = [
   },
   {
     id: "clara",
+    status: "In development",
+    measure: "Clara is not measured yet. Once she is answering the Gibcom phone line, the first measures will be calls answered, enquiries captured and callbacks booked, compared with the voicemail period before.",
     logo: { src: "assets/img/logos/clara-gibcom-inbound-ai-logo.webp", width: 720, height: 248, shape: "wide", plate: true, alt: "Clara, Gibcom Inbound AI logo" },
     title: "Clara, the Gibcom inbound line",
     category: "ai",
@@ -87,6 +95,8 @@ export const projects = [
   },
   {
     id: "aibos",
+    status: "Staged build in progress",
+    measure: "AIBOS is not measured yet. Each build stage has its own validation gate; results will be reported stage by stage as they pass.",
     logo: { src: "assets/img/logos/aibos-command-centre-logo.webp", width: 720, height: 239, shape: "wide", plate: true, alt: "AIBOS Command Centre logo" },
     title: "AIBOS Command Centre",
     category: "ai",
@@ -110,6 +120,7 @@ export const projects = [
   },
   {
     id: "sendlife",
+    status: "Channel live",
     logo: { src: "assets/img/logos/send-life-transition-logo.webp", width: 400, height: 406, shape: "square", plate: false, alt: "SEND Life Transition logo" },
     title: "SEND Life Transition",
     category: "education",
@@ -133,6 +144,8 @@ export const projects = [
   },
   {
     id: "portfolio",
+    status: "Live on AWS Amplify",
+    shots: [{ src: "assets/img/work/portfolio-desk-800.webp", width: 800, height: 450, alt: "The mixing desk on this site with seven channel faders and a master fader raised to different levels.", caption: "The mixing desk: seven channels, one per part of my story, plus a master fader." }],
     logo: { src: "assets/img/logos/gibson-portfolio-aws-student-builder-logo.webp", width: 353, height: 400, shape: "square", plate: false, alt: "AWS Student Builder personal project badge for Gibson Nyendwa" },
     title: "This portfolio",
     category: "web",
@@ -157,6 +170,7 @@ export const projects = [
   },
   {
     id: "unsaid",
+    status: "Released",
     logo: { src: "assets/img/logos/the-unsaid-sound-logo.webp", width: 400, height: 297, dark: { src: "assets/img/logos/the-unsaid-sound-logo-white.webp", width: 400, height: 340 }, shape: "landscape", plate: false, alt: "The Unsaid Sound logo" },
     title: "The Unsaid Sound",
     category: "music",

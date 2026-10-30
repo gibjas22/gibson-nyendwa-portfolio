@@ -1,11 +1,13 @@
 // The Mixing Desk: one array drives the whole feature.
 // Copy changes live here; desk.js never needs to change for wording.
 
+// Channel colours come from the --ch-* tokens in css/styles.css, so each theme supplies a version that
+// passes contrast as text (4.5 to 1). Change the colour there, not here.
 export const channels = [
   {
     id: "classroom",
     label: "Classroom",
-    colour: "#FF8F33",
+    colour: "var(--ch-classroom)",
     stem: "assets/audio/classroom.mp3",
     title: "Twenty years in the classroom",
     story:
@@ -16,7 +18,7 @@ export const channels = [
   {
     id: "workshop",
     label: "Workshop",
-    colour: "#3FA34D",
+    colour: "var(--ch-workshop)",
     stem: "assets/audio/workshop.mp3",
     title: "Craft is how we teach",
     story:
@@ -27,7 +29,7 @@ export const channels = [
   {
     id: "security",
     label: "Security",
-    colour: "#5E8FE6",
+    colour: "var(--ch-security)",
     stem: "assets/audio/security.mp3",
     title: "The person to call",
     story:
@@ -38,7 +40,7 @@ export const channels = [
   {
     id: "agency",
     label: "Agency",
-    colour: "#4DA8DA",
+    colour: "var(--ch-agency)",
     stem: "assets/audio/agency.mp3",
     title: "Gibcom Marketing Support",
     story:
@@ -49,7 +51,7 @@ export const channels = [
   {
     id: "community",
     label: "Community",
-    colour: "#F2C14E",
+    colour: "var(--ch-community)",
     stem: "assets/audio/community.mp3",
     title: "Local trade, easy to find",
     story:
@@ -60,7 +62,7 @@ export const channels = [
   {
     id: "machine",
     label: "Machine",
-    colour: "#7B5EA7",
+    colour: "var(--ch-machine)",
     stem: "assets/audio/machine.mp3",
     title: "Systems that work while I sleep",
     story:
@@ -71,7 +73,7 @@ export const channels = [
   {
     id: "studio",
     label: "Studio",
-    colour: "#D7263D",
+    colour: "var(--ch-studio)",
     stem: "assets/audio/studio.mp3",
     // PLACEHOLDER: the Invincible Battles master has not been supplied yet, so this channel plays a
     // soft synth pad generated in the browser. After running scripts/prepare-studio-audio.sh and

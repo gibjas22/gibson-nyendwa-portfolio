@@ -23,21 +23,26 @@ if (toggle && nav) {
   });
 }
 
-// Mark the current section in the nav as the visitor scrolls.
-const targets = links.map(a => document.querySelector(a.getAttribute("href"))).filter(Boolean);
-if ("IntersectionObserver" in window) {
+// Mark the current section in the nav as the visitor scrolls. Every section is watched, including
+// the ones without a nav link (the introduction, the tracklist), so moving into one of those clears
+// the highlight instead of leaving the last item marked.
+const sections = [...document.querySelectorAll("main > section, main > .hero, body > section.hero")];
+const setCurrent = id => links.forEach(a => {
+  const on = !!id && a.getAttribute("href") === "#" + id;
+  a.classList.toggle("current", on);
+  if (on) a.setAttribute("aria-current", "location"); else a.removeAttribute("aria-current");
+});
+if ("IntersectionObserver" in window && sections.length) {
   const io = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      links.forEach(a => {
-        const current = a.getAttribute("href") === "#" + e.target.id;
-        a.classList.toggle("current", current);
-        if (current) a.setAttribute("aria-current", "location"); else a.removeAttribute("aria-current");
-      });
-    });
+    entries.forEach(e => { if (e.isIntersecting) setCurrent(e.target.id || null); });
   }, { rootMargin: "-40% 0px -55% 0px" });
-  targets.forEach(t => io.observe(t));
+  sections.forEach(t => io.observe(t));
 }
+
+// "Read the seven stories" links open the text version before scrolling to it.
+document.querySelectorAll('a[href="#stories"]').forEach(a => a.addEventListener("click", () => {
+  const d = document.getElementById("stories"); if (d) d.open = true;
+}));
 
 // Render the seven stories as plain text so nothing is locked behind the faders.
 const box = document.getElementById("stories-text");

@@ -1,4 +1,6 @@
-// theme.js: the Appearance control, the first-visit theme chooser and the live schedule check.
+// theme.js: the Appearance control and the live schedule check (for visitors who choose Automatic).
+// The first-visit chooser was removed on 30 October 2026: Purple is the default and the other looks
+// are explicit choices here.
 // The theme itself is set before paint by js/theme-boot.js; this module reuses its window.GNTheme
 // API so there is one preference mechanism. Nothing here reloads the page, so scroll position,
 // form input and any playing video or audio are left alone when the theme changes.
@@ -20,8 +22,8 @@ function init() {
   const dateText = iso => new Date(iso + "T12:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "long", timeZone: "UTC" });
 
   // ----- state -----
-  const pref = () => (canStore ? T.read() : T.sessionPref);   // null = no saved preference (Automatic)
-  let previewing = null;                                       // theme shown by the chooser before confirming
+  const pref = () => (canStore ? T.read() : T.sessionPref);   // null = no saved preference (Purple, the default)
+  let previewing = null;
   function render() {
     const p = pref(), theme = previewing || T.resolve(p);
     const before = root.getAttribute("data-theme");
@@ -88,9 +90,6 @@ function init() {
         <span class="theme-check" aria-hidden="true"></span>
       </label>`).join("")}
     </fieldset>
-    <p class="appearance-foot">
-      <button type="button" class="text-button" data-open-chooser>Show the welcome chooser</button>
-    </p>
     <p class="appearance-note">${canStore
       ? "Your choice is saved in this browser only, so it carries across pages and future visits here. It does not follow you to other devices."
       : "Your browser is not letting this site save settings, so your choice lasts until you leave this page."}</p>`;
@@ -98,7 +97,6 @@ function init() {
 
   let returnFocus = null;
   function openPanel(from) {
-    closeChooser(false);
     returnFocus = from || toggle;
     panel.hidden = false;
     toggle.setAttribute("aria-expanded", "true");
@@ -131,106 +129,27 @@ function init() {
   });
   panel.addEventListener("change", e => { if (e.target.name === "gn-appearance") save(e.target.value); });
   panel.querySelector("[data-close]").addEventListener("click", () => closePanel());
-  panel.querySelector("[data-open-chooser]").addEventListener("click", () => { const back = returnFocus; closePanel(false); openChooser(true, back); });
-
-  // ----- First-visit chooser (non-modal: the page stays usable behind it) -----
-  const chooser = document.createElement("section");
-  chooser.className = "theme-chooser";
-  chooser.setAttribute("role", "dialog");
-  chooser.setAttribute("aria-modal", "false");
-  chooser.setAttribute("aria-labelledby", "chooser-title");
-  chooser.setAttribute("aria-describedby", "chooser-desc");
-  chooser.hidden = true;
-  chooser.innerHTML = `
-    <button type="button" class="theme-close" data-dismiss aria-label="Close and keep automatic rotation"><span aria-hidden="true">&times;</span></button>
-    <h2 id="chooser-title" tabindex="-1">Choose how you'd like to view the site.</h2>
-    <p id="chooser-desc">Pick Purple, Sky Blue or White. You can change this at any time.</p>
-    <fieldset class="chooser-options">
-      <legend class="visually-hidden">Preview a theme</legend>
-      ${OPTIONS.filter(o => o.id !== "auto").map(o => `
-      <label class="chooser-option">
-        <input type="radio" name="gn-chooser" value="${o.id}">
-        <span class="theme-preview theme-preview-lg preview-${o.id}" aria-hidden="true"><i></i><b></b><em></em></span>
-        <span class="chooser-name">${esc(o.name)}</span>
-      </label>`).join("")}
-    </fieldset>
-    <p class="chooser-status" aria-live="polite"></p>
-    <div class="chooser-actions">
-      <button type="button" class="button" data-confirm></button>
-      <button type="button" class="button button-quiet" data-auto>Use automatic rotation</button>
-    </div>
-    <p class="chooser-later"><button type="button" class="text-button" data-dismiss>Not now</button> <span>Keeps automatic rotation. Find this again under Appearance.</span></p>`;
-  const skip = document.querySelector(".skip");          // first in tab order, straight after the skip link
-  if (skip) skip.after(chooser); else document.body.prepend(chooser);
-
-  let chooserReturn = null;
-  function openChooser(userOpened, back) {
-    closePanel(false);
-    previewing = null;
-    const current = T.resolve(pref());
-    chooser.querySelectorAll('input[name="gn-chooser"]').forEach(i => { i.checked = i.value === current; });
-    chooser.hidden = false;
-    chooser.classList.toggle("is-requested", !!userOpened);
-    updateControls();
-    if (userOpened) { chooserReturn = back || toggle; chooser.querySelector("#chooser-title").focus(); }
-    else chooserReturn = null;
-  }
-  function closeChooser(restore = true) {
-    if (chooser.hidden) return;
-    chooser.hidden = true;
-    if (previewing) { previewing = null; render(); }
-    if (restore && chooserReturn && document.contains(chooserReturn) && isVisible(chooserReturn)) chooserReturn.focus();
-    chooserReturn = null;
-  }
-  chooser.addEventListener("change", e => {
-    if (e.target.name !== "gn-chooser") return;
-    previewing = e.target.value;      // preview only; saved when confirmed
-    render();
-  });
-  chooser.querySelector("[data-confirm]").addEventListener("click", () => {
-    const sel = chooser.querySelector('input[name="gn-chooser"]:checked');
-    const back = chooserReturn;
-    save(sel ? sel.value : T.resolve(pref()));
-    chooserReturn = back; closeChooser();
-  });
-  chooser.querySelector("[data-auto]").addEventListener("click", () => { const back = chooserReturn; save("auto"); chooserReturn = back; closeChooser(); });
-  chooser.querySelectorAll("[data-dismiss]").forEach(b => b.addEventListener("click", () => {
-    // Dismissing keeps Automatic, and remembers that the chooser has been shown.
-    const back = chooserReturn;
-    if (pref() === null) save("auto"); else { previewing = null; render(); }
-    chooserReturn = back; closeChooser();
-  }));
 
   // ----- shared: labels, Escape, outside click -----
   function statusText() {
     const p = pref(), now = T.resolve(p);
-    if (p && p !== "auto") return `${T.NAMES[p]}. This stays until you change it.`;
+    if (!p) return "Purple, the default. Choose another look below.";
+    if (p !== "auto") return `${T.NAMES[p]}. This stays until you change it.`;
     const next = T.nextChange();
     return `Automatic, currently ${T.NAMES[now]}. Changes to ${T.NAMES[next.theme]} on ${dateText(next.date)}.`;
   }
   function updateControls() {
-    const p = pref() || "auto", shown = root.getAttribute("data-theme");
+    const p = pref() || "purple", shown = root.getAttribute("data-theme");
     panel.querySelectorAll('input[name="gn-appearance"]').forEach(i => { i.checked = i.value === p; });
     panel.querySelector(".appearance-status").textContent = statusText();
     const label = p === "auto" ? `Automatic, currently ${T.NAMES[shown]}` : T.NAMES[p];
     toggle.setAttribute("aria-label", `Appearance: ${label}`);
     toggle.title = `Appearance: ${label}`;
     navEntry.querySelector(".nav-appearance-now").textContent = label;
-    if (!chooser.hidden) {
-      const sel = chooser.querySelector('input[name="gn-chooser"]:checked');
-      const name = sel ? T.NAMES[sel.value] : T.NAMES[shown];
-      chooser.querySelector("[data-confirm]").textContent = `Use ${name}`;
-      chooser.querySelector(".chooser-status").textContent = previewing
-        ? `Previewing ${T.NAMES[previewing]}. Press "Use ${name}" to keep it.`
-        : `Showing ${T.NAMES[shown]}, this fortnight's automatic theme.`;
-    }
   }
   document.addEventListener("keydown", e => {
     if (e.key !== "Escape") return;
     if (!panel.hidden) { closePanel(); e.stopPropagation(); }
-    else if (!chooser.hidden && (chooser.contains(document.activeElement) || chooser.classList.contains("is-requested"))) {
-      chooser.querySelector("[data-dismiss]").click();
-    }
   });
   document.addEventListener("click", e => {
     if (!panel.hidden && !panel.contains(e.target) && !toggle.contains(e.target) && !navEntry.contains(e.target)) closePanel(false);
@@ -240,7 +159,6 @@ function init() {
   // ----- keep in step: other tabs, returning to the tab, and the next schedule boundary -----
   window.addEventListener("storage", e => {
     if (e.key === T.KEY || e.key === null) {
-      if (pref() !== null && !chooser.hidden) closeChooser(false);
       previewing = null; render();
     }
   });
@@ -254,6 +172,5 @@ function init() {
 
   render();
   schedule();
-  // First visit: no saved preference and storage that can remember the answer.
-  if (canStore && T.read() === null) openChooser(false);
+  // No chooser opens by itself: Purple is the default and the other looks are in Appearance.
 }
