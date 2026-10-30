@@ -45,7 +45,9 @@ global filters.
 
 ## The three themes
 
-* **Purple**: the original look. Deep purple surfaces, violet buttons with white text, magenta accents.
+* **Purple**: the personal studio finish. Deep plum `#100818`, matte surfaces `#211B29`, soft lilac
+  controls `#CBB8ED` with dark text `#171020`, and muted body text `#DED8E6`. Decorative hero waves
+  and glows are hidden. The channel colours remain the visual key for the mixing desk.
 * **Sky Blue**: built from the SEND Life Transition colours already in the code (navy `#0A1B47`, `#122A66`,
   line `#2B4A8F`, sky blue `#5CB2FF`, orange `#F98522`, `#FFB066`, muted `#C9D6F0`). Navy surfaces,
   sky-blue selected outlines and focus, orange buttons with navy text, white headings. Values marked

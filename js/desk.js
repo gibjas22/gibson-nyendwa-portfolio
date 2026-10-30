@@ -20,6 +20,7 @@ function init() {
   let active = null;           // channel whose story is showing
   let unlocked = false;
   let holdTimer = null;
+  let mixTimers = [];
 
   // ---------- Markup ----------
   root.dataset.state = "ready";
@@ -174,7 +175,7 @@ function init() {
 
   faders.forEach(f => {
     f.style.setProperty("--v", "0%");
-    f.addEventListener("input", () => setFader(f, +f.value));
+    f.addEventListener("input", () => { cancelMix(); setFader(f, +f.value); });
     f.addEventListener("focus", () => { if (+f.value > 0) showStory(f.dataset.id); });
   });
   masterFader.style.setProperty("--v", master + "%");
@@ -213,13 +214,21 @@ function init() {
   }
 
   // ---------- Presets ----------
+  // A manual move, a fresh mix or reset takes ownership immediately. Pending preset steps must
+  // not lift faders again after reset or overwrite the channel the visitor is adjusting.
+  function cancelMix() {
+    mixTimers.forEach(clearTimeout);
+    mixTimers = [];
+  }
   $("desk-mix").addEventListener("click", () => {
+    cancelMix();
     const mix = { classroom: 70, workshop: 55, security: 45, agency: 60, community: 40, machine: 50, studio: 65 };
     const order = channels.map(c => c.id);
     if (reduceMotion) { order.forEach(id => setFader($("fader-" + id), mix[id] ?? 50, { silent: true })); showStory("classroom"); return; }
-    order.forEach((id, i) => setTimeout(() => setFader($("fader-" + id), mix[id] ?? 50), i * 140));
+    mixTimers = order.map((id, i) => setTimeout(() => setFader($("fader-" + id), mix[id] ?? 50), i * 140));
   });
   $("desk-reset").addEventListener("click", () => {
+    cancelMix();
     faders.forEach(f => setFader(f, 0, { silent: true }));
     showStory(null);
   });

@@ -32,7 +32,8 @@ Sources considered and not used: Pixabay Sound Effects (licence prohibits redist
 Episode videos are not copied: they play from YouTube's privacy-enhanced player only when a visitor presses play.
 
 ## Fonts
-- Sora (500, 600, 700) and Source Sans 3 (400, 400 italic, 600), Latin subset, self-hosted in `assets/fonts/` from the @fontsource 5 packages. Both are under the SIL Open Font License 1.1; the licence texts are in `assets/fonts/OFL-Sora.txt` and `assets/fonts/OFL-Source-Sans-3.txt`.
+- Inter variable (normal and italic, weights 100 to 900), Latin subset, self-hosted from `@fontsource-variable/inter` 5.3.0. Typeface by Rasmus Andersson; SIL Open Font License 1.1, included as `assets/fonts/OFL-Inter.txt`. Upstream: https://rsms.me/inter/ and https://github.com/rsms/inter. These are the active site fonts from the personal studio typography update.
+- Earlier font assets: Sora (500, 600, 700) and Source Sans 3 (400, 400 italic, 600), Latin subset, retained in `assets/fonts/` from the @fontsource 5 packages. Both are under the SIL Open Font License 1.1; the licence texts are in `assets/fonts/OFL-Sora.txt` and `assets/fonts/OFL-Source-Sans-3.txt`.
 
 ## Home page portrait reel
 | File | What | Source | Changes |

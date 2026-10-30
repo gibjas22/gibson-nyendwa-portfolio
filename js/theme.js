@@ -13,7 +13,7 @@ function init() {
   const reduce = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : { matches: false };
   const canStore = T.storageAvailable();
   const OPTIONS = [
-    { id: "purple", name: "Purple", note: "Deep purple with violet and magenta. The original look." },
+    { id: "purple", name: "Purple", note: "Deep plum with soft lilac, clear type and a matte studio finish." },
     { id: "sky-blue", name: "Sky Blue", note: "Navy panels, sky-blue outlines and orange buttons." },
     { id: "white", name: "White", note: "Light pages with navy text and purple buttons." },
     { id: "auto", name: "Automatic", note: "Changes every 14 days: Purple, Sky Blue, then White." }
