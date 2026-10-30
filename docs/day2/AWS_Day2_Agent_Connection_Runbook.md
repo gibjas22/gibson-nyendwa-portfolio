@@ -31,12 +31,26 @@ claude mcp list
 ```
 Re-running the toolkit setup rewrites the MCP entry, so repeat the remove and add lines afterwards.
 
+Keep skills current (from the official guide, 30 October 2026). This updates skills only and leaves the MCP entry alone:
+```powershell
+aws agent-toolkit update-skill --all --profile gibson-portfolio --region us-east-1
+# The full list is long and stops at "-- More --" (press q). This prints just the Claude Code count:
+aws agent-toolkit list-installed-skills --profile gibson-portfolio --region us-east-1 --no-cli-pager --query "length(skills[?agent=='Claude Code'])" --output text
+```
+
 ## 4. Verify
 ```powershell
 cd C:\Users\gibso\gibson-nyendwa-portfolio
 powershell -ExecutionPolicy Bypass -File .\scratch\check-day2.ps1
 ```
 Add `-SkipAgentTest` to skip the Claude Code call.
+
+The official guide's check, in a new conversation from the project folder (read-only):
+```powershell
+claude -p "Check that the AWS MCP Server is connected and that I'm signed in to AWS. Confirm the Region configured for this project. Do not create or change any AWS resources. Show the account ID only as its last four digits." --allowedTools "mcp__aws-mcp"
+```
+Without `--allowedTools`, a non-interactive run cannot approve the AWS tools and only reports the server as loaded.
+The sign-in lasts up to 12 hours. After that, run `aws login --region eu-west-2 --profile gibson-portfolio` again.
 
 ## 5. Disconnect
 ```powershell

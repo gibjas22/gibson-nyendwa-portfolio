@@ -171,3 +171,9 @@ Worked through the "Fix and verify first" list in the 30 October recommendations
 - Measured (Lighthouse lab, local server, not field data): home mobile 98 performance, LCP 2.1 s, CLS 0.004; home desktop 100; portfolio case study mobile 99. Accessibility, best practices and SEO 100 on both.
 - Checks: 45 new checks for these changes, 63 logo checks, 47/47 click-through at 390 (fewer than before because the topic tiles are gone), 20/20 reel, 42/42 mobile, layout scan of 20 pages at ten widths (no overflow, no text under 14 px), axe in three themes on twelve pages (no issues; the About side panel is now a div, which cleared the one remaining best-practice note).
 - Still Gibson's: rename the iMeetify event to "Project discovery call with Gibson", show Gibson Nyendwa as host and test a booking across the clock change; confirm Clara's status; approved Clara screenshots; the two new articles (AI build, digital marketing); the five-person phone test.
+
+## 30 October 2026, late afternoon: Day 2 re-checked against the published guide
+- AWS published the Day 2 article ("How to connect your coding agent to AWS") after the setup was done on 28 October. Compared it step by step: `docs/day2/AWS_Day2_Guide_Recheck_2026-10-30.md`.
+- Re-run today, read-only: signed in as `gibson-admin` (not root) in eu-west-2; `aws agent-toolkit update-skill --all` updated one skill; `aws-mcp` Connected; health check 20 of 20, "ALL CHECKS PASSED" (closes the outstanding Day 2 evidence item).
+- The guide's own check prompt, run as `claude -p`, could not call AWS because non-interactive mode cannot approve the AWS tools; the runbook now adds `--allowedTools "mcp__aws-mcp"`.
+- Runbook: skills update command, a list command that does not stop at "-- More --", and the 12-hour sign-in note.

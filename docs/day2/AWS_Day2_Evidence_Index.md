@@ -12,4 +12,7 @@ Sensitive originals stay outside the repo. Shareable evidence masks the account 
 | aws-mcp connected | `claude mcp list` showing `aws-mcp ... Connected` | PowerShell output; health check section 5 | Captured |
 | Agent made its own AWS call | `claude -p` result `ARN=arn:aws:iam::********4263:user/gibson-admin` | Health check section 6 | Captured |
 | Rules file in project | `CLAUDE.md` in repo, AWS block between markers | Git repository | Captured |
-| Full green run of fixed health check | Summary "ALL CHECKS PASSED" | Screenshot to take | Outstanding |
+| Full green run of fixed health check | Summary "ALL CHECKS PASSED", 20 of 20 | PowerShell output, 30 Oct about 16:20; recorded in `AWS_Day2_Guide_Recheck_2026-10-30.md` | Captured |
+| Setup matches the published Day 2 guide | Step-by-step comparison | `AWS_Day2_Guide_Recheck_2026-10-30.md` | Written 30 Oct |
+| Skills updated with `update-skill --all` | `aws-sdk-js-v3-usage` updated to v2 for every agent | PowerShell output, 30 Oct | Captured |
+| Guide's own check prompt passes | First run: server loaded, AWS tools not approved in non-interactive mode | PowerShell output, 30 Oct | Partly captured; re-run with `--allowedTools "mcp__aws-mcp"` |
