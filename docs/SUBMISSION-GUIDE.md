@@ -24,7 +24,7 @@ The submission form's exact fields are set by the challenge page. This guide cov
    - Introduction, Selected work, the desk, About, Contact.
    - Push a fader; hold Studio at 100 for two seconds; open one case study; open Insights.
    - Check nothing is wrong or out of date about you, your work or your dates.
-3. **Clara's status.** The site says "In development", but the Clara case study says Clara "answers Gibcom's inbound line". Decide which is true and have it corrected so the two match.
+3. **Clara's status.** Done 30 October: Clara is shown as in development, part of the private AIBOS Command Centre, on the home page and in her case study.
 4. **Booking.** In iMeetify, rename the event to "Project discovery call with Gibson", show Gibson Nyendwa as host, and book a test slot after the clock change to check the times and the invitation agree.
 5. **Make sure the repository is clean.** `git status` should say "nothing to commit, working tree clean", and the latest commit should be live (Day 4 file shows how this was checked).
 

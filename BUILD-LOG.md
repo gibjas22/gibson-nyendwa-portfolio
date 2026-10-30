@@ -189,3 +189,6 @@ Worked through the "Fix and verify first" list in the 30 October recommendations
 - AWS published "How to put your website online" on 30 October. The site has been on Amplify Hosting since 27 October; compared step by step in `docs/day4/AWS_Day4_Guide_Check.md`.
 - Live checks, read-only: HTTPS; home, case study, Insights and What's On pages 200; styles, scripts and audio served; the Day 3 commit `506f886` is live; missing pages return the 404 page with status 404; all six security headers present; 492 file references checked for upper/lower-case mismatches, none found.
 - Added `docs/SUBMISSION-GUIDE.md`: where each day stands, the steps to finish before 6 November, material for the submission form, and how to take the site down after judging.
+
+## 30 October 2026, evening: Clara's status corrected
+- Gibson confirmed Clara is still in development, as part of the private AIBOS Command Centre that runs on his own computer. The case study had said she answers the Gibcom line; it now says she is being built to, and is not taking calls yet. Status, summary, role and approach updated in `js/projects.js`, the home page card and the no-JavaScript list; case-study pages rebuilt.
