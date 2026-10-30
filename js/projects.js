@@ -157,7 +157,7 @@ export const projects = [
   },
   {
     id: "unsaid",
-    logo: { src: "assets/img/logos/the-unsaid-sound-logo.webp", width: 400, height: 297, shape: "landscape", plate: true, alt: "The Unsaid Sound logo" },
+    logo: { src: "assets/img/logos/the-unsaid-sound-logo.webp", width: 400, height: 297, dark: { src: "assets/img/logos/the-unsaid-sound-logo-white.webp", width: 400, height: 340 }, shape: "landscape", plate: false, alt: "The Unsaid Sound logo" },
     title: "The Unsaid Sound",
     category: "music",
     colour: "#FF4D6D",
@@ -188,8 +188,12 @@ export const categoryLabel = id => (CATEGORIES.find(c => c.id === id) || {}).lab
 export function logoHTML(p, { decorative = false, cls = "" } = {}) {
   const l = p.logo;
   if (!l) return "";
+  // "dark" is an optional second version (for example white lettering) shown on the Purple and Sky Blue themes.
+  const alt = decorative ? "" : l.alt.replace(/"/g, "&quot;");
+  const img = (f, c, a) => `<img${c ? ` class="${c}"` : ""} src="${f.src}" width="${f.width}" height="${f.height}" alt="${a}" decoding="async">`;
   return `<span class="project-logo ${cls} logo-${l.shape}${l.plate ? " logo-plate" : ""}" data-name="${p.title.replace(/"/g, "&quot;")}">`
-    + `<img src="${l.src}" width="${l.width}" height="${l.height}" alt="${decorative ? "" : l.alt.replace(/"/g, "&quot;")}" decoding="async"></span>`;
+    + img(l, l.dark ? "logo-img-light" : "", alt)
+    + (l.dark ? img(l.dark, "logo-img-dark", alt) : "") + `</span>`;
 }
 
 // If a logo file fails to load, show the project name instead of a broken image, and say so in the console

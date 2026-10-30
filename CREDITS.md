@@ -54,4 +54,5 @@ Supplied by Gibson on 30 October 2026. The uploads used are kept unchanged in `a
 | aibos-command-centre-logo.webp | AIBOS Command Centre | Supplied transparent |
 | send-life-transition-logo.webp | SEND Life Transition | Supplied transparent |
 | gibson-portfolio-aws-student-builder-logo.webp | This portfolio | Supplied transparent |
-| the-unsaid-sound-logo.webp | The Unsaid Sound | Supplied transparent |
+| the-unsaid-sound-logo.webp | The Unsaid Sound (White theme) | Supplied transparent, purple lettering |
+| the-unsaid-sound-logo-white.webp | The Unsaid Sound (Purple and Sky Blue themes) | Supplied transparent, white lettering |

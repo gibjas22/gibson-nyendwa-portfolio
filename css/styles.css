@@ -1118,6 +1118,7 @@ h1, h2 { overflow-wrap: break-word; }
 .logo-plate { border-radius: 14px; padding: .6rem .8rem; }
 html:not([data-theme="white"]) .logo-plate { background: rgba(255, 255, 255, .94); box-shadow: inset 0 0 0 1px rgba(10, 27, 71, .08); }
 html[data-theme="white"] .logo-plate { padding: 0; }
+html[data-theme="white"] .logo-img-dark, html:not([data-theme="white"]) .logo-img-light { display: none; }
 .logo-missing { font: 700 1.1rem/1.25 var(--head); color: var(--text-heading); text-align: center; padding: 1rem; border: 1px dashed var(--border); border-radius: 14px; background: var(--bg-section); }
 
 /* Cards */
