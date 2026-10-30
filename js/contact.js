@@ -5,7 +5,7 @@
 // visitor never meets a form that cannot deliver.
 
 const ENDPOINT = "";
-const BOOKING_URL = "https://cal.imeetify.com/gibsonnyendwa/eventbooking";
+const BOOKING_URL = "https://calendly.com/gcmarketingsupportbookings/discovery-call";
 
 const form = document.getElementById("contact-form");
 const fallback = document.getElementById("contact-fallback");
@@ -83,7 +83,7 @@ if (embedBtn && embedBox) {
   embedBtn.addEventListener("click", () => {
     if (!embedBox.hidden) { embedBox.hidden = true; embedBox.innerHTML = ""; embedBtn.textContent = "Show calendar here"; return; }
     const frame = document.createElement("iframe");
-    frame.src = BOOKING_URL; frame.title = "Book a 30-minute call with Gibson Nyendwa";
+    frame.src = BOOKING_URL + "?embed_type=Inline&embed_domain=" + encodeURIComponent(location.hostname); frame.title = "Book a 30-minute call with Gibson Nyendwa";
     frame.loading = "lazy"; frame.referrerPolicy = "strict-origin-when-cross-origin";
     frame.addEventListener("error", () => { embedBox.innerHTML = `<p>The calendar would not load here. <a href="${BOOKING_URL}" target="_blank" rel="noopener">Open it in a new tab</a>.</p>`; });
     embedBox.innerHTML = ""; embedBox.appendChild(frame); embedBox.hidden = false;

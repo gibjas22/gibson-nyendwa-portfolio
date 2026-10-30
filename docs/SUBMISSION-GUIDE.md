@@ -25,7 +25,7 @@ The submission form's exact fields are set by the challenge page. This guide cov
    - Push a fader; hold Studio at 100 for two seconds; open one case study; open Insights.
    - Check nothing is wrong or out of date about you, your work or your dates.
 3. **Clara's status.** Done 30 October: Clara is shown as in development, part of the private AIBOS Command Centre, on the home page and in her case study.
-4. **Booking.** In iMeetify, rename the event to "Project discovery call with Gibson", show Gibson Nyendwa as host, and book a test slot after the clock change to check the times and the invitation agree.
+4. **Booking.** Moved to Calendly on 30 October (https://calendly.com/gcmarketingsupportbookings/discovery-call), Monday to Friday 9:30am to 5pm. Still to do: connect Zoom in Calendly, then book one test call from the live site and check the invitation reaches info@gcmarketingsupport.co with the right time and meeting link. Cancel the test afterwards.
 5. **Make sure the repository is clean.** `git status` should say "nothing to commit, working tree clean", and the latest commit should be live (Day 4 file shows how this was checked).
 
 ### Should do

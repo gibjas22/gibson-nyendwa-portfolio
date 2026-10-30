@@ -46,7 +46,7 @@ export function caseHTML(p) {
     <section class="case-section case-cta">
       <h2>Working on something similar?</h2>
       <p class="case-actions"><a class="button" href="mailto:info@gcmarketingsupport.co?subject=${encodeURIComponent("About " + p.title)}">Send an email</a>
-      <a class="button button-quiet" href="https://cal.imeetify.com/gibsonnyendwa/eventbooking" target="_blank" rel="noopener">Book a 30-minute call</a></p>
+      <a class="button button-quiet" href="https://calendly.com/gcmarketingsupportbookings/discovery-call" target="_blank" rel="noopener">Book a 30-minute call</a></p>
     </section>
     <p class="crumbs"><a href="index.html#projects">All projects</a></p>`;
 }

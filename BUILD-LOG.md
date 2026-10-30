@@ -192,3 +192,10 @@ Worked through the "Fix and verify first" list in the 30 October recommendations
 
 ## 30 October 2026, evening: Clara's status corrected
 - Gibson confirmed Clara is still in development, as part of the private AIBOS Command Centre that runs on his own computer. The case study had said she answers the Gibcom line; it now says she is being built to, and is not taking calls yet. Status, summary, role and approach updated in `js/projects.js`, the home page card and the no-JavaScript list; case-study pages rebuilt.
+
+## 30 October 2026, evening: bookings moved from iMeetify to Calendly
+- Gibson set up Calendly and did every sign-in himself. Event "Project discovery call with Gibson": 30 minutes, one-to-one, Monday to Friday 9:30am to 5pm UK time, weekends closed. Meeting options Google Meet and Zoom (Zoom still to be connected by Gibson). Google Calendar for info@gcmarketingsupport.co checks for clashes and receives the bookings.
+- Public page checked: https://calendly.com/gcmarketingsupportbookings/discovery-call loads, shows weekdays only, first slot 9:30am and last 4:30pm.
+- Every "Book a call" link now points there (home page, footers on all pages, case-study pages rebuilt, FAQ). "Show calendar here" still loads the calendar only when asked, now from calendly.com; `customHttp.yml` frame-src swaps cal.imeetify.com for calendly.com.
+- Privacy notice, cookie notice, terms and FAQ name Calendly instead of iMeetify.
+- Checks: 47/47 click-through at 390 px (the booking frame loads only on request, no CSP error), 45 recommendation checks, 63 logo checks, 20/20 hero.
