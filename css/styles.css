@@ -1219,3 +1219,75 @@ details.quals[open] > summary { margin-bottom: .5rem; }
 .coming-next { margin: 1.5rem 0 0; padding: .9rem 1.1rem; max-width: var(--measure); background: var(--bg-section); border: 1px dashed var(--border); border-radius: var(--radius-sm); color: var(--text-body); }
 .news-compact { margin-top: 3rem; }
 .news-more { margin: 1.25rem 0 0; }
+
+/* ---------- Moving text banner (About heading) ----------
+   Settings to adjust:
+   - speed, direction and gap: data-speed (CSS px per second), data-direction ("right" or "left")
+     and data-gap ("auto" or a number of px) on the .text-banner element in index.html
+   - word colours: --tb-orange, --tb-white, --tb-sky below
+   - heading size: --tb-size; banner padding: --tb-pad-x, --tb-pad-y
+   Without JavaScript, with reduced motion, and in print, the heading is static and wraps normally. */
+.text-banner {
+  --tb-orange: #FF9F43;
+  --tb-white: #FFFFFF;
+  --tb-sky: #65C7FF;
+  --tb-size: clamp(1.75rem, 1.2rem + 2.4vw, 3rem);
+  --tb-pad-x: clamp(1rem, 3vw, 2rem);
+  --tb-pad-y: clamp(.9rem, 2vw, 1.4rem);
+  --tb-bg: var(--surface);
+  --tb-edge: color-mix(in srgb, var(--border) 70%, transparent);
+  display: flex; align-items: center; gap: 1rem;
+  margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+  padding: var(--tb-pad-y) var(--tb-pad-x);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--tb-bg) 100%, #fff 3%), var(--tb-bg));
+  border: 1px solid var(--tb-edge); border-radius: var(--radius);
+  box-shadow: 0 1px 0 var(--sheen) inset, 0 8px 20px var(--shade-40);
+}
+html[data-theme="white"] .text-banner { --tb-bg: #1E0E34; --tb-edge: #3B2257; box-shadow: 0 8px 20px rgba(30, 14, 52, .18); }
+.text-banner-viewport { position: relative; flex: 1 1 auto; min-width: 0; }
+.text-banner-line {
+  margin: 0; font-family: var(--head); font-weight: 700; font-size: var(--tb-size); line-height: 1.2;
+  letter-spacing: -.01em; color: var(--tb-white);
+}
+.tb-w { transition: color .6s ease; }
+.tb-orange { color: var(--tb-orange); }
+.tb-white { color: var(--tb-white); }
+.tb-sky { color: var(--tb-sky); }
+.text-banner-aside { display: flex; align-items: center; gap: .75rem; flex: 0 0 auto; }
+.text-banner .eq { margin-left: 0; height: 22px; }
+.text-banner-toggle {
+  display: inline-flex; align-items: center; gap: .45rem; min-height: 40px; padding: .35rem .85rem;
+  font: 600 .875rem/1 var(--body); color: #EDE3F5; background: rgba(255, 255, 255, .06);
+  border: 1px solid rgba(255, 255, 255, .22); border-radius: 999px; cursor: pointer;
+}
+.text-banner-toggle::before {
+  content: ""; width: 10px; height: 10px;
+  background: linear-gradient(90deg, currentColor 0 35%, transparent 35% 65%, currentColor 65%);
+}
+.text-banner-toggle[data-state="paused"]::before { background: currentColor; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+.text-banner-toggle:hover { background: rgba(255, 255, 255, .12); }
+.text-banner-toggle:focus-visible { outline: 3px solid var(--tb-sky); outline-offset: 2px; }
+.text-banner-toggle[hidden] { display: none; }
+
+/* Animated state, switched on by js/text-banner.js */
+.text-banner.is-moving .text-banner-viewport {
+  overflow: hidden; height: calc(var(--tb-size) * 1.2 + 4px);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 18px, #000 calc(100% - 18px), transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 18px, #000 calc(100% - 18px), transparent 100%);
+}
+.text-banner.is-moving .text-banner-line {
+  position: absolute; top: 2px; left: 0; white-space: nowrap; will-change: transform;
+}
+@media (max-width: 900px) {
+  .text-banner { flex-wrap: wrap; row-gap: .6rem; }
+  .text-banner-viewport { flex-basis: 100%; }
+  .text-banner-aside { margin-left: auto; }
+}
+@media print {
+  .text-banner { background: none; border: 0; box-shadow: none; padding: 0; }
+  .text-banner-aside { display: none; }
+  .text-banner .text-banner-viewport, .text-banner.is-moving .text-banner-viewport { height: auto; overflow: visible; -webkit-mask-image: none; mask-image: none; }
+  .text-banner.is-moving .text-banner-line, .text-banner .text-banner-line { position: static; white-space: normal; transform: none !important; }
+  .text-banner .text-banner-line[aria-hidden="true"] { display: none; }
+  .text-banner .tb-w { color: #000 !important; transition: none; }
+}

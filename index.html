@@ -206,7 +206,15 @@
   </section>
 
   <section id="about" class="section about">
-    <h2>Twenty years of showing up <span class="eq" aria-hidden="true"><span style="--h:40%"></span><span style="--h:85%"></span><span style="--h:55%"></span><span style="--h:100%"></span><span style="--h:60%"></span></span></h2>
+    <div class="text-banner" id="about-banner" data-direction="right" data-speed="36" data-gap="auto">
+      <div class="text-banner-viewport">
+        <h2 class="text-banner-line" id="about-title"><span class="tb-w tb-orange">Twenty</span> <span class="tb-w tb-white">years</span> <span class="tb-w tb-sky">of</span> <span class="tb-w tb-orange">showing</span> <span class="tb-w tb-white">up</span></h2>
+      </div>
+      <div class="text-banner-aside">
+        <span class="eq" aria-hidden="true"><span style="--h:40%"></span><span style="--h:85%"></span><span style="--h:55%"></span><span style="--h:100%"></span><span style="--h:60%"></span></span>
+        <button class="text-banner-toggle" type="button" aria-controls="about-banner" hidden>Pause animation</button>
+      </div>
+    </div>
     <div class="about-grid">
       <div class="prose">
         <p>I started working with children and young people in 2006. The settings had long names and complex needs: specialist SEND schools, residential care, a therapeutic community. What I learned there is simple. Most people have been told what they cannot do. My job is to be the person who stays long enough to prove otherwise.</p>
@@ -494,5 +502,6 @@
 <script type="module" src="js/gallery.js"></script>
 <script type="module" src="js/hero.js"></script>
 <script type="module" src="js/theme.js"></script>
+<script type="module" src="js/text-banner.js"></script>
 </body>
 </html>
