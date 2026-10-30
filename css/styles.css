@@ -1249,7 +1249,15 @@ details.quals[open] > summary { margin-bottom: .5rem; }
 @media (max-width: 470px) {
   .top { flex-wrap: nowrap; }
   .top-right { width: auto; margin-left: auto; }
-  .top .hint { display: none; } /* Stories stays in the menu and the introduction links to the desk. */
+  /* Keep the "Hear my story" hint for the mixing desk visible on phones; Appearance is still in the menu. */
+  .top-right > .appearance-toggle { display: none; }
+  .top .hint { padding: .45rem .7rem; font-size: .875rem; white-space: nowrap; min-height: 44px; }
+}
+@media (max-width: 350px) {
+  .top .hint .fader-icon { display: none; }
+  .top .hint { padding: .45rem .55rem; font-size: .8125rem; }
+  .top-right { gap: .4rem; }
+  .wordmark { font-size: .875rem; }
   .top nav { max-height: calc(100vh - 4.5rem); max-height: calc(100dvh - 4.5rem); }
 }
 
