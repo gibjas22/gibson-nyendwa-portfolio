@@ -1087,3 +1087,21 @@ h1, h2 { overflow-wrap: break-word; }
 .hero-reel .channel-strip { position: relative; }  /* keep the colour strip above the stage shadow */
 /* Controls keep their space from the first paint (no jump when the script starts); hidden without JavaScript. */
 .hero-reel:not(.reel-ready) .reel-controls { visibility: hidden; }
+.reel-stage { touch-action: pan-y; }   /* horizontal swipes go to the reel, vertical ones scroll the page */
+/* Phones held sideways: shrink the reel so the picture and its controls fit on screen together. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .hero-reel { max-width: min(340px, calc(100vh - 120px)); }
+  .reel-prev, .reel-next { display: none; }
+  .reel-dot { width: 28px; }
+}
+.reel-controls { flex-wrap: wrap; }
+/* Phones: a shorter first-visit chooser so more of the page (and the portrait) stays visible behind it. */
+@media (max-width: 560px) {
+  .theme-chooser { padding: .85rem .9rem .75rem; }
+  .theme-chooser h2 { font-size: 1.1rem; }
+  #chooser-desc { margin: .3rem 0 .6rem; font-size: .95rem; }
+  .theme-preview-lg { aspect-ratio: 16 / 7; }
+  .chooser-status { display: none; }
+  .chooser-later span { display: none; }
+  .chooser-actions .button { padding: .55rem .9rem; }
+}

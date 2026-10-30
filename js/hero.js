@@ -94,16 +94,26 @@ function init(reel) {
   const setHold = (why, on) => { on ? holds.add(why) : holds.delete(why); schedule(); };
 
   slides.forEach(s => { const v = s.querySelector("video"); if (v) { v.loop = false; v.addEventListener("ended", () => { if (running()) next(); else { v.currentTime = 0; } }); } });
-  toggle.addEventListener("click", () => setPlaying(!playing));
+  // Pressing Play is an explicit request, so it overrides the hover and focus pauses until the next time.
+  toggle.addEventListener("click", () => { if (!playing) { holds.delete("hover"); holds.delete("focus"); } setPlaying(!playing); });
   reel.querySelector(".reel-prev").addEventListener("click", () => show(index - 1, true));
   reel.querySelector(".reel-next").addEventListener("click", () => show(index + 1, true));
   dotsBox.addEventListener("click", e => { const b = e.target.closest(".reel-dot"); if (b) show(+b.dataset.i, true); });
   reel.addEventListener("pointerenter", e => { if (e.pointerType === "mouse") setHold("hover", true); });
   reel.addEventListener("pointerleave", () => setHold("hover", false));
-  reel.addEventListener("focusin", () => setHold("focus", true));
+  // Keyboard focus on the slides or arrows pauses (a mouse click or a tap does not: it would stop the reel for good on phones).
+  reel.addEventListener("focusin", e => { if (e.target !== toggle && e.target.matches(":focus-visible")) setHold("focus", true); });
   reel.addEventListener("focusout", e => { if (!reel.contains(e.relatedTarget)) setHold("focus", false); });
   document.addEventListener("visibilitychange", () => setHold("hidden", document.hidden));
   if ("IntersectionObserver" in window) new IntersectionObserver(([e]) => setHold("offscreen", !e.isIntersecting), { threshold: 0.25 }).observe(reel);
+  // Swipe left or right on the picture to change slide (vertical scrolling still works).
+  let sx = null, sy = 0;
+  stage.addEventListener("touchstart", e => { const t = e.changedTouches[0]; sx = t.clientX; sy = t.clientY; }, { passive: true });
+  stage.addEventListener("touchend", e => {
+    if (sx === null) return; const t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy; sx = null;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) show(index + (dx < 0 ? 1 : -1), true);
+  }, { passive: true });
+  stage.addEventListener("touchcancel", () => { sx = null; }, { passive: true });
   window.addEventListener("site-media-play", e => { if (e.detail?.source !== "hero" && playing) setPlaying(false); });
   reduce.addEventListener?.("change", () => { if (reduce.matches) setPlaying(false); });
 
