@@ -1482,3 +1482,132 @@ html[data-theme="white"] {
 @media print {
   .logo-stage { box-shadow: none; border-color: #ccc; }
 }
+
+/* ---------- SuperPowers grid: no empty cells (1 November 2026) ----------
+   Seven cards plus the kinetic banner. Three columns: "Now learning" sits beside the banner, which
+   spans two. Two columns: "Now learning" and the banner each take a full row. One column: stacked. */
+.powers { grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 640px) {
+  .powers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .powers .learning, .powers .kin-item { grid-column: 1 / -1; }
+}
+@media (min-width: 1000px) {
+  .powers { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .powers .learning { grid-column: auto; }
+  .powers .kin-item { grid-column: span 2; }
+}
+
+/* ---------- Kinetic SuperPowers banner (js/superpowers-kinetic.js) ----------
+   Text colours sampled from Gibson's reference recording (see docs/KINETIC-BANNER.md). They stay the same
+   in every theme; the banner is always a near-black stage so they keep their neon character.
+   Fonts (SIL Open Font Licence, self-hosted, only applied once the banner is near the screen):
+   Bebas Neue (condensed capitals), Montserrat (bold and italic), Great Vibes (script). */
+@font-face { font-family: "Bebas Neue"; font-style: normal; font-weight: 400; font-display: swap; src: url("../assets/fonts/bebas-neue-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Montserrat"; font-style: normal; font-weight: 100 900; font-display: swap; src: url("../assets/fonts/montserrat-latin-wght-normal.woff2") format("woff2"); }
+@font-face { font-family: "Montserrat"; font-style: italic; font-weight: 100 900; font-display: swap; src: url("../assets/fonts/montserrat-latin-wght-italic.woff2") format("woff2"); }
+@font-face { font-family: "Great Vibes"; font-style: normal; font-weight: 400; font-display: swap; src: url("../assets/fonts/great-vibes-latin-400-normal.woff2") format("woff2"); }
+
+.powers .kin-item { padding: 0; border: 0; background: none; box-shadow: none; display: flex; }
+.kin {
+  --k-magenta: #CB00D0; --k-violet: #9400F3; --k-turquoise: #18FFC4;
+  --k-yellow: #FBFF0F; --k-orange: #F05D24; --k-blue: #3D82ED;
+  --k-bg: #07040C;
+  position: relative; flex: 1; margin: 0; min-height: 320px; overflow: hidden; isolation: isolate;
+  container: kin / inline-size;
+  background: radial-gradient(120% 90% at 50% 0%, #140A22 0%, var(--k-bg) 60%), var(--k-bg);
+  border: 1px solid rgb(255 255 255 / .14); border-radius: var(--radius);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .06), 0 14px 30px -18px rgb(0 0 0 / .8);
+  color: #F6F3FA; color-scheme: dark;
+}
+html[data-theme="white"] .kin { border-color: #2B2140; box-shadow: 0 14px 30px -18px rgb(10 27 71 / .45); }
+.kin-c-magenta, .kin [data-colour="magenta"] { color: var(--k-magenta); }
+.kin-c-violet, .kin [data-colour="violet"] { color: var(--k-violet); }
+.kin-c-turquoise, .kin [data-colour="turquoise"] { color: var(--k-turquoise); }
+.kin-c-yellow, .kin [data-colour="yellow"] { color: var(--k-yellow); }
+.kin-c-orange, .kin [data-colour="orange"] { color: var(--k-orange); }
+.kin-c-blue, .kin [data-colour="blue"] { color: var(--k-blue); }
+.kin-ring .kin-c-magenta { fill: var(--k-magenta); } .kin-ring .kin-c-violet { fill: var(--k-violet); } .kin-ring .kin-c-turquoise { fill: var(--k-turquoise); }
+.kin-ring .kin-c-yellow { fill: var(--k-yellow); } .kin-ring .kin-c-orange { fill: var(--k-orange); } .kin-ring .kin-c-blue { fill: var(--k-blue); }
+
+/* Type styles. Before the fonts are applied, Inter stands in at the same weights. */
+.kin-w, .kin [data-style] { line-height: 1.05; white-space: nowrap; text-shadow: 0 0 .32em color-mix(in srgb, currentColor 40%, transparent); }
+.kin-condensed, .kin [data-style="condensed"] { font-weight: 700; letter-spacing: .02em; text-transform: uppercase; }
+.kin-bold, .kin [data-style="bold"] { font-weight: 800; letter-spacing: -.01em; }
+.kin-italic, .kin [data-style="italic"] { font-weight: 600; font-style: italic; }
+.kin-script, .kin [data-style="script"] { font-style: italic; font-weight: 500; }
+.kin.is-near .kin-condensed, .kin.is-near [data-style="condensed"] { font-family: "Bebas Neue", Impact, sans-serif; font-weight: 400; letter-spacing: .03em; }
+.kin.is-near .kin-bold, .kin.is-near [data-style="bold"], .kin.is-near .kin-italic, .kin.is-near [data-style="italic"] { font-family: "Montserrat", var(--head); }
+.kin.is-near .kin-script, .kin.is-near [data-style="script"] { font-family: "Great Vibes", cursive; font-style: normal; font-weight: 400; letter-spacing: 0; }
+
+/* Static presentation: no JavaScript, reduced motion, and the text screen readers use. */
+.kin-static { position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: center; gap: 1.1rem; height: 100%; padding: 1.5rem clamp(1rem, 4cqi, 2.25rem); box-sizing: border-box; }
+.kin-open { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; column-gap: .45em; row-gap: .1em; }
+.kin-open [data-style="script"] { font-size: clamp(1.9rem, 7cqi, 3.4rem); }
+.kin-open [data-style="bold"] { font-size: clamp(1.5rem, 5.6cqi, 2.8rem); }
+.kin-open [data-style="italic"] { font-size: clamp(1.6rem, 6cqi, 3rem); font-weight: 800; }
+.kin-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55rem 1.5rem; }
+.kin-list li { padding: 0 0 .45rem; border-bottom: 1px solid color-mix(in srgb, var(--k-turquoise) 45%, transparent); white-space: normal; }
+.kin-list [data-style="script"] { font-size: clamp(1.6rem, 5cqi, 2.4rem); }
+.kin-list [data-style="condensed"] { font-size: clamp(1.5rem, 4.6cqi, 2.2rem); }
+.kin-list [data-style="bold"], .kin-list [data-style="italic"] { font-size: clamp(1.1rem, 3.4cqi, 1.6rem); }
+@container kin (max-width: 520px) { .kin-list { grid-template-columns: minmax(0, 1fr); } }
+.kin.is-animated .kin-static { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* Animated stage */
+.kin-stage { position: absolute; inset: 0; perspective: 700px; perspective-origin: 50% 40%; pointer-events: none; }
+.kin:not(.is-animated) .kin-stage { display: none; }
+.kin-scene { position: absolute; inset: 0 0 58px; display: grid; place-items: center; }
+.kin-opening { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .1em; text-align: center; }
+.kin-opening .kin-script { font-size: clamp(2rem, 8cqi, 4rem); }
+.kin-opening .kin-bold { font-size: clamp(1.75rem, 7.2cqi, 3.6rem); font-weight: 800; }
+.kin-opening .kin-italic { font-size: clamp(1.9rem, 8cqi, 4rem); font-weight: 800; }
+.kin-phrase { position: relative; z-index: 1; }
+.kin-power .kin-script { font-size: clamp(2.2rem, 10.5cqi, 5rem); }
+.kin-power .kin-condensed.kin-phrase { font-size: clamp(2.6rem, 12cqi, 5.6rem); }
+.kin-power .kin-bold.kin-phrase, .kin-power .kin-italic.kin-phrase { font-size: clamp(1.6rem, 6.4cqi, 3.2rem); }
+.kin-support { position: absolute; font-size: clamp(.95rem, 3.2cqi, 1.5rem); opacity: .95; }
+.kin-support.kin-italic { font-size: clamp(.95rem, 2.9cqi, 1.35rem); }
+.kin-s0 { left: 6%; top: 10%; }
+.kin-s1 { right: 6%; top: 18%; }
+.kin-s2 { left: 50%; bottom: 8%; translate: -50% 0; }
+.kin-close { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-content: center; gap: .3rem 1.75rem; padding: 0 clamp(1rem, 4cqi, 2.25rem); }
+.kin-row { justify-self: stretch; text-align: center; padding: .25rem 0 .4rem; border-bottom: 1px solid color-mix(in srgb, var(--k-turquoise) 55%, transparent); }
+.kin-close .kin-w { white-space: normal; }
+.kin-close .kin-script { font-size: clamp(1.5rem, 5.2cqi, 2.6rem); }
+.kin-close .kin-condensed { font-size: clamp(1.5rem, 5cqi, 2.5rem); }
+.kin-close .kin-bold, .kin-close .kin-italic { font-size: clamp(1rem, 3.2cqi, 1.6rem); }
+
+/* Perspective grid floor and the ring of words */
+.kin-floor { position: absolute; left: 0; right: 0; bottom: 0; height: 58%; perspective: 340px; perspective-origin: 50% 0%; overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 45%); mask-image: linear-gradient(to bottom, transparent, #000 45%); }
+.kin-plane { position: absolute; left: -60%; right: -60%; top: 0; height: 220%; transform-origin: 50% 0; transform: rotateX(72deg);
+  background-image: linear-gradient(rgb(255 255 255 / .16) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / .16) 1px, transparent 1px); background-size: 64px 64px; }
+.kin-ring { position: absolute; left: 50%; top: 44%; width: min(74cqi, 360px); height: auto; transform: translate(-50%, -50%); overflow: visible; }
+.kin-ring text { font: 700 14px/1 var(--body); letter-spacing: .08em; text-transform: uppercase; }
+.kin.is-near .kin-ring text { font: 400 15px/1 "Bebas Neue", Impact, sans-serif; letter-spacing: .08em; }
+
+/* Control */
+.kin-toggle {
+  position: absolute; right: .75rem; bottom: .75rem; z-index: 2;
+  display: inline-flex; align-items: center; gap: .45rem; min-height: 44px; padding: .35rem .85rem;
+  font: 600 .875rem/1 var(--body); color: #EDE3F5; background: rgb(7 4 12 / .7);
+  border: 1px solid rgb(255 255 255 / .26); border-radius: 999px; cursor: pointer;
+}
+.kin-toggle::before { content: ""; width: 10px; height: 10px; background: linear-gradient(90deg, currentColor 0 35%, transparent 35% 65%, currentColor 65%); }
+.kin-toggle[data-state="paused"]::before { background: currentColor; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+.kin-toggle:hover { border-color: var(--k-turquoise); }
+.kin-toggle:focus-visible { outline: 3px solid var(--k-turquoise); outline-offset: 2px; }
+.kin-toggle[hidden] { display: none; }
+
+/* Phones: simpler scene, no ring or grid, one column at the close */
+@container kin (max-width: 520px) {
+  .kin-ring, .kin-floor { display: none; }
+  .kin-close { grid-template-columns: minmax(0, 1fr); gap: .15rem; }
+  .kin-close .kin-script { font-size: clamp(1.5rem, 8cqi, 2.2rem); }
+  .kin-close .kin-condensed { font-size: clamp(1.5rem, 8cqi, 2.2rem); }
+  .kin-close .kin-bold, .kin-close .kin-italic { font-size: clamp(1.05rem, 5.6cqi, 1.5rem); }
+  .kin-row { padding: .1rem 0 .2rem; }
+  .kin-support { font-size: clamp(.9rem, 4.4cqi, 1.1rem); }
+}
+@media (max-width: 520px) { .kin { min-height: 360px; } }
+@media print { .kin-stage, .kin-toggle { display: none; } .kin .kin-static { position: static; width: auto; height: auto; clip: auto; margin: 0; overflow: visible; } }
