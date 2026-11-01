@@ -20,7 +20,7 @@ export function caseHTML(p) {
   const liveLabel = p.live ? (p.live.includes("github.com") ? "View the repository" : "Visit the live project") : "";
   return `
     <header class="case-head${p.logo ? " has-logo" : ""}" style="--c:${p.colour}">
-      ${p.logo ? logoHTML(p, { cls: "case-logo" }) : ""}
+      ${p.logo ? logoHTML(p, { cls: "case-logo", sizes: "(max-width: 760px) min(320px, 90vw), 380px", eager: true }) : ""}
       <div class="case-head-text">
       <p class="case-cat">${esc(categoryLabel(p.category))} · ${esc(p.year)}</p>
       <h1>${esc(p.title)}</h1>

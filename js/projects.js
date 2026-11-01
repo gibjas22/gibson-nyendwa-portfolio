@@ -22,7 +22,7 @@ export const projects = [
     id: "gibcom",
     status: "Trading since 2016",
     shots: [{ src: "assets/img/work/gibcom-website-700.webp", width: 700, height: 394, alt: "The Gibcom Marketing Support website home page: Better websites. Smarter marketing.", caption: "The Gibcom website home page, gcmarketingsupport.co.uk, captured 30 October 2026." }],
-    logo: { src: "assets/img/logos/gibcom-marketing-support-logo.webp", width: 720, height: 259, shape: "wide", plate: false, alt: "Gibcom Marketing Support Ltd logo" },
+    logo: { src: "assets/img/logos/gibcom-marketing-support-960.webp", srcset: "assets/img/logos/gibcom-marketing-support-480.webp 480w, assets/img/logos/gibcom-marketing-support-960.webp 960w", width: 960, height: 337, kind: "wide", fit: [0.8, 0.62], alt: "Gibcom Marketing Support Ltd logo" },
     title: "Gibcom Marketing Support",
     category: "web",
     colour: "#5CC4F2",
@@ -47,7 +47,7 @@ export const projects = [
   {
     id: "blbs",
     status: "Live since 2021",
-    logo: { src: "assets/img/logos/birmingham-local-biz-support-logo.webp", width: 308, height: 400, shape: "square", plate: false, alt: "Birmingham Local Biz Support logo" },
+    logo: { src: "assets/img/logos/birmingham-local-biz-support-393.webp", srcset: "assets/img/logos/birmingham-local-biz-support-320.webp 320w, assets/img/logos/birmingham-local-biz-support-393.webp 393w", width: 393, height: 515, kind: "emblem", fit: [0.9, 0.9], alt: "Birmingham Local Biz Support logo" },
     title: "Birmingham Local Biz Support",
     category: "web",
     colour: "#F6D264",
@@ -72,7 +72,7 @@ export const projects = [
     id: "clara",
     status: "In development, part of the private AIBOS Command Centre",
     measure: "Clara is not live yet, so there is nothing to measure. Once she answers the Gibcom phone line, the first measures will be calls answered, enquiries captured and callbacks booked, compared with the voicemail period before.",
-    logo: { src: "assets/img/logos/clara-gibcom-inbound-ai-logo.webp", width: 720, height: 248, shape: "wide", plate: true, alt: "Clara, Gibcom Inbound AI logo" },
+    logo: { src: "assets/img/logos/clara-gibcom-inbound-ai-960.webp", srcset: "assets/img/logos/clara-gibcom-inbound-ai-480.webp 480w, assets/img/logos/clara-gibcom-inbound-ai-960.webp 960w", width: 960, height: 307, kind: "wide", fit: [0.84, 0.62], alt: "Clara, Gibcom Inbound AI logo" },
     title: "Clara, the Gibcom inbound line",
     category: "ai",
     colour: "#B07CFF",
@@ -98,7 +98,7 @@ export const projects = [
     id: "aibos",
     status: "Staged build in progress",
     measure: "AIBOS is not measured yet. Each build stage has its own validation gate; results will be reported stage by stage as they pass.",
-    logo: { src: "assets/img/logos/aibos-command-centre-logo.webp", width: 720, height: 239, shape: "wide", plate: true, alt: "AIBOS Command Centre logo" },
+    logo: { src: "assets/img/logos/aibos-command-centre-960.webp", srcset: "assets/img/logos/aibos-command-centre-480.webp 480w, assets/img/logos/aibos-command-centre-960.webp 960w", width: 960, height: 294, kind: "wide", fit: [0.84, 0.62], alt: "AIBOS Command Centre logo" },
     title: "AIBOS Command Centre",
     category: "ai",
     colour: "#B07CFF",
@@ -122,7 +122,7 @@ export const projects = [
   {
     id: "sendlife",
     status: "Channel live",
-    logo: { src: "assets/img/logos/send-life-transition-logo.webp", width: 400, height: 406, shape: "square", plate: false, alt: "SEND Life Transition logo" },
+    logo: { src: "assets/img/logos/send-life-transition-640.webp", srcset: "assets/img/logos/send-life-transition-320.webp 320w, assets/img/logos/send-life-transition-640.webp 640w", width: 640, height: 649, kind: "emblem", fit: [0.9, 0.86], alt: "SEND Life Transition logo" },
     title: "SEND Life Transition",
     category: "education",
     colour: "#FFA152",
@@ -147,7 +147,7 @@ export const projects = [
     id: "portfolio",
     status: "Live on AWS Amplify",
     shots: [{ src: "assets/img/work/portfolio-desk-800.webp", width: 800, height: 450, alt: "The mixing desk on this site with seven channel faders and a master fader raised to different levels.", caption: "The mixing desk: seven channels, one per part of my story, plus a master fader." }],
-    logo: { src: "assets/img/logos/gibson-portfolio-aws-student-builder-logo.webp", width: 353, height: 400, shape: "square", plate: false, alt: "AWS Student Builder personal project badge for Gibson Nyendwa" },
+    logo: { src: "assets/img/logos/gibson-portfolio-aws-student-builder-640.webp", srcset: "assets/img/logos/gibson-portfolio-aws-student-builder-320.webp 320w, assets/img/logos/gibson-portfolio-aws-student-builder-640.webp 640w", width: 640, height: 728, kind: "emblem", fit: [0.9, 0.88], alt: "AWS Student Builder personal project badge for Gibson Nyendwa" },
     title: "This portfolio",
     category: "web",
     colour: "#FF4D6D",
@@ -172,7 +172,7 @@ export const projects = [
   {
     id: "unsaid",
     status: "Released",
-    logo: { src: "assets/img/logos/the-unsaid-sound-logo.webp", width: 400, height: 297, dark: { src: "assets/img/logos/the-unsaid-sound-logo-white.webp", width: 400, height: 340 }, shape: "landscape", plate: false, alt: "The Unsaid Sound logo" },
+    logo: { src: "assets/img/logos/the-unsaid-sound-640.webp", srcset: "assets/img/logos/the-unsaid-sound-320.webp 320w, assets/img/logos/the-unsaid-sound-640.webp 640w", width: 640, height: 469, kind: "emblem", fit: [0.9, 0.8], alt: "The Unsaid Sound logo" },
     title: "The Unsaid Sound",
     category: "music",
     colour: "#FF4D6D",
@@ -198,17 +198,16 @@ export const projects = [
 export const byId = id => projects.find(p => p.id === id);
 export const categoryLabel = id => (CATEGORIES.find(c => c.id === id) || {}).label || id;
 
-// Shared logo display for project cards and case-study pages.
+// Shared logo display: one "logo stage" component for feature cards, the project grid and case-study pages.
+// fit = [largest share of the stage's inner width, largest share of its inner height], set per logo so wide
+// wordmarks and square emblems look equally prominent (see docs/LOGOS.md). The image is never cropped.
 // decorative: true where the project name is already next to it (cards), so screen readers hear it once.
-export function logoHTML(p, { decorative = false, cls = "" } = {}) {
+export function logoHTML(p, { decorative = false, cls = "", sizes = "(max-width: 760px) 86vw, 480px", eager = false } = {}) {
   const l = p.logo;
   if (!l) return "";
-  // "dark" is an optional second version (for example white lettering) shown on the Purple and Sky Blue themes.
   const alt = decorative ? "" : l.alt.replace(/"/g, "&quot;");
-  const img = (f, c, a) => `<img${c ? ` class="${c}"` : ""} src="${f.src}" width="${f.width}" height="${f.height}" alt="${a}" decoding="async">`;
-  return `<span class="project-logo ${cls} logo-${l.shape}${l.plate ? " logo-plate" : ""}" data-name="${p.title.replace(/"/g, "&quot;")}">`
-    + img(l, l.dark ? "logo-img-light" : "", alt)
-    + (l.dark ? img(l.dark, "logo-img-dark", alt) : "") + `</span>`;
+  return `<span class="logo-stage project-logo logo-${l.kind} ${cls}" style="--logo-w:${l.fit[0]};--logo-h:${l.fit[1]}" data-name="${p.title.replace(/"/g, "&quot;")}">`
+    + `<img src="${l.src}" srcset="${l.srcset}" sizes="${sizes}" width="${l.width}" height="${l.height}" alt="${alt}"${eager ? "" : ' loading="lazy"'} decoding="async"></span>`;
 }
 
 // If a logo file fails to load, show the project name instead of a broken image, and say so in the console
@@ -225,19 +224,6 @@ export function watchLogos(root = document) {
   });
 }
 
-// Gentle pointer-following tilt (at most 3 degrees) on the case-study logo. Mouse and trackpad only;
-// nothing happens on touch screens or when the visitor asks for reduced motion. Resets on leave.
-export function tiltLogos(root = document) {
-  if (!matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-  const reduce = matchMedia("(prefers-reduced-motion: reduce)");
-  root.querySelectorAll(".case-logo").forEach(box => {
-    box.addEventListener("pointermove", e => {
-      if (reduce.matches || e.pointerType !== "mouse") return;
-      const r = box.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
-      box.style.setProperty("--ry", (x * 6).toFixed(2) + "deg");
-      box.style.setProperty("--rx", (-y * 6).toFixed(2) + "deg");
-    });
-    box.addEventListener("pointerleave", () => { box.style.removeProperty("--rx"); box.style.removeProperty("--ry"); });
-  });
-}
+// The pointer tilt on case-study logos was retired on 1 November 2026 (logo stages use a small lift instead).
+// Kept as a no-op so older pages that import it keep working.
+export function tiltLogos() {}

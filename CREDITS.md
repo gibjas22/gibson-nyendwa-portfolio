@@ -51,15 +51,14 @@ Episode videos are not copied: they play from YouTube's privacy-enhanced player 
 | assets/img/hero/with-son-*.webp | Gibson with his son | Gibson's own photo, supplied 29 October 2026; added at his request on 30 October 2026 | Screenshot border trimmed; shown whole over a blurred copy of itself |
 
 ## Project logos
-Supplied by Gibson on 30 October 2026. The uploads used are kept unchanged in `assets/img/logos/source/`; the website copies were trimmed of empty canvas (artwork plus a 4% margin), resized and saved as WebP. Nothing was recoloured, redrawn or removed.
+Supplied by Gibson (30 October and 1 November 2026). The uploads are kept unchanged in `assets/img/logos/source/`. Website copies are trimmed to the artwork plus a 2% margin and saved as WebP at two widths (quality 92, full alpha). Nothing was recoloured, redrawn or reshaped. Details and the choice between versions: `docs/LOGOS.md`.
 
-| File | Project | Source |
+| Files | Project | Source and changes |
 |---|---|---|
-| gibcom-marketing-support-logo.webp | Gibcom Marketing Support | Supplied transparent |
-| birmingham-local-biz-support-logo.webp | Birmingham Local Biz Support | Supplied on black; the flat black background was made transparent at Gibson's request (only black touching the edges, with the soft edge of the pin kept) |
-| clara-gibcom-inbound-ai-logo.webp | Clara | Supplied transparent |
-| aibos-command-centre-logo.webp | AIBOS Command Centre | Supplied transparent |
-| send-life-transition-logo.webp | SEND Life Transition | Supplied transparent |
-| gibson-portfolio-aws-student-builder-logo.webp | This portfolio | Supplied transparent |
-| the-unsaid-sound-logo.webp | The Unsaid Sound (White theme) | Supplied transparent, purple lettering |
-| the-unsaid-sound-logo-white.webp | The Unsaid Sound (Purple and Sky Blue themes) | Supplied transparent, white lettering |
+| gibcom-marketing-support-480/960.webp | Gibcom Marketing Support | Supplied transparent |
+| birmingham-local-biz-support-320/393.webp | Birmingham Local Biz Support | Supplied on solid black; black touching the edges removed, with the pin's soft edge rebuilt from its brightness so no dark rim shows (`source/birmingham-local-biz-support-logo-transparent.png`). 393 px is the full size of the supplied artwork, so it is not enlarged |
+| clara-gibcom-inbound-ai-480/960.webp | Clara | Supplied transparent |
+| aibos-command-centre-480/960.webp | AIBOS Command Centre | Supplied transparent |
+| send-life-transition-320/640.webp | SEND Life Transition | Supplied transparent |
+| gibson-portfolio-aws-student-builder-320/640.webp | This portfolio (personal project badge, not an AWS award) | Supplied transparent; about 14,600 stray faint pixels outside the badge removed (`source/gibson-portfolio-aws-student-builder-logo-clean.png`). Badge, caption and "Personal Project" wording unchanged |
+| the-unsaid-sound-320/640.webp | The Unsaid Sound | Supplied transparent, purple lettering |

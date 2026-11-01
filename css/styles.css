@@ -1108,55 +1108,14 @@ h1, h2 { overflow-wrap: break-word; }
 .reel-slide-wide img:not(.reel-backdrop) { position: absolute; inset: 0; object-fit: contain; }
 .reel-slide-wide .reel-backdrop { position: absolute; inset: -20%; width: 140%; height: 140%; max-width: none; object-fit: cover; filter: blur(18px) brightness(.75); }
 
-/* ---------- Project logos (replaces the initials). Sizes are per shape so wide wordmarks and square
-   badges look equally prominent. Width/height attributes on the img reserve the space before it loads. ---------- */
-.project-logo { display: inline-grid; place-items: center; box-sizing: border-box; }
-.project-logo img { display: block; width: 100%; height: auto; }
-/* Logos are transparent. "plate" logos have dark lettering, so on the dark themes (Purple, Sky Blue) they sit on a
-   soft light surface to stay readable; on the White theme there is no backing at all. */
-.logo-plate { border-radius: 14px; padding: .6rem .8rem; }
-html:not([data-theme="white"]) .logo-plate { background: rgba(255, 255, 255, .94); box-shadow: inset 0 0 0 1px rgba(10, 27, 71, .08); }
-html[data-theme="white"] .logo-plate { padding: 0; }
-html[data-theme="white"] .logo-img-dark, html:not([data-theme="white"]) .logo-img-light { display: none; }
-.logo-missing { font: 700 1.1rem/1.25 var(--head); color: var(--text-heading); text-align: center; padding: 1rem; border: 1px dashed var(--border); border-radius: 14px; background: var(--bg-section); }
-
-/* Cards */
-.thumb.has-logo { padding: .9rem 1rem 2.7rem; container-type: size; }
-.thumb-logo { max-width: 100cqw; max-height: 100cqh; }
-.thumb-logo.logo-wide { width: min(78cqw, 300px); }
-.thumb-logo.logo-wide img { max-height: calc(100cqh - 1.2rem); object-fit: contain; }
-.thumb-logo.logo-square img { height: min(100cqh, 160px); width: auto; }
-.thumb-logo.logo-square.logo-plate img { height: min(calc(100cqh - .8rem), 150px); }
-.thumb-logo.logo-square.logo-plate { padding: .4rem; }
-.thumb-logo.logo-wide.logo-plate { padding: .5rem .7rem; }
-.thumb-logo.logo-landscape img { height: min(calc(100cqh - 1.2rem), 125px); width: auto; }
-
 /* Case-study header: logo beside the text on wide screens, above it on narrow ones. */
 .case-head.has-logo { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1.5rem 2.5rem; align-items: center; }
 .case-head.has-logo .case-logo { grid-column: 2; grid-row: 1; }
 .case-head.has-logo .case-head-text { grid-column: 1; grid-row: 1; min-width: 0; }
-.case-logo { perspective: 600px; transition: transform .25s ease, box-shadow .25s ease, filter .25s ease; border-radius: 16px;
-  transform: translateY(var(--lift, 0)) scale(var(--s, 1)) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
-.case-logo.logo-wide { width: clamp(240px, 28vw, 340px); }
-.case-logo.logo-wide img { max-height: 150px; object-fit: contain; }
-.case-logo.logo-square { width: clamp(130px, 14vw, 170px); }
-.case-logo.logo-square img { max-height: 180px; object-fit: contain; }
-.case-logo.logo-landscape { width: clamp(180px, 17vw, 240px); }
-@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .case-logo:hover { --lift: -3px; --s: 1.04; box-shadow: 0 10px 28px -10px color-mix(in srgb, var(--c) 70%, transparent), 0 0 0 1px color-mix(in srgb, var(--c) 35%, transparent); }
-  .gallery-link:hover .thumb-logo { transform: translateY(-2px) scale(1.03); }
-  .thumb-logo { transition: transform .25s ease; }
-}
-@media (prefers-reduced-motion: reduce) { .case-logo { transition: none; transform: none; } }
 @media (max-width: 760px) {
   .case-head.has-logo { grid-template-columns: minmax(0, 1fr); }
   .case-head.has-logo .case-logo { grid-column: 1; grid-row: 1; justify-self: start; }
   .case-head.has-logo .case-head-text { grid-row: 2; }
-  .case-logo.logo-wide { width: min(280px, 100%); }
-  .case-logo.logo-wide img { max-height: 120px; }
-  .case-logo.logo-square { width: 130px; }
-  .case-logo.logo-square img { max-height: 130px; }
-  .case-logo.logo-landscape { width: 190px; }
 }
 
 
@@ -1169,9 +1128,6 @@ html[data-theme="white"] .logo-img-dark, html:not([data-theme="white"]) .logo-im
 .feature-card:first-child { grid-column: 1 / -1; display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: center; padding-bottom: 2rem; }
 .feature-media { display: block; aspect-ratio: 16 / 9; background: var(--bg-section); border-bottom: 1px solid var(--border); overflow: hidden; }
 .feature-media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; }
-.feature-logo { display: grid; place-items: center; padding: 1.25rem; }
-.feature-logo .project-logo { width: min(80%, 300px); }
-.feature-logo .project-logo img { height: auto; object-fit: contain; }
 .feature-body { padding: 1.25rem 0 1.5rem; display: flex; flex-direction: column; gap: .65rem; }
 .feature-body h3 { margin: 0; font-size: clamp(1.3rem, 1.6vw, 1.5rem); }
 .feature-body h3 a { color: var(--text-heading); text-decoration: none; }
@@ -1225,7 +1181,6 @@ details.quals[open] > summary { margin-bottom: .5rem; }
 .gallery-link { display: grid; grid-template-columns: 100px minmax(0, 1fr); align-items: center; gap: 1.25rem; }
 .gallery-link h3 { padding: 0; margin: 0; font-size: 1.125rem; }
 .gallery-link .thumb { aspect-ratio: 1; height: 100px; border: 0; border-radius: var(--radius-sm); background: var(--bg-section); }
-.gallery-link .thumb.has-logo { padding: .75rem; }
 .gallery-link .thumb-cat { display: none; }
 .gallery-card > p { padding: 0; margin: .8rem 0 0; font-size: 1rem; }
 .gallery-card .built { font-size: .9375rem; }
@@ -1233,8 +1188,6 @@ details.quals[open] > summary { margin-bottom: .5rem; }
 .powers li { background: transparent; border: 0; border-top: 2px solid var(--c); border-radius: 0; box-shadow: none; padding: 1.25rem 0; }
 .powers li::before { display: none; }
 .powers .learning { background: transparent; border-top-style: dashed; }
-.case-logo { transform: none; transition: none; }
-.case-logo:hover { transform: none; }
 
 @media (max-width: 860px) {
   .hero-photo { max-width: 340px; justify-self: start; }
@@ -1456,4 +1409,76 @@ html[data-theme="white"] .hero {
 @media print {
   .hero-media, .hero-video-toggle { display: none; }
   .hero h1, .hero .lede { text-shadow: none; }
+}
+
+/* ---------- Logo stage (1 November 2026) ----------
+   One presentation for every project logo: a light 16:10 surface with a fine border, an inset highlight
+   and a soft shadow, the same in all three themes so navy and purple lettering always reads.
+   Each logo sets --logo-w / --logo-h (share of the stage's inner width / height, from js/projects.js)
+   so wide wordmarks and square emblems look equally prominent. Logos are scaled, never cropped.
+   Linked stages lift 3px with a sky-blue edge on hover, sink on press; the case-study logo is not a link,
+   so it has no hover state. Rationale and asset table: docs/LOGOS.md. */
+:root {
+  --logo-surface: #F1EEF7;
+  --logo-edge: rgb(255 255 255 / .16);
+  --logo-shadow: 0 1px 0 rgb(0 0 0 / .35), 0 10px 22px -12px rgb(0 0 0 / .7);
+  --logo-hover-edge: #65C7FF;
+}
+html[data-theme="white"] {
+  --logo-surface: #FFFFFF;
+  --logo-edge: #D5DAE6;
+  --logo-shadow: 0 1px 0 rgb(10 27 71 / .06), 0 10px 22px -14px rgb(10 27 71 / .35);
+  --logo-hover-edge: #2E8BE6;
+}
+.logo-stage {
+  position: relative; box-sizing: border-box; display: grid; place-items: center;
+  width: 100%; aspect-ratio: 16 / 10; padding: 7.5% 10%;
+  container-type: size;
+  background: var(--logo-surface);
+  border: 1px solid var(--logo-edge); border-radius: var(--radius);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .9), var(--logo-shadow);
+  transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
+}
+.logo-stage img {
+  display: block; width: auto; height: auto;
+  max-width: calc(var(--logo-w, .88) * 100cqw); max-height: calc(var(--logo-h, .7) * 100cqh);
+  object-fit: contain;
+}
+.logo-stage.logo-missing { font: 700 1rem/1.25 var(--head); color: #1E1530; text-align: center; }
+
+/* Selected work: the stage replaces the old screenshot / small-plate mix. */
+.featured-work .feature-media { aspect-ratio: auto; background: none; border: 0; overflow: visible; padding: 0; }
+.featured-work .feature-card { overflow: visible; }
+@media (min-width: 761px) { .featured-work .feature-card:first-child { align-items: start; } }
+@media (max-width: 760px) { .featured-work .feature-card:first-child { align-items: stretch; } }
+
+/* All projects: a 16:10 thumbnail stage beside each title. */
+.gallery-link { grid-template-columns: 144px minmax(0, 1fr); }
+.gallery-link .thumb, .gallery-link .thumb.has-logo { aspect-ratio: auto; height: auto; padding: 0; border: 0; background: none; container-type: normal; overflow: visible; }
+.gallery-link .thumb .logo-stage { padding: 8% 10%; }
+
+/* Case-study header */
+.case-logo { width: clamp(260px, 30vw, 380px); }
+
+/* Interaction: quick, small and only where the stage is part of a link. */
+@media (hover: hover) {
+  .feature-card:hover .logo-stage, .gallery-link:hover .logo-stage {
+    transform: translateY(-3px); border-color: var(--logo-hover-edge);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / .9), 0 2px 0 rgb(0 0 0 / .25), 0 16px 28px -14px rgb(0 0 0 / .75);
+  }
+}
+.feature-card:active .logo-stage, .gallery-link:active .logo-stage { transform: translateY(1px); border-color: var(--logo-hover-edge); transition-duration: 60ms; }
+.feature-card:focus-within .logo-stage, .gallery-link:focus-visible .logo-stage { border-color: var(--logo-hover-edge); }
+@media (prefers-reduced-motion: reduce) {
+  .logo-stage { transition: none; }
+  .feature-card:hover .logo-stage, .gallery-link:hover .logo-stage, .feature-card:active .logo-stage, .gallery-link:active .logo-stage { transform: none; }
+}
+@media (max-width: 760px) {
+  .case-logo { width: min(320px, 100%); }
+}
+@media (max-width: 600px) {
+  .gallery-link { grid-template-columns: 112px minmax(0, 1fr); }
+}
+@media print {
+  .logo-stage { box-shadow: none; border-color: #ccc; }
 }
