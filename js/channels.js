@@ -44,7 +44,7 @@ export const channels = [
     stem: "assets/audio/agency.mp3",
     title: "Gibcom Marketing Support",
     story:
-      "Founded in 2016, incorporated 2019, over 500 customers from the Colmore Building. Websites, search, Google Business, and now AI systems for small and medium businesses.",
+      "Founded in 2016, incorporated 2019, based in the Colmore Building. Websites, search, Google Business, and now AI systems for small and medium businesses.",
     link: { text: "gcmarketingsupport.co.uk", href: "https://gcmarketingsupport.co.uk" },
     unlock: null
   },

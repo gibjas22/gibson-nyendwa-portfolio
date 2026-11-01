@@ -271,3 +271,7 @@ Delivery: review branch only. A push to main publishes automatically, so this ch
   - Article breadcrumbs were 20 px tall to tap; now 38 px.
   - The fifth "by the numbers" tile sat alone beside an empty space on phones and tablets; it now spans the row.
 - Checks: banner 36/36; click-through 47/47 at 320 and 390 px, 41/41 at 1280 px; hero 20/20; video hero 83/83; moving banner 73/73; recommendations 45/45; logos 78/78; axe on 12 pages, three themes, two widths: no issues; header at 7 widths x 6 text sizes: no clipping.
+
+## 1 November 2026, evening: customer count removed
+- At Gibson's request, the site no longer states how many customers Gibcom has worked with. Every "over 500 customers" line is reworded in plain terms (for small businesses, trading since 2016, registered company since January 2019, based in the Colmore Building): home page Selected work and All projects cards, About story, SuperPowers card, mixing-desk Agency story, Gibcom case study (description, overview and outcomes, rebuilt with `scripts/build-projects.mjs`). The "500+ Gibcom customers" tile is removed, leaving four tiles. In the SuperPowers banner, "Over 500 customers" is replaced by "Merchant Center feeds", which is already on the published card.
+- Checks: no "500" left in the text of any page; banner 36/36; click-through 47/47 at 320 and 390 px, 41/41 at 1280 px; recommendations 45/45; logos 78/78; axe: no issues.

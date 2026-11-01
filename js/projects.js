@@ -26,11 +26,11 @@ export const projects = [
     title: "Gibcom Marketing Support",
     category: "web",
     colour: "#5CC4F2",
-    summary: "A Birmingham digital marketing and cybersecurity agency serving over 500 customers since 2016.",
+    summary: "A Birmingham digital marketing and cybersecurity agency for small businesses, trading since 2016.",
     role: "Founder and director",
     live: "https://gcmarketingsupport.co.uk",
     year: "2016 to now",
-    overview: "Gibcom started in 2016 because local firms kept asking me for help with websites and search. It became a registered company in January 2019 and now serves over 500 customers from the Colmore Building in Birmingham, covering websites, search, Google Business Profile, conversion work, and more recently AI systems and cybersecurity for small and medium businesses.",
+    overview: "Gibcom started in 2016 because local firms kept asking me for help with websites and search. It became a registered company in January 2019 and works from the Colmore Building in Birmingham, covering websites, search, Google Business Profile, conversion work, and more recently AI systems and cybersecurity for small and medium businesses.",
     problem: "Small businesses in the West Midlands were paying national agencies for work they did not understand and could not measure, or doing nothing and losing customers to competitors who showed up first on Google.",
     approach: [
       "Plain-English service model: every recommendation comes with the reason it matters.",
@@ -39,7 +39,7 @@ export const projects = [
       "Security added as a service line once the credentials were in place, because the same clients were being phished."
     ],
     tools: ["SEO", "Google Business Profile", "Conversion rate optimisation", "Google Merchant Center", "WordPress", "AI automation"],
-    outcomes: ["Over 500 customers served", "Team built and managed, including an apprentice", "Credentials: ISO 27001, CISMP, CompTIA Security+, Google Professional Cybersecurity Certificate"],
+    outcomes: ["Trading since 2016 and a registered company since January 2019", "Team built and managed, including an apprentice", "Credentials: ISO 27001, CISMP, CompTIA Security+, Google Professional Cybersecurity Certificate"],
     lessons: "Being findable is the whole game for a local business. The second lesson came later: the same businesses that cannot afford a marketing agency also cannot afford a breach, and nobody was speaking to them about either in words they could use.",
     related: ["blbs", "clara"],
     evidence: "Add two or three anonymised before and after search results, and a screenshot of the client update format."

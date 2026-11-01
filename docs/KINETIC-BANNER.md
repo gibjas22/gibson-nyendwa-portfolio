@@ -14,7 +14,7 @@ Opening message, exactly as requested: **Here is Gibson Nyendwa's SuperPowers**
 |---|---|---|
 | Patience at scale | SEND, Functional Skills, Twenty years | Patience at scale card ("Twenty years supporting young people with SEND"; Functional Skills) |
 | Threat sense | ISO 27001, CISMP, CompTIA Security+ | Threat sense card (listed qualifications) |
-| Found in search | SEO, Google Business Profile, Over 500 customers | Found in search card |
+| Found in search | SEO, Google Business Profile, Merchant Center feeds | Found in search card |
 | Agent builder | AI agents, Voice assistants, MCP integrations | Agent builder card |
 | Hands in the soil | Horticulture, Willow, Textiles | Hands in the soil card |
 | Sound as story | The Unsaid Sound, Invincible Battles, Parsifal | Sound as story card |
