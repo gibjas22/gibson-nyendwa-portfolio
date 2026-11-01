@@ -80,7 +80,15 @@ function init() {
   const board = root.querySelector(".desk-board");
   function placeStory() {
     const strip = active && narrow.matches ? root.querySelector(`.strip[data-id="${active}"]`) : null;
-    if (strip) { if (strip.nextElementSibling !== storyBox) strip.after(storyBox); }
+    if (strip) {
+      if (strip.nextElementSibling === storyBox) return;
+      // Moving the open story from above this row to below it would pull the row up under the visitor's
+      // finger mid-drag. Keep the row where it is on screen by scrolling the page by the same distance.
+      const before = strip.getBoundingClientRect().top;
+      strip.after(storyBox);
+      const shift = strip.getBoundingClientRect().top - before;
+      if (Math.abs(shift) > 1) window.scrollBy({ top: shift, behavior: "instant" });
+    }
     else if (board.nextElementSibling !== storyBox) board.after(storyBox);
   }
   narrow.addEventListener?.("change", placeStory);

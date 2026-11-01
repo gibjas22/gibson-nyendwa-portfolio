@@ -122,6 +122,22 @@ function init(root) {
         [out, { opacity: 1, transform: "none" }], [out + T.fadeOut, { opacity: 0, transform: "none" }]]);
     });
     track(close, [[0, { opacity: 1 }]]);   // keeps the container in the same timeline (rules fade with the rows)
+    fit();
+  }
+
+  // Fit each scene to the banner's width. Phones are narrow, and many visitors enlarge text in their
+  // phone or in-app browser (Messenger, Instagram), so a size that fits on one device can run off the
+  // edge on another. Each scene is measured at its natural size (offsetWidth ignores the animation's
+  // transforms) and scaled down just enough to keep a margin on both sides. It never scales up.
+  function fit() {
+    if (!built) return;
+    stage.querySelectorAll(".kin-scene").forEach(sc => {
+      const avail = sc.clientWidth - 2 * Math.max(14, sc.clientWidth * .05);
+      let need = 0;
+      sc.querySelectorAll(".kin-w").forEach(w => { need = Math.max(need, w.offsetWidth); });
+      const s = need > avail && need > 0 ? Math.max(.4, avail / need) : 1;
+      sc.style.setProperty("--fit", s.toFixed(3));
+    });
   }
 
   function playing() { return !userPaused && inView && !document.hidden; }
@@ -151,6 +167,9 @@ function init(root) {
     new IntersectionObserver(([e]) => { if (e.isIntersecting) root.classList.add("is-near"); }, { rootMargin: "800px 0px" }).observe(root);
     new IntersectionObserver(([e]) => { inView = e.isIntersecting; update(); }, { threshold: .1 }).observe(root);
   } else { root.classList.add("is-near"); inView = true; }
+
+  if ("ResizeObserver" in window) new ResizeObserver(() => fit()).observe(root);
+  if (document.fonts) { document.fonts.ready.then(fit); document.fonts.addEventListener("loadingdone", fit); }
 
   const apply = () => (reduce.matches ? stop() : start());
   reduce.addEventListener("change", apply);

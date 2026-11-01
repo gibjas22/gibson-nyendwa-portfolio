@@ -48,7 +48,7 @@ The rest of the site stays in Inter. The banner fonts load only when the banner 
 2. Middle (7.7 to 20.9 s): the six phrases, one at a time, 2.2 s each, coming forward through a slowly moving perspective grid with three supporting words, while a faint ring of the supporting words turns slowly behind.
 3. Closing (21 to 28 s): all six phrases slide in from alternate sides into a stacked composition, hold for about 4.6 s, then fade back to the opening.
 
-Timings are in `TIMING` at the top of `js/superpowers-kinetic.js`. Only opacity and transform are animated; there is no flashing, strobing or rapid blinking. On narrow banners (under 520 px wide) the ring and grid are removed and the closing becomes one column.
+Timings are in `TIMING` at the top of `js/superpowers-kinetic.js`. Each scene is measured and scaled down if needed (`fit()`), so the words stay inside the banner on narrow phones and when a visitor has enlarged text in their phone or in an in-app browser such as Messenger (added 1 November 2026 after Gibson's phone showed "Gibson Nyendwa's" running off both edges). Only opacity and transform are animated; there is no flashing, strobing or rapid blinking. On narrow banners (under 520 px wide) the ring and grid are removed and the closing becomes one column.
 
 ## Accessibility
 - Pause animation / Play animation button: a real button, keyboard reachable, visible focus, 44 px tall; Pause freezes every element in place and Play carries on from the same point.

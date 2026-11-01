@@ -17,7 +17,7 @@
   box-shadow: 0 1px 0 var(--sheen-strong) inset;
 }
 .desk-wave { display: none; }
-.desk-notice { position: relative; max-width: 48ch; text-align: center; margin: 0; color: var(--text-body); font-size: 1.125rem; }
+.desk-notice { position: relative; max-width: 48ch; text-align: center; margin: 0; color: var(--text-body); font-size: 1.0625rem; }
 
 .stories { margin-top: 1.5rem; max-width: var(--measure); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-card); }
 .stories summary {
@@ -32,7 +32,7 @@
 .stories[open] summary { border-radius: var(--radius) var(--radius) 0 0; border-bottom: 1px solid var(--border); }
 .stories > div { padding: .25rem 1.25rem 1.25rem; animation: fade-in 220ms ease; }
 @keyframes fade-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
-.stories h3 { margin-top: 1.25rem; font-size: 1.2rem; }
+.stories h3 { margin-top: 1.25rem; font-size: 1.0625rem; }
 .stories .story-link { font-size: 1rem; }
 
 /* ---------- The live desk (desk.js) ---------- */
@@ -104,14 +104,14 @@
 @keyframes flash { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 90%, transparent); } 100% { box-shadow: 0 0 0 28px color-mix(in srgb, var(--accent) 0%, transparent); } }
 
 .desk-story { position: relative; margin-top: 1.5rem; min-height: 9rem; }
-.desk-story-empty { color: var(--text-muted); font-size: 1.125rem; margin: 0; padding: 1rem 0; }
+.desk-story-empty { color: var(--text-muted); font-size: 1.0625rem; margin: 0; padding: 1rem 0; }
 .story-card {
   background: var(--surface); border: 1px solid var(--border); border-left: 6px solid var(--c);
   border-radius: var(--radius); padding: 1.25rem 1.5rem; box-shadow: var(--shadow-card); max-width: 70ch;
   animation: fade-in 220ms ease;
 }
-.story-card h3 { margin: .2rem 0 .65rem; font-size: 1.25rem; }
-.story-card p { margin: .4rem 0; font-size: 1.0625rem; }
+.story-card h3 { margin: .2rem 0 .65rem; font-size: 1.125rem; }
+.story-card p { margin: .4rem 0; font-size: 1rem; }
 .story-kicker { display: flex; align-items: center; gap: .45rem; font-size: .85rem !important; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: color-mix(in srgb, var(--c) var(--c-mix), var(--c-ink)); }
 .story-unlocked { box-shadow: 0 0 0 1px var(--c); }
 .story-links { display: flex; flex-wrap: wrap; gap: 1.25rem; }
