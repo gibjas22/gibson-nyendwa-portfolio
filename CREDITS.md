@@ -35,6 +35,12 @@ Episode videos are not copied: they play from YouTube's privacy-enhanced player 
 - Inter variable (normal and italic, weights 100 to 900), Latin subset, self-hosted from `@fontsource-variable/inter` 5.3.0. Typeface by Rasmus Andersson; SIL Open Font License 1.1, included as `assets/fonts/OFL-Inter.txt`. Upstream: https://rsms.me/inter/ and https://github.com/rsms/inter. These are the active site fonts from the personal studio typography update.
 - Earlier font assets: Sora (500, 600, 700) and Source Sans 3 (400, 400 italic, 600), Latin subset, retained in `assets/fonts/` from the @fontsource 5 packages. Both are under the SIL Open Font License 1.1; the licence texts are in `assets/fonts/OFL-Sora.txt` and `assets/fonts/OFL-Source-Sans-3.txt`.
 
+## Home page hero background video
+| File | What | Source | Changes |
+|---|---|---|---|
+| `assets/video/hero-bg-1600.mp4` (1600 x 900, 7.6 MB) and `assets/video/hero-bg-phone.mp4` (540 x 960 portrait crop, 3.2 MB) | Night-time river waterfront, Da Nang, Vietnam: skyline lights, reflections and passing tour boats | Licensed footage from Gibson's stock subscription (Gibson confirmed the right to use it, 1 November 2026). Original file kept off the site | Audio removed; looped from 5.5 s with a 1-second crossfade so the join cannot be seen; the Marriott, Courtyard and Novotel hotel signs painted out (Gibson's request); light noise reduction; H.264 with fast start. No colour change |
+| `assets/img/hero/bg-*.webp`, `bg-1280.jpg` | Poster images (first frame of the loop) | Same footage | Same sign removal; resized for desktop and phone |
+
 ## Home page portrait reel
 | File | What | Source | Changes |
 |---|---|---|---|

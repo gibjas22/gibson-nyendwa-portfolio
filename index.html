@@ -54,7 +54,17 @@
 <main id="top">
 
   <section class="hero">
-    <canvas class="hero-motion" id="hero-motion" aria-hidden="true"></canvas>
+    <div class="hero-media" aria-hidden="true">
+      <picture class="hero-poster">
+        <source media="(max-width: 760px)" type="image/webp" srcset="assets/img/hero/bg-phone-540.webp 540w, assets/img/hero/bg-phone-720.webp 720w" sizes="100vw">
+        <source type="image/webp" srcset="assets/img/hero/bg-1280.webp 1280w, assets/img/hero/bg-1920.webp 1920w" sizes="100vw">
+        <img src="assets/img/hero/bg-1280.jpg" width="1280" height="720" alt="" decoding="async">
+      </picture>
+      <video class="hero-video" muted playsinline loop preload="none" tabindex="-1" disablepictureinpicture disableremoteplayback
+        data-src-desktop="assets/video/hero-bg-1600.mp4" data-src-mobile="assets/video/hero-bg-phone.mp4" data-mobile-media="(max-width: 760px)"></video>
+      <div class="hero-scrim"></div>
+    </div>
+    <button class="hero-video-toggle" type="button" hidden><span class="hero-video-icon" aria-hidden="true"></span><span class="hero-video-label">Pause background video</span></button>
     <div class="hero-glow" aria-hidden="true"></div>
     <svg class="hero-wave" viewBox="0 0 1200 140" preserveAspectRatio="none" aria-hidden="true">
       <defs><linearGradient id="wg" x1="0" x2="1"><stop offset="0" stop-color="#6D20CE"/><stop offset=".55" stop-color="#962EFF"/><stop offset="1" stop-color="#D82BEB"/></linearGradient></defs>
@@ -501,7 +511,7 @@
 <script type="module" src="js/podcast.js"></script>
 <script type="module" src="js/gallery.js"></script>
 <script type="module" src="js/hero.js"></script>
-<script type="module" src="js/hero-motion.js"></script>
+<script type="module" src="js/hero-video.js"></script>
 <script type="module" src="js/theme.js"></script>
 <script type="module" src="js/text-banner.js"></script>
 </body>

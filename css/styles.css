@@ -1350,23 +1350,7 @@ html[data-theme="white"] .text-banner { --tb-bg: #1E0E34; --tb-edge: #3B2257; bo
   .text-banner .tb-w { color: #000 !important; transition: none; }
 }
 
-/* ---------- Motion hero (js/hero-motion.js) ----------
-   Seven channel-coloured waveform ribbons in perspective behind the hero, full width.
-   Faded under the words so the text keeps its contrast; still frame for reduced motion. */
-.hero { overflow: visible; }
-.hero-motion {
-  position: absolute; z-index: -1; pointer-events: none;
-  top: 0; bottom: 0; left: 50%; width: 100vw; height: 100%; transform: translateX(-50%);
-  opacity: 0; transition: opacity 900ms ease;
-  -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,.35) 0%, rgba(0,0,0,.55) 35%, #000 70%), linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
-  -webkit-mask-composite: source-in; mask-composite: intersect;
-  mask-image: linear-gradient(to right, rgba(0,0,0,.35) 0%, rgba(0,0,0,.55) 35%, #000 70%), linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
-}
-.hero-motion.is-ready { opacity: 1; }
-.hero-motion.is-light { opacity: .85; }
-@media (max-width: 860px) {
-  .hero-motion { -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.45) 25%, #000 70%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.45) 25%, #000 70%, transparent 100%); }
-}
+/* Hero entrance (kept from the motion hero of 30 October; the ribbon canvas was replaced by the video). */
 @media (prefers-reduced-motion: no-preference) {
   .hero-text > * { animation: hero-rise 700ms cubic-bezier(.2,.7,.2,1) both; }
   .hero-text > :nth-child(2) { animation-delay: 90ms; }
@@ -1375,3 +1359,101 @@ html[data-theme="white"] .text-banner { --tb-bg: #1E0E34; --tb-edge: #3B2257; bo
   .hero-photo { animation: hero-rise 800ms 120ms cubic-bezier(.2,.7,.2,1) both; }
 }
 @keyframes hero-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+/* ---------- Video hero (js/hero-video.js) ----------
+   A silent night-time waterfront loop behind the home hero only. The poster image is plain HTML,
+   so the hero is complete before (or without) the video. The scrim keeps the words readable over
+   the brightest frames; the footage itself is never colour-filtered.
+   Adjust: --hero-rgb (scrim colour), --hero-cta (main button), object-position for the framing. */
+.hero {
+  --hero-rgb: 16 8 24;                 /* Purple theme base, #100818 */
+  --hero-cta: #FF9F43; --hero-cta-hover: #FFB066; --hero-cta-ink: #1A0F05;
+  --hero-sky: #65C7FF;
+  position: relative; isolation: isolate; overflow: visible;
+  padding-bottom: calc(clamp(3rem, 6vw, 5rem) + 2.5rem);
+}
+html[data-theme="sky-blue"] .hero { --hero-rgb: 6 17 46; }      /* #06112E */
+/* White theme: the hero stays a dark band (like the About banner) so the footage keeps its colour
+   and the white lettering stays readable. Tokens are scoped to the hero only. */
+html[data-theme="white"] .hero {
+  --text-heading: #F6F3FA; --text-body: #E4DCEE; --text-muted: #C9BDD8;
+  --surface: #211B29; --surface-raised: #2B2434; --border: #5A4F68; --focus-ring: #65C7FF;
+  --accent: #CBB8ED; color-scheme: dark;
+}
+.hero-media {
+  position: absolute; z-index: -1; inset: 0 auto 0 50%; width: 100vw; transform: translateX(-50%);
+  overflow: hidden; background: rgb(var(--hero-rgb));
+}
+.hero-poster img, .hero-video {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 55% 48%;
+}
+.hero-video { opacity: 0; transition: opacity 1600ms ease; }
+.hero-media.is-playing .hero-video { opacity: 1; }
+/* Cinematic framing: the sky and skyline stay clear at the top; the title sits low on the left
+   like an opening title card, over water darkened by the bottom fade and a soft left vignette. */
+.hero-scrim {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 52% 56% at 24% 68%, rgb(var(--hero-rgb) / .7) 0%, rgb(var(--hero-rgb) / .46) 55%, transparent 100%),
+    linear-gradient(0deg, rgb(var(--hero-rgb)) 0%, rgb(var(--hero-rgb) / .86) 16%, rgb(var(--hero-rgb) / .62) 34%, rgb(var(--hero-rgb) / .18) 56%, transparent 70%),
+    linear-gradient(90deg, rgb(var(--hero-rgb) / .72) 0%, rgb(var(--hero-rgb) / .45) 32%, transparent 58%),
+    linear-gradient(180deg, rgb(var(--hero-rgb) / .5) 0%, transparent 14%);
+}
+@media (min-width: 861px) {
+  .hero {
+    min-height: min(calc(100svh - 72px), 880px);
+    align-items: end;
+    padding-top: clamp(8rem, 26vh, 16rem);
+    padding-bottom: 6rem;
+  }
+  .hero-photo { max-width: 372px; }
+  .hero .lede { max-width: 54ch; }
+}
+.hero h1 { text-shadow: 0 2px 18px rgb(0 0 0 / .55), 0 1px 2px rgb(0 0 0 / .4); }
+.hero .lede, .hero-desk-link { text-shadow: 0 1px 2px rgb(0 0 0 / .45); }
+.hero .lede { color: var(--text-body); }
+.hero .button:not(.button-quiet) { background: var(--hero-cta); color: var(--hero-cta-ink); border-color: transparent; }
+.hero .button:not(.button-quiet):hover { background: var(--hero-cta-hover); color: var(--hero-cta-ink); }
+.hero .button:not(.button-quiet):active { background: #F28A24; }
+.hero .button-quiet { background: rgb(var(--hero-rgb) / .55); color: var(--text-heading); border-color: rgb(255 255 255 / .3); }
+.hero .button-quiet:hover { background: rgb(var(--hero-rgb) / .8); border-color: var(--hero-sky); color: var(--text-heading); }
+.hero .button:focus-visible, .hero-video-toggle:focus-visible, .hero .reel-btn:focus-visible { outline: 3px solid var(--hero-sky); outline-offset: 3px; }
+.hero-desk-link a { text-decoration-color: var(--hero-sky); }
+.hero-desk-link a:hover { color: var(--hero-sky); }
+.hero .reel-stage { box-shadow: 0 18px 40px rgb(0 0 0 / .45), 0 0 0 1px rgb(255 255 255 / .1); }
+.hero .reel-btn { background: rgb(var(--hero-rgb) / .7); color: #F6F3FA; border-color: rgb(255 255 255 / .25); }
+.hero .reel-btn:hover { border-color: var(--hero-sky); }
+
+.hero-video-toggle {
+  position: absolute; right: 0; bottom: 1rem; z-index: 1;
+  display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; padding: .4rem .9rem .4rem .75rem;
+  font: 500 .875rem/1 var(--body); color: #F6F3FA;
+  background: rgb(var(--hero-rgb) / .72); border: 1px solid rgb(255 255 255 / .28); border-radius: 999px; cursor: pointer;
+}
+.hero-video-toggle:hover { border-color: var(--hero-sky); }
+.hero-video-toggle[hidden] { display: none; }
+.hero-video-icon { width: 10px; height: 12px; background: linear-gradient(90deg, currentColor 0 34%, transparent 34% 66%, currentColor 66%); }
+.hero-video-toggle[data-state="paused"] .hero-video-icon { background: currentColor; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+
+/* Phones and tablets: an opening shot. The skyline and water fill a picture window at the top,
+   the name overlaps its faded lower edge, and the rest of the hero sits on the dark band below. */
+@media (max-width: 860px) {
+  .hero { --hero-window: clamp(300px, 52svh, 500px); padding-top: calc(var(--hero-window) - 4.5rem); }
+  .hero-poster img, .hero-video, .hero-scrim { inset: 0 0 auto 0; height: var(--hero-window); }
+  .hero-scrim {
+    background: linear-gradient(180deg, rgb(var(--hero-rgb) / .45) 0%, transparent 16%, transparent 46%, rgb(var(--hero-rgb) / .7) 74%, rgb(var(--hero-rgb)) 100%);
+  }
+  .hero-video-toggle { top: .9rem; bottom: auto; }
+}
+@media (max-width: 760px) {
+  .hero-poster img, .hero-video { object-position: 50% 74%; }
+}
+@media (max-width: 420px) {
+  .hero-actions { flex-direction: column; align-items: stretch; }
+  .hero-actions .button { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { .hero-video { transition: none; } }
+@media print {
+  .hero-media, .hero-video-toggle { display: none; }
+  .hero h1, .hero .lede { text-shadow: none; }
+}
