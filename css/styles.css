@@ -833,7 +833,7 @@ p a, li a, dd a, .contact-details a { overflow-wrap: anywhere; }
 .certs summary::before { content: "+"; display: inline-grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 50%; border: 1px solid var(--accent); color: var(--accent); font-size: 1.1rem; }
 .certs[open] summary::before { content: "\2212"; }
 .certs summary:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 3px; border-radius: 8px; }
-.certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem 2rem; margin-top: 1rem; }
+.certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 1.25rem 2rem; margin-top: 1rem; }
 .certs h4 { margin: 0 0 .5rem; font-size: 1rem; color: var(--text-heading); }
 .certs ul { margin: 0; padding-left: 1.1rem; display: grid; gap: .4rem; }
 .certs li { color: var(--text-body); font-size: 1rem; line-height: 1.45; }
@@ -1441,8 +1441,8 @@ html[data-theme="white"] .hero {
   /* Icon-only and quiet: the background video plays without a caption over it. The button stays
      (WCAG 2.2.2 needs a way to stop moving video) and keeps its full name for screen readers. */
   position: absolute; right: 0; bottom: 1rem; z-index: 1;
-  display: inline-grid; place-items: center; width: 36px; height: 36px; padding: 0;
-  color: #F6F3FA; opacity: .55; transition: opacity .2s ease;
+  display: inline-grid; place-items: center; width: 44px; height: 44px; padding: 0;
+  color: #F6F3FA; opacity: 1; transition: opacity .2s ease;
   background: rgb(var(--hero-rgb) / .45); border: 1px solid rgb(255 255 255 / .2); border-radius: 50%; cursor: pointer;
 }
 .hero-video-toggle:hover, .hero-video-toggle:focus-visible, .hero-video-toggle[data-state="paused"] { opacity: 1; }
@@ -1688,12 +1688,12 @@ html[data-theme="white"] .kin { border-color: #2B2140; box-shadow: 0 14px 30px -
 .top .hint:hover { background: var(--surface); border-color: var(--accent); }
 .top .hint .fader-icon { display: none; }
 
-/* Hero: the name carries the page. */
+/* Hero: use the documented type scale, including the home-page title. */
 .hero h1 {
-  font-size: clamp(2.75rem, 1.5rem + 5.2vw, 5.25rem); line-height: 1; letter-spacing: -.035em;
-  font-weight: 700; margin: 0 0 .4em; text-wrap: balance;
+  font-size: clamp(1.75rem, 1rem + 2.2vw, 2.625rem); line-height: 1.08; letter-spacing: -.035em;
+  font-weight: 600; margin: 0 0 .4em; text-wrap: balance;
 }
-.hero .lede { font-size: clamp(1.125rem, 1rem + .45vw, 1.3125rem); line-height: 1.55; max-width: 38ch; }
+.hero .lede { font-size: clamp(1.0625rem, 1rem + .3vw, 1.1875rem); line-height: 1.6; max-width: 48ch; }
 .hero-actions { margin-top: 1.75rem; }
 .hero-desk-link { color: var(--text-muted); }
 
