@@ -15,9 +15,9 @@ if (toggle && nav) {
     toggle.querySelector(".menu-label").textContent = open ? "Close" : "Menu";
     toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
   };
-  toggle.addEventListener("click", () => setOpen(!nav.classList.contains("open")));
+  toggle.addEventListener("click", () => { const open = !nav.classList.contains("open"); setOpen(open); if (open) nav.querySelector("a")?.focus(); });
   links.forEach(a => a.addEventListener("click", () => setOpen(false)));
-  document.addEventListener("keydown", e => { if (e.key === "Escape") setOpen(false); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && nav.classList.contains("open")) { const inside = nav.contains(document.activeElement); setOpen(false); if (inside) toggle.focus(); } });
   document.addEventListener("click", e => {
     if (nav.classList.contains("open") && !nav.contains(e.target) && !toggle.contains(e.target)) setOpen(false);
   });

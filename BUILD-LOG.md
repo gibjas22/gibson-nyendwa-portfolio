@@ -1,3 +1,18 @@
+## 3 November 2026: site review fixes (branch `site-review-fixes`)
+
+**What changed**
+- Articles are now pre-rendered to `insights/<slug>.html` by `scripts/build-insights.mjs`, so link previews and search engines see the real title, description, image and text. The old `article.html?slug=` address redirects and is marked noindex.
+- Article reading aids: tap-to-call phone numbers, colour-coded layer cards for the Birmingham thresholds scale, a reading progress bar, a back-to-contents button and native sharing on phones.
+- Header menu redesign: quieter hover, an underline for the current tab, the menu icon turns into an X, a full-width panel with 52px rows on phones, a 340px panel on tablets, and the menu collapses at 1023px so tabs never squeeze.
+- Insights cards no longer pick up the project card styles. New three-fader icon for "Hear my story".
+- Hero video re-encoded (8.0 MB to 1.67 MB desktop, 3.37 MB to 1.10 MB phone), skipped on Save-Data and slow connections, and started after the page has loaded. The pause control is now a small quiet icon instead of a text pill.
+- Accessibility: skip link targets the main content, the menu moves focus in on open and back to the button on Escape, form errors are linked to their fields, desk values are not read twice, the sound button names its action, play buttons state the running time, fader tracks meet 3:1 contrast.
+- Unused Sora and Source Sans 3 fonts removed and the Google Fonts domains taken out of the Content Security Policy. Short caching for CSS and JS added in `customHttp.yml`.
+- What's On shows a fallback card with links when the live feed fails.
+
+**How it was tested**
+Playwright on a local server at 360, 390, 768, 1024 and 1440 px: no horizontal overflow, no console errors apart from the external feed blocked in the sandbox, old article links redirect with the hash kept, menu focus behaviour checked.
+
 
 ## 27 October 2026, evening: Insights hub, FAQ, legal pages
 

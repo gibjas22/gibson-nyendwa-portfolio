@@ -94,7 +94,7 @@
   --desk-board-a: #17131D;
   --desk-board-b: #201B27;
   --meter-off: #3B3345;
-  --fader-track: #52465F;
+  --fader-track: #7D7290;
   --desk-off: #8C7D9D;
   --thumb-hi: #F4EFFA;
   --thumb-mid: #C9BCD9;
@@ -149,7 +149,7 @@
   --desk-board-a: #0B1D4D;
   --desk-board-b: #0E2459;
   --meter-off: #1A3570;
-  --fader-track: #213F80;
+  --fader-track: #5577C2;
   --desk-off: #3B5488;
   --thumb-hi: #F2F6FC;
   --thumb-mid: #BCC9DE;
@@ -212,7 +212,7 @@
   --desk-board-a: #E8EBF3;
   --desk-board-b: #DCE1EC;
   --meter-off: #C9D0DF;
-  --fader-track: #C3CAD9;
+  --fader-track: #6E7891;
   --desk-off: #9AA3B8;
   --thumb-hi: #FFFFFF;
   --thumb-mid: #D3D9E5;
@@ -1438,11 +1438,15 @@ html[data-theme="white"] .hero {
 .hero .reel-btn:hover { border-color: var(--hero-sky); }
 
 .hero-video-toggle {
+  /* Icon-only and quiet: the background video plays without a caption over it. The button stays
+     (WCAG 2.2.2 needs a way to stop moving video) and keeps its full name for screen readers. */
   position: absolute; right: 0; bottom: 1rem; z-index: 1;
-  display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; padding: .4rem .9rem .4rem .75rem;
-  font: 500 .875rem/1 var(--body); color: #F6F3FA;
-  background: rgb(var(--hero-rgb) / .72); border: 1px solid rgb(255 255 255 / .28); border-radius: 999px; cursor: pointer;
+  display: inline-grid; place-items: center; width: 36px; height: 36px; padding: 0;
+  color: #F6F3FA; opacity: .55; transition: opacity .2s ease;
+  background: rgb(var(--hero-rgb) / .45); border: 1px solid rgb(255 255 255 / .2); border-radius: 50%; cursor: pointer;
 }
+.hero-video-toggle:hover, .hero-video-toggle:focus-visible, .hero-video-toggle[data-state="paused"] { opacity: 1; }
+.hero-video-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .hero-video-toggle:hover { border-color: var(--hero-sky); }
 .hero-video-toggle[hidden] { display: none; }
 .hero-video-icon { width: 10px; height: 12px; background: linear-gradient(90deg, currentColor 0 34%, transparent 34% 66%, currentColor 66%); }
@@ -1456,7 +1460,7 @@ html[data-theme="white"] .hero {
   .hero-scrim {
     background: linear-gradient(180deg, rgb(var(--hero-rgb) / .45) 0%, transparent 16%, transparent 46%, rgb(var(--hero-rgb) / .7) 74%, rgb(var(--hero-rgb)) 100%);
   }
-  .hero-video-toggle { top: .9rem; bottom: auto; }
+  .hero-video-toggle { top: .75rem; bottom: auto; right: .25rem; }
 }
 @media (max-width: 760px) {
   .hero-poster img, .hero-video { object-position: 50% 74%; }

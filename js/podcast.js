@@ -53,7 +53,7 @@ const embedUrl = e => `https://www.youtube-nocookie.com/embed/${e.id}?autoplay=1
 const LOGO = "assets/img/send-life-transition/slt-logo-320.webp";
 
 function poster(e) {
-  return `<button type="button" class="slt-play" data-id="${e.id}" aria-label="Play episode: ${esc(e.title)}. Loads the YouTube player.">
+  return `<button type="button" class="slt-play" data-id="${e.id}" aria-label="Play episode: ${esc(e.title)} (${fmtLength(e.seconds)}). Loads the YouTube player.">
       <img class="slt-play-logo" src="${LOGO}" alt="" width="96" height="96" loading="lazy">
       <span class="slt-play-title" aria-hidden="true">${esc(e.title)}</span>
       <span class="slt-play-cta" aria-hidden="true"><span class="slt-play-icon"></span>Play episode</span>

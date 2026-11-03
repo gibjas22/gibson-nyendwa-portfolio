@@ -37,7 +37,7 @@ const block = b => b.h ? `<h2 id="${hid(b.h)}">${esc(b.h)}</h2>`
   : b.code ? `<pre><code>${esc(b.code)}</code></pre>` : "";
 
 // ---------- "Watch the video": click-to-load YouTube player ----------
-const poster = v => `<button type="button" class="slt-play" data-start="0" aria-label="Play video: ${esc(v.title)}. Loads the YouTube player.">
+const poster = v => `<button type="button" class="slt-play" data-start="0" aria-label="Play video: ${esc(v.title)} (${fmtLen(v.seconds)}). Loads the YouTube player.">
       <img class="slt-play-logo" src="${LOGO}" alt="" width="96" height="96" loading="lazy">
       <span class="slt-play-title" aria-hidden="true">${esc(v.title)}</span>
       <span class="slt-play-cta" aria-hidden="true"><span class="slt-play-icon"></span>Play video</span>
