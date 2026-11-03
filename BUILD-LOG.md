@@ -9,6 +9,7 @@
 - Accessibility: skip link targets the main content, the menu moves focus in on open and back to the button on Escape, form errors are linked to their fields, desk values are not read twice, the sound button names its action, play buttons state the running time, fader tracks meet 3:1 contrast.
 - Unused Sora and Source Sans 3 fonts removed and the Google Fonts domains taken out of the Content Security Policy. Short caching for CSS and JS added in `customHttp.yml`.
 - What's On shows a fallback card with links when the live feed fails.
+- Polish pass: larger hero name and a shorter introduction, the header story button as an outline, the about banner in one colour, contact columns rebalanced, and the footer grouped into columns. Fixed a regression that squeezed the project list into two narrow columns on phones.
 
 **How it was tested**
 Playwright on a local server at 360, 390, 768, 1024 and 1440 px: no horizontal overflow, no console errors apart from the external feed blocked in the sandbox, old article links redirect with the hash kept, menu focus behaviour checked.

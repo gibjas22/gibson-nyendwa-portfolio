@@ -1246,7 +1246,7 @@ details.quals[open] > summary { margin-bottom: .5rem; }
   .hero-photo { max-width: 340px; justify-self: start; }
 }
 @media (max-width: 600px) {
-  .gallery { grid-template-columns: 1fr; gap: 1.75rem; }
+  .gallery, .gallery:not(.insights-grid) { grid-template-columns: 1fr; gap: 1.75rem; }
   .hero-actions { gap: .65rem; }
   .hero-actions .button { padding-inline: 1rem; }
   .gallery-card:not(.insight-card) .gallery-link { grid-template-columns: 84px minmax(0, 1fr); gap: 1rem; }
@@ -1676,3 +1676,49 @@ html[data-theme="white"] .kin { border-color: #2B2140; box-shadow: 0 14px 30px -
 }
 @media (max-width: 520px) { .kin { min-height: 360px; } }
 @media print { .kin-stage, .kin-toggle { display: none; } .kin .kin-static { position: static; width: auto; height: auto; clip: auto; margin: 0; overflow: visible; } }
+
+/* ---------- Polish pass, 3 November 2026 ----------
+   One confident type moment (the name), quieter chrome around it, and a calmer footer. */
+
+/* Header: the story button is an outline, not a second filled call to action competing with the hero. */
+.top .hint, .top .hint:hover {
+  background: none; color: var(--text-heading); border: 1px solid var(--selected-border);
+  box-shadow: none; filter: none; font-size: .9375rem; font-weight: 600;
+}
+.top .hint:hover { background: var(--surface); border-color: var(--accent); }
+.top .hint .fader-icon { display: none; }
+
+/* Hero: the name carries the page. */
+.hero h1 {
+  font-size: clamp(2.75rem, 1.5rem + 5.2vw, 5.25rem); line-height: 1; letter-spacing: -.035em;
+  font-weight: 700; margin: 0 0 .4em; text-wrap: balance;
+}
+.hero .lede { font-size: clamp(1.125rem, 1rem + .45vw, 1.3125rem); line-height: 1.55; max-width: 38ch; }
+.hero-actions { margin-top: 1.75rem; }
+.hero-desk-link { color: var(--text-muted); }
+
+/* The about banner: one colour. The motion is the feature, not a rainbow of words. */
+.text-banner .tb-w { color: var(--tb-white); }
+
+/* Contact: email and links on the left, booking on the right, so the columns balance. */
+.contact-left { display: grid; gap: 1.5rem; align-content: start; }
+.contact-left .elsewhere h3 { margin-top: 0; }
+
+/* Footer: grouped columns instead of a run of underlined links. */
+.foot-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr)); gap: 2rem 2.5rem; }
+.foot-grid p { margin: 0 0 .5rem; color: var(--text-body); }
+.foot-name { font-family: var(--head); font-weight: 700; font-size: 1.25rem; color: var(--text-heading) !important; letter-spacing: -.01em; }
+.foot-grid h2 { font-size: .9375rem; font-weight: 600; color: var(--text-heading); margin: 0 0 .5rem; letter-spacing: 0; }
+.foot-grid ul { list-style: none; margin: 0; padding: 0; }
+.foot-grid a { display: inline-block; padding: .4rem 0; color: var(--text-body); font-weight: 500; text-decoration: none; }
+.foot-grid a:hover, .foot-grid a:focus-visible { color: var(--text-heading); text-decoration: underline; text-underline-offset: .2em; }
+.foot-brand a { color: var(--text-heading); text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: .2em; }
+.foot-base { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: .5rem 2rem; margin-top: 2.25rem; padding-top: 1.25rem; border-top: 1px solid var(--border); }
+.foot-base p { margin: 0; }
+.foot-base .small { font-size: .875rem; }
+@media (max-width: 860px) {
+  .foot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .foot-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 380px) { .foot-grid { grid-template-columns: 1fr; } }
+.hero-video-toggle { top: 1rem; bottom: auto; }
