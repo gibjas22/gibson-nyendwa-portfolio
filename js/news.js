@@ -149,5 +149,9 @@ if (box && NEWS_ENDPOINT) {
       source = data.source || source;
       build(); box.hidden = false; show(DEFAULT_SECTION);
     })
-    .catch(() => { /* leave the panel hidden: the page works without it */ });
+    .catch(() => {
+      // Leave the panel hidden. Pages that have nothing else to show (What's On) offer a fallback instead.
+      const fb = document.getElementById("news-fallback");
+      if (fb) fb.hidden = false;
+    });
 }
