@@ -42,17 +42,17 @@ const card = a => {
   const c = categoryById(a.category) || {};
   return `
   <li class="gallery-card insight-card" style="--c:${c.colour || "var(--primary)"}">
-    <a class="gallery-link" href="article.html?slug=${a.slug}" tabindex="-1" aria-hidden="true">
+    <a class="gallery-link" href="${esc(a.slug)}.html" tabindex="-1" aria-hidden="true">
       ${a.cover
         ? coverPicture(a, "", "(max-width: 639px) calc(100vw - 2rem), (max-width: 1023px) 46vw, 360px", true)
         : `<div class="thumb">${icon(c.icon || "chip", "thumb-icon")}<span class="thumb-cat">${esc(c.label || "")}</span></div>`}
     </a>
     <p class="card-cat">${esc(c.label || "")}</p>
-    <h3><a class="card-title" href="article.html?slug=${a.slug}">${esc(a.title)}</a></h3>
+    <h3><a class="card-title" href="${esc(a.slug)}.html">${esc(a.title)}</a></h3>
     <p>${esc(a.excerpt)}</p>
     ${(a.tags || []).length ? `<p class="card-tags">${a.tags.slice(0, 3).map(t => `<span>${esc(t)}</span>`).join("")}</p>` : ""}
     <p class="built"><time datetime="${a.published}">${fmtDate(a.published)}</time> · ${readingTime(a)} min read${a.video ? " · with video" : ""}</p>
-    ${a.video ? `<p class="card-actions"><a href="article.html?slug=${a.slug}">Read article<span class="visually-hidden">: ${esc(a.title)}</span></a><a href="article.html?slug=${a.slug}#watch">Watch video<span class="visually-hidden">: ${esc(a.title)}</span></a></p>` : ""}
+    ${a.video ? `<p class="card-actions"><a href="${esc(a.slug)}.html">Read article<span class="visually-hidden">: ${esc(a.title)}</span></a><a href="${esc(a.slug)}.html#watch">Watch video<span class="visually-hidden">: ${esc(a.title)}</span></a></p>` : ""}
   </li>`;
 };
 
@@ -123,7 +123,7 @@ if (feat) {
   const fc = categoryById(feat.category) || {};
   featuredBox.innerHTML = `<section class="featured card" style="--c:${fc.colour || "var(--accent)"}" aria-labelledby="feat-h">
     <p class="case-cat">Featured · ${esc(fc.label || "")}</p>
-    <h2 id="feat-h"><a href="article.html?slug=${feat.slug}">${esc(feat.title)}</a></h2>
+    <h2 id="feat-h"><a href="${esc(feat.slug)}.html">${esc(feat.title)}</a></h2>
     <p>${esc(feat.excerpt)}</p>
     <p class="built"><time datetime="${feat.published}">${fmtDate(feat.published)}</time> · ${readingTime(feat)} min read</p></section>`;
 }

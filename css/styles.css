@@ -292,9 +292,13 @@ ul { list-style: none; margin: 0; padding: 0; }
   border: 1px solid transparent;
   transition: background var(--t), color var(--t), border-color var(--t), transform 120ms ease;
 }
-.top nav a:hover { background: var(--surface); border-color: var(--border); color: var(--text-heading); }
+/* Tabs: hover is a quiet fill, the current page is an underline in the accent colour, and focus is
+   the outline alone, so the three states never look alike. */
+.top nav a:hover { background: var(--surface); border-color: transparent; color: var(--text-heading); }
 .top nav a:active { transform: translateY(1px) scale(.98); }
-.top nav a.current:not(.hint) { background: var(--surface-raised); border-color: var(--selected-border); color: var(--text-heading); box-shadow: 0 0 0 1px color-mix(in srgb, var(--primary) calc(25% * var(--glow-k)), transparent), 0 0 18px var(--glow); }
+.top nav a.current:not(.hint) { background: none; border-color: transparent; color: var(--text-heading); font-weight: 600; border-radius: 0; box-shadow: inset 0 -2px 0 var(--accent); }
+.top nav a.current:not(.hint):hover { background: var(--surface); border-radius: var(--radius-sm) var(--radius-sm) 0 0; }
+.top nav a:focus-visible { outline-offset: 2px; }
 .top .hint {
   text-decoration: none; font-weight: 600; font-size: 1.0625rem; padding: .55rem .85rem; border-radius: 999px; border: 1px solid transparent; min-height: 44px;
   transition: filter var(--t), box-shadow var(--t), transform 120ms ease;
@@ -316,6 +320,13 @@ ul { list-style: none; margin: 0; padding: 0; }
 .menu-toggle .bars { display: inline-block; width: 18px; height: 2px; background: currentColor; position: relative; }
 .menu-toggle .bars::before, .menu-toggle .bars::after { content: ""; position: absolute; left: 0; width: 18px; height: 2px; background: currentColor; }
 .menu-toggle .bars::before { top: -6px; } .menu-toggle .bars::after { top: 6px; }
+.menu-toggle .bars, .menu-toggle .bars::before, .menu-toggle .bars::after { transition: transform var(--t), top var(--t), background var(--t); }
+/* Open: the three bars become a cross, so phones (where the "Close" label is hidden) still show the state. */
+.menu-toggle[aria-expanded="true"] { background: var(--surface-raised); border-color: var(--selected-border); }
+.menu-toggle[aria-expanded="true"] .bars { background: transparent; }
+.menu-toggle[aria-expanded="true"] .bars::before { top: 0; transform: rotate(45deg); }
+.menu-toggle[aria-expanded="true"] .bars::after { top: 0; transform: rotate(-45deg); }
+@media (prefers-reduced-motion: reduce) { .menu-toggle .bars, .menu-toggle .bars::before, .menu-toggle .bars::after { transition: none; } }
 
 /* ---------- Hero ---------- */
 main { max-width: var(--max); margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2.5rem); }
@@ -426,9 +437,9 @@ body { overflow-x: clip; }
   .hero-photo { max-width: 300px; }   /* after the introduction on phones and tablets */
   .about-grid { grid-template-columns: 1fr; }
 }
-/* Navigation collapses into the Menu button up to 1120px, so the full header never overflows on
-   small laptops and tablets (the home page has six links plus Appearance and Hear my story). */
-@media (max-width: 1120px) {
+/* Navigation collapses into the Menu button below 1024px. From 1024px the five links, the Appearance
+   icon and Hear my story fit on one row (about 850px), so small laptops and landscape tablets keep tabs. */
+@media (max-width: 1023px) {
   .menu-toggle { display: inline-flex; }
   .top nav {
     position: absolute; left: 0; right: 0; top: 100%;
@@ -441,12 +452,22 @@ body { overflow-x: clip; }
     max-height: calc(100vh - 5rem); max-height: calc(100dvh - 5rem); overflow-y: auto; overscroll-behavior: contain;
   }
   .top nav.open { transform: none; opacity: 1; visibility: visible; pointer-events: auto; transition-delay: 0s; }
-  .top nav a { font-size: 1.0625rem; padding: .8rem 1rem; min-height: 44px; display: flex; align-items: center; border-radius: var(--radius-sm); }
+  .top nav { gap: 0; }
+  .top nav a { font-size: 1.125rem; padding: .8rem 1rem; min-height: 52px; display: flex; align-items: center; border-radius: var(--radius-sm); }
+  .top nav a + a { border-top: 1px solid color-mix(in srgb, var(--border) 60%, transparent); border-radius: 0; }
+  .top nav a.current:not(.hint) { box-shadow: inset 3px 0 0 var(--accent); background: var(--surface-raised); border-radius: 0; }
   .top .hint { padding: .5rem .8rem; font-size: 1rem; margin: 0; }
-  .wordmark { font-size: .95rem; }
+  .wordmark { font-size: 1rem; }
   .top { gap: .5rem; }
-  .top-right { gap: .5rem; }
+  .top-right { gap: .5rem; margin-left: auto; }
+  /* Dim the page behind the open menu, and let a tap on it close the menu (shell.js / main.js). */
+  .top:has(nav.open)::after { content: ""; position: fixed; inset: 0; top: 100%; height: 100vh; background: rgb(0 0 0 / .45); z-index: -1; }
 }
+/* Tablets: the menu opens as a panel under the button rather than a full-width sheet. */
+@media (min-width: 600px) and (max-width: 1023px) {
+  .top nav { left: auto; right: clamp(1rem, 4vw, 2.5rem); width: min(340px, calc(100vw - 2rem)); border: 1px solid var(--border); border-radius: var(--radius); }
+}
+/* Phones: the name leads; Hear my story steps back to an outlined button. */
 @media (max-width: 900px) {
   .pull { border-left-width: 4px; }
   body { font-size: 1rem; }
@@ -674,7 +695,7 @@ p a, li a, dd a, .contact-details a { overflow-wrap: anywhere; }
 /* ---------- Case study page ---------- */
 .case { padding-top: 2rem; padding-bottom: 2rem; }
 .crumbs { margin: 1rem 0; }
-.crumbs a { font-weight: 600; display: inline-block; padding: .4rem 0; }   /* at least 24px tall to tap */
+.crumbs a { font-weight: 600; display: inline-block; padding: .6rem 0; }   /* 44px tall to tap on phones */
 .case-head { border-left: 6px solid var(--c); padding-left: 1.25rem; margin: 1rem 0 2.5rem; }
 .case-cat { color: var(--text-muted); font-weight: 600; margin-bottom: .5rem; }
 .case-head .lede { max-width: 40ch; }
@@ -687,6 +708,7 @@ p a, li a, dd a, .contact-details a { overflow-wrap: anywhere; }
 .related { display: grid; gap: .6rem; }
 .related li { border-left: 4px solid var(--c); padding-left: .75rem; }
 .related a { font-weight: 600; }
+.related .muted { display: block; font-size: .875rem; margin-top: .15rem; }
 
 /* ---------- Insights hub ---------- */
 .hub .section, .article-page, .faq-page .section { padding-top: 2.5rem; }
@@ -713,7 +735,7 @@ p a, li a, dd a, .contact-details a { overflow-wrap: anywhere; }
 .insight-card .thumb-cat { left: 1.1rem; bottom: 1rem; }
 
 /* ---------- Article page ---------- */
-.article-page { max-width: 1120px; margin: 0 auto; padding: 1.5rem var(--pad, 1.25rem) 3rem; }
+.article-page { max-width: 1120px; margin: 0 auto; padding: 1.5rem clamp(1rem, 4vw, 2.5rem) 3rem; }
 .article-page .crumbs { color: var(--text-muted); }
 .article-page .case-head { margin-top: 1.25rem; }
 .article-page h1 { font-size: clamp(1.75rem, 1rem + 2.2vw, 2.5rem); line-height: 1.12; max-width: 24ch; }
@@ -732,6 +754,33 @@ p a, li a, dd a, .contact-details a { overflow-wrap: anywhere; }
 .article-body img { max-width: 100%; height: auto; border-radius: 12px; }
 .share .case-actions { align-items: center; }
 .share .text-link { min-height: 48px; }
+
+/* Article reading aids (3 Nov 2026) */
+.byline span:not(.sep) { white-space: nowrap; }
+.article-body h2, #watch, #toc { scroll-margin-top: 88px; }
+.article-body a.tel { font-weight: 700; white-space: nowrap; }
+/* Threshold scales such as Birmingham's layers of need: colour-coded cards, not a plain list */
+.layers { list-style: none; margin: 1.25rem 0 1.5rem; padding: 0; display: grid; gap: .75rem; counter-reset: none; }
+.layer { --lc: #5BC46B; position: relative; padding: .9rem 1.1rem .9rem 1.25rem; border: 1px solid var(--border); border-left: 6px solid var(--lc); border-radius: var(--radius); background: color-mix(in srgb, var(--lc) 9%, var(--surface)); }
+.layer-green { --lc: #3FAE5A; }
+.layer-yellow { --lc: #E8C33A; }
+.layer-amber { --lc: #F08A24; }
+.layer-red { --lc: #E5484D; }
+.layer p { margin: 0; }
+.article-body .layer-name { display: flex; align-items: center; gap: .6rem; margin-bottom: .35rem; font-weight: 700; color: var(--text-heading); line-height: 1.3; }
+.layer-step { flex: none; display: inline-grid; place-items: center; width: 1.75rem; height: 1.75rem; border-radius: 50%; background: var(--lc); color: #14101A; font-size: .9rem; font-weight: 800; }
+.layer-colour { font-weight: 500; color: var(--text-muted); }
+/* Reading progress bar under the sticky header, and a back-to-contents button */
+.read-progress { position: fixed; inset: 0 0 auto 0; height: 3px; z-index: 60; pointer-events: none; }
+.read-progress span { display: block; height: 100%; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); }
+.to-top { position: fixed; right: max(1rem, env(safe-area-inset-right)); bottom: max(1rem, env(safe-area-inset-bottom)); z-index: 40; display: inline-flex; align-items: center; gap: .4rem; min-height: 48px; padding: 0 1rem; border-radius: 999px; border: 1px solid var(--border); background: var(--surface-raised); color: var(--text-heading); font-weight: 600; text-decoration: none; box-shadow: 0 6px 20px rgb(0 0 0 / .3); opacity: 0; transform: translateY(12px); pointer-events: none; transition: opacity .2s ease, transform .2s ease; }
+.to-top.is-visible { opacity: 1; transform: none; pointer-events: auto; }
+.to-top:hover { border-color: var(--primary-hover); color: var(--text-heading); }
+@media (max-width: 480px) { .to-top { padding: 0; width: 48px; justify-content: center; } .to-top-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); } }
+@media (prefers-reduced-motion: reduce) { .to-top { transition: none; } }
+@media print { .read-progress, .to-top { display: none; } }
+/* Phones: the category already sits above the title, so the breadcrumb stops at Insights. */
+@media (max-width: 470px) { .article-page .crumb-tail { display: none; } }
 
 /* ---------- FAQ ---------- */
 .faq-page .prose { max-width: 820px; }
@@ -834,7 +883,7 @@ p a, li a, dd a, .contact-details a { overflow-wrap: anywhere; }
 .insight-card { --c: var(--primary); }
 .insight-card .thumb { background: radial-gradient(80% 100% at 25% 100%, color-mix(in srgb, var(--c) 40%, transparent), transparent 70%), linear-gradient(160deg, var(--surface-raised), var(--bg-section)); }
 .thumb-icon { width: 54px; height: 54px; color: color-mix(in srgb, var(--c) var(--c-mix), var(--c-ink)); opacity: .9; }
-.card-cat { margin: 1rem 1.5rem 0; font-size: .875rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: color-mix(in srgb, var(--c) var(--c-mix), var(--c-ink)); }
+.card-cat { margin: 1rem 0 0; font-size: .875rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: color-mix(in srgb, var(--c) var(--c-mix), var(--c-ink)); }
 .insight-card h3 { padding: 0 1.5rem; margin: .35rem 0 .4rem; font-size: 1.125rem; line-height: 1.3; }
 .card-title { color: var(--text-heading); text-decoration: none; }
 .card-title:hover { text-decoration: underline; text-decoration-color: var(--c); }
@@ -930,7 +979,7 @@ p a, li a, dd a, .contact-details a { overflow-wrap: anywhere; }
   .appearance-toggle { padding: .5rem .7rem; min-width: 44px; justify-content: center; }
   .appearance-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 }
-@media (max-width: 1120px) {
+@media (max-width: 1023px) {
   .nav-appearance { display: flex; width: 100%; justify-content: flex-start; border-radius: var(--radius-sm); padding: .8rem 1rem; margin-top: .35rem; font-size: 1.0625rem; }
   .nav-appearance-now { margin-left: auto; color: var(--text-muted); font-weight: 400; font-size: .95rem; }
 }
@@ -1179,16 +1228,16 @@ details.quals[open] > summary { margin-bottom: .5rem; }
 .appearance-toggle, .menu-toggle { border-radius: var(--radius-sm); }
 .reel-btn { border-radius: var(--radius-sm); box-shadow: none; }
 .foot { background: none; }
-.gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.25rem 3rem; }
+.gallery:not(.insights-grid) { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.25rem 3rem; }
 .projects .gallery-card { background: transparent; border: 0; border-top: 1px solid var(--border); border-radius: 0; box-shadow: none; padding-top: 1.25rem; }
 .projects .gallery-card:hover { transform: none; box-shadow: none; border-color: var(--accent); }
-.gallery-link { display: grid; grid-template-columns: 100px minmax(0, 1fr); align-items: center; gap: 1.25rem; }
-.gallery-link h3 { padding: 0; margin: 0; font-size: 1.125rem; }
-.gallery-link .thumb { aspect-ratio: 1; height: 100px; border: 0; border-radius: var(--radius-sm); background: var(--bg-section); }
-.gallery-link .thumb-cat { display: none; }
-.gallery-card > p { padding: 0; margin: .8rem 0 0; font-size: 1rem; }
-.gallery-card .built { font-size: .9375rem; }
-.gallery-card .card-actions { padding: .3rem 0 0; margin-top: auto; font-size: .9375rem; }
+.gallery-card:not(.insight-card) .gallery-link { display: grid; grid-template-columns: 100px minmax(0, 1fr); align-items: center; gap: 1.25rem; }
+.gallery-card:not(.insight-card) .gallery-link h3 { padding: 0; margin: 0; font-size: 1.125rem; }
+.gallery-card:not(.insight-card) .gallery-link .thumb { aspect-ratio: 1; height: 100px; border: 0; border-radius: var(--radius-sm); background: var(--bg-section); }
+.gallery-card:not(.insight-card) .gallery-link .thumb-cat { display: none; }
+.gallery-card:not(.insight-card) > p { padding: 0; margin: .8rem 0 0; font-size: 1rem; }
+.gallery-card:not(.insight-card) .built { font-size: .9375rem; }
+.gallery-card:not(.insight-card) .card-actions { padding: .3rem 0 0; margin-top: auto; font-size: .9375rem; }
 .powers li { background: transparent; border: 0; border-top: 2px solid var(--c); border-radius: 0; box-shadow: none; padding: 1.25rem 0; }
 .powers li::before { display: none; }
 .powers .learning { background: transparent; border-top-style: dashed; }
@@ -1200,8 +1249,8 @@ details.quals[open] > summary { margin-bottom: .5rem; }
   .gallery { grid-template-columns: 1fr; gap: 1.75rem; }
   .hero-actions { gap: .65rem; }
   .hero-actions .button { padding-inline: 1rem; }
-  .gallery-link { grid-template-columns: 84px minmax(0, 1fr); gap: 1rem; }
-  .gallery-link .thumb { height: 84px; }
+  .gallery-card:not(.insight-card) .gallery-link { grid-template-columns: 84px minmax(0, 1fr); gap: 1rem; }
+  .gallery-card:not(.insight-card) .gallery-link .thumb { height: 84px; }
 }
 @media (max-width: 470px) {
   .top { flex-wrap: wrap; }   /* one row when it fits; with enlarged phone text the controls drop to a second row instead of running off screen */
@@ -1210,6 +1259,13 @@ details.quals[open] > summary { margin-bottom: .5rem; }
   .top-right > .appearance-toggle { display: none; }
   .top .hint { padding: .45rem .7rem; font-size: .875rem; white-space: nowrap; min-height: 44px; }
 }
+/* Phones: the name leads and Hear my story steps back to an outlined button (3 Nov 2026). */
+@media (max-width: 470px) {
+  .wordmark { font-weight: 700; }
+  .top .hint { background: none; color: var(--text-heading); border: 1px solid var(--selected-border); box-shadow: none; }
+  .top .hint:hover { background: var(--surface); filter: none; }
+}
+@media (max-width: 380px) { .top .hint .fader-icon { display: none; } }
 @media (max-width: 350px) {
   .top .hint .fader-icon { display: none; }
   .top .hint { padding: .45rem .55rem; font-size: .8125rem; }
@@ -1457,9 +1513,9 @@ html[data-theme="white"] {
 @media (max-width: 760px) { .featured-work .feature-card:first-child { align-items: stretch; } }
 
 /* All projects: a 16:10 thumbnail stage beside each title. */
-.gallery-link { grid-template-columns: 144px minmax(0, 1fr); }
-.gallery-link .thumb, .gallery-link .thumb.has-logo { aspect-ratio: auto; height: auto; padding: 0; border: 0; background: none; container-type: normal; overflow: visible; }
-.gallery-link .thumb .logo-stage { padding: 8% 10%; }
+.gallery-card:not(.insight-card) .gallery-link { grid-template-columns: 144px minmax(0, 1fr); }
+.gallery-card:not(.insight-card) .gallery-link .thumb, .gallery-card:not(.insight-card) .gallery-link .thumb.has-logo { aspect-ratio: auto; height: auto; padding: 0; border: 0; background: none; container-type: normal; overflow: visible; }
+.gallery-card:not(.insight-card) .gallery-link .thumb .logo-stage { padding: 8% 10%; }
 
 /* Case-study header */
 .case-logo { width: clamp(260px, 30vw, 380px); }
@@ -1481,7 +1537,7 @@ html[data-theme="white"] {
   .case-logo { width: min(320px, 100%); }
 }
 @media (max-width: 600px) {
-  .gallery-link { grid-template-columns: 112px minmax(0, 1fr); }
+  .gallery-card:not(.insight-card) .gallery-link { grid-template-columns: 112px minmax(0, 1fr); }
 }
 @media print {
   .logo-stage { box-shadow: none; border-color: #ccc; }
