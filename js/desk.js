@@ -26,7 +26,7 @@ function init() {
   root.dataset.state = "ready";
   root.innerHTML = `
     <div class="desk-top">
-      <button type="button" class="button desk-power" id="desk-power" aria-pressed="false">
+      <button type="button" class="button desk-power" id="desk-power">
         <span class="power-dot" aria-hidden="true"></span><span class="power-label">Turn the sound on</span>
       </button>
       <div class="desk-actions">
@@ -44,7 +44,7 @@ function init() {
           <input type="range" class="fader" id="fader-master" min="0" max="100" step="1" value="${master}"
             aria-valuetext="Master, ${master} percent">
         </label>
-        <output class="strip-value" for="fader-master">${master}</output>
+        <output class="strip-value" aria-hidden="true" for="fader-master">${master}</output>
         <span class="strip-label">Master</span>
       </div>
     </div>
@@ -62,7 +62,7 @@ function init() {
           <input type="range" class="fader" id="fader-${c.id}" data-id="${c.id}" min="0" max="100" step="1" value="0"
             aria-valuetext="${esc(c.label)}, 0 percent">
         </label>
-        <output class="strip-value" for="fader-${c.id}">0</output>
+        <output class="strip-value" aria-hidden="true" for="fader-${c.id}">0</output>
         <span class="strip-label">${locked ? '<span class="lock" aria-hidden="true"></span>' : ""}${esc(c.label)}</span>
         ${locked ? '<span class="hold-ring" aria-hidden="true"></span>' : ""}
       </div>`;
@@ -255,8 +255,7 @@ function init() {
   });
 
   function reflectPower() {
-    power.setAttribute("aria-pressed", String(soundOn));
-    power.querySelector(".power-label").textContent = soundOn ? "Sound on" : "Turn the sound on";
+    power.querySelector(".power-label").textContent = soundOn ? "Turn the sound off" : "Turn the sound on";
     root.classList.toggle("is-live", soundOn);
     status.textContent = soundOn ? "Sound on. Push a fader up to bring its channel in." : "Sound is off. The stories still work.";
     if (soundOn && !reduceMotion) loop(); else { cancelAnimationFrame(raf); clearMeters(); }

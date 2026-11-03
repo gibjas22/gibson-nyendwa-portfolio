@@ -18,7 +18,9 @@ if (video && toggle) init();
 function init() {
   const reduce = matchMedia("(prefers-reduced-motion: reduce)");
   const phone = matchMedia(video.dataset.mobileMedia || "(max-width: 760px)");
-  const saveData = !!(navigator.connection && navigator.connection.saveData);
+  const conn = navigator.connection;
+  // Data Saver or a slow connection: keep the poster and let the visitor choose.
+  const saveData = !!(conn && (conn.saveData || /(^|-)2g$|^3g$/.test(conn.effectiveType || "")));
 
   let loaded = false;        // a source has been assigned
   let userPaused = false;    // the visitor pressed Pause (or never asked for it under reduced motion)
@@ -91,6 +93,10 @@ function init() {
     setButton(false);          // poster only; the button starts it on request
   } else {
     setButton(true);
-    play();
+    // Start after the page has finished loading, so the video never competes with
+    // the poster, fonts and text for bandwidth on first paint.
+    const start = () => { if (!userPaused) play(); };
+    if (document.readyState === "complete") start();
+    else addEventListener("load", start, { once: true });
   }
 }

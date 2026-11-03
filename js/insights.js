@@ -201,7 +201,7 @@ export const articles = [
         "Write down the facts, with the date, time, place and the child's own words.",
         "Report to your DSL straight away, and call 999 if a child is in immediate danger."
       ] },
-      { p: "Safeguarding is everyone's responsibility. Staying curious and understanding the thresholds of need helps make sure children get the right help at the right time. You can watch the original video below, and if you support young people with SEND through change, you may also find [why I created SEND Life Transition](https://main.dbthjbi29n1oo.amplifyapp.com/insights/article.html?slug=send-life-transition-digital-wellbeing-support) useful." }
+      { p: "Safeguarding is everyone's responsibility. Staying curious and understanding the thresholds of need helps make sure children get the right help at the right time. You can watch the original video below, and if you support young people with SEND through change, you may also find [why I created SEND Life Transition](https://main.dbthjbi29n1oo.amplifyapp.com/insights/send-life-transition-digital-wellbeing-support.html) useful." }
     ],
     sources: [
       { text: "Foundations of Safeguarding and Thresholds of Need (YouTube, 29 June 2026), the source video for this article", url: "https://www.youtube.com/watch?v=qxrz39TA9Vs" },

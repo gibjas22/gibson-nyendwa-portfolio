@@ -10,6 +10,7 @@
   <meta property="og:title" content="Gibson Nyendwa">
   <meta property="og:description" content="Twenty years in the classroom, a cybersecurity agency, and a mixing desk that plays my life.">
   <meta property="og:image" content="https://main.dbthjbi29n1oo.amplifyapp.com/assets/img/gibson-600.jpg">
+  <meta name="twitter:card" content="summary_large_image">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://main.dbthjbi29n1oo.amplifyapp.com/">
   <link rel="canonical" href="https://main.dbthjbi29n1oo.amplifyapp.com/">
@@ -27,7 +28,7 @@
 </head>
 <body>
 
-<a class="skip" href="#about">Skip to content</a>
+<a class="skip" href="#top">Skip to content</a>
 
 <header class="top">
   <a class="wordmark" href="#top">Gibson Nyendwa</a>
@@ -58,7 +59,7 @@
       <picture class="hero-poster">
         <source media="(max-width: 760px)" type="image/webp" srcset="assets/img/hero/bg-phone-540.webp 540w, assets/img/hero/bg-phone-720.webp 720w" sizes="100vw">
         <source type="image/webp" srcset="assets/img/hero/bg-1280.webp 1280w, assets/img/hero/bg-1920.webp 1920w" sizes="100vw">
-        <img src="assets/img/hero/bg-1280.jpg" width="1280" height="720" alt="" decoding="async">
+        <img src="assets/img/hero/bg-1280.jpg" width="1280" height="720" alt="" decoding="async" fetchpriority="high">
       </picture>
       <video class="hero-video" muted playsinline loop preload="none" tabindex="-1" disablepictureinpicture disableremoteplayback
         data-src-desktop="assets/video/hero-bg-1600.mp4" data-src-mobile="assets/video/hero-bg-phone.mp4" data-mobile-media="(max-width: 760px)"></video>
@@ -73,7 +74,7 @@
     </svg>
     <div class="hero-text">
       <h1>Gibson Nyendwa</h1>
-      <p class="lede">I help people and small businesses move forward through education, practical digital work and creative technology. Based in Birmingham, I build websites and AI systems, support young people with SEND and make music as The Unsaid Sound.</p>
+      <p class="lede">I build websites and AI systems for small businesses, support young people with SEND, and make music as The Unsaid Sound. Based in Birmingham.</p>
       <div class="hero-actions">
         <a class="button" href="#projects">Explore my work</a>
         <a class="button button-quiet" href="#contact">Get in touch</a>
@@ -424,18 +425,18 @@
         <form id="contact-form" novalidate hidden>
           <div class="field">
             <label for="cf-name">Full name <span class="req" aria-hidden="true">*</span></label>
-            <input id="cf-name" name="name" type="text" autocomplete="name" required maxlength="100">
-            <p class="error" id="cf-name-err" aria-live="polite"></p>
+            <input id="cf-name" aria-describedby="cf-name-err" name="name" type="text" autocomplete="name" required maxlength="100">
+            <p class="error" id="cf-name-err"></p>
           </div>
           <div class="field">
             <label for="cf-email">Email address <span class="req" aria-hidden="true">*</span></label>
-            <input id="cf-email" name="email" type="email" autocomplete="email" required maxlength="254" inputmode="email">
-            <p class="error" id="cf-email-err" aria-live="polite"></p>
+            <input id="cf-email" aria-describedby="cf-email-err" name="email" type="email" autocomplete="email" required maxlength="254" inputmode="email">
+            <p class="error" id="cf-email-err"></p>
           </div>
           <div class="field">
             <label for="cf-phone">Telephone <span class="optional">(optional)</span></label>
-            <input id="cf-phone" name="phone" type="tel" autocomplete="tel" maxlength="30" inputmode="tel">
-            <p class="error" id="cf-phone-err" aria-live="polite"></p>
+            <input id="cf-phone" aria-describedby="cf-phone-err" name="phone" type="tel" autocomplete="tel" maxlength="30" inputmode="tel">
+            <p class="error" id="cf-phone-err"></p>
           </div>
           <div class="field">
             <label for="cf-type">What is it about? <span class="optional">(optional)</span></label>
@@ -451,8 +452,8 @@
           </div>
           <div class="field">
             <label for="cf-message">Message <span class="req" aria-hidden="true">*</span></label>
-            <textarea id="cf-message" name="message" rows="6" required minlength="10" maxlength="2000"></textarea>
-            <p class="error" id="cf-message-err" aria-live="polite"></p>
+            <textarea id="cf-message" aria-describedby="cf-message-err" name="message" rows="6" required minlength="10" maxlength="2000"></textarea>
+            <p class="error" id="cf-message-err"></p>
           </div>
           <div class="hp" aria-hidden="true"><label for="cf-company">Company</label><input id="cf-company" name="company" type="text" tabindex="-1" autocomplete="off"></div>
           <input type="hidden" name="started" id="cf-started">
@@ -472,6 +473,18 @@
         </div>
       </div>
 
+        <div class="card elsewhere">
+          <h3>Elsewhere</h3>
+          <ul class="social">
+            <li><a href="https://www.linkedin.com/in/gibson-nyendwa-uk/" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://www.facebook.com/gibson.nyendwa/" target="_blank" rel="noopener">Facebook</a></li>
+            <li><a href="https://www.instagram.com/nyendwagibson/" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="https://www.youtube.com/@theUnsaidSoundMusic" target="_blank" rel="noopener">YouTube, The Unsaid Sound</a></li>
+            <li><a href="https://soundcloud.com/theunsaidsoundmusic" target="_blank" rel="noopener">SoundCloud, The Unsaid Sound</a></li>
+            <li><a href="https://github.com/gibjas22" target="_blank" rel="noopener">GitHub</a></li>
+          </ul>
+        </div>
+
       </div>
 
       <div class="contact-details">
@@ -483,17 +496,6 @@
           <div class="booking-embed" id="booking-embed" hidden></div>
           <p class="muted small">Opens my Calendly booking page. Choose Zoom or Google Meet when you book. Showing it here loads content from calendly.com.</p>
         </div>
-        <div class="card">
-          <h3>Elsewhere</h3>
-          <ul class="social">
-            <li><a href="https://www.linkedin.com/in/gibson-nyendwa-uk/" target="_blank" rel="noopener">LinkedIn</a></li>
-            <li><a href="https://www.facebook.com/gibson.nyendwa/" target="_blank" rel="noopener">Facebook</a></li>
-            <li><a href="https://www.instagram.com/nyendwagibson/" target="_blank" rel="noopener">Instagram</a></li>
-            <li><a href="https://www.youtube.com/@theUnsaidSoundMusic" target="_blank" rel="noopener">YouTube, The Unsaid Sound</a></li>
-            <li><a href="https://soundcloud.com/theunsaidsoundmusic" target="_blank" rel="noopener">SoundCloud, The Unsaid Sound</a></li>
-            <li><a href="https://github.com/gibjas22" target="_blank" rel="noopener">GitHub</a></li>
-          </ul>
-        </div>
       </div>
     </div>
   </section>
@@ -501,27 +503,49 @@
 </main>
 
 <footer class="foot">
-  <p>Gibson Nyendwa, Birmingham. Educator, agency founder, student, musician.</p>
-  <p class="links">
-    <a href="mailto:info@gcmarketingsupport.co">info@gcmarketingsupport.co</a>
-    <a href="https://calendly.com/gcmarketingsupportbookings/discovery-call" target="_blank" rel="noopener">Book a call</a>
-    <a href="https://www.linkedin.com/in/gibson-nyendwa-uk/" target="_blank" rel="noopener">LinkedIn</a>
-    <a href="https://www.facebook.com/gibson.nyendwa/" target="_blank" rel="noopener">Facebook</a>
-    <a href="https://www.instagram.com/nyendwagibson/" target="_blank" rel="noopener">Instagram</a>
-    <a href="https://www.youtube.com/@theUnsaidSoundMusic" target="_blank" rel="noopener">The Unsaid Sound on YouTube</a>
-    <a href="https://soundcloud.com/theunsaidsoundmusic" target="_blank" rel="noopener">SoundCloud</a>
-    <a href="https://github.com/gibjas22" target="_blank" rel="noopener">GitHub</a>
-    <a href="https://gcmarketingsupport.co.uk" target="_blank" rel="noopener">Gibcom</a>
-    <a href="insights/index.html">Insights</a>
-    <a href="faq.html">FAQ</a>
-  </p>
-  <p class="links legal">
-    <a href="privacy.html">Privacy</a>
-    <a href="cookies.html">Cookies</a>
-    <a href="cookies.html#settings">Cookie settings</a>
-    <a href="terms.html">Terms of use</a>
-  </p>
-  <p class="small">Built for the AWS Student Builder Challenge 2026. Hosted on AWS Amplify.</p>
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <p class="foot-name">Gibson Nyendwa</p>
+      <p>Educator, agency founder, student and musician in Birmingham.</p>
+      <p><a href="mailto:info@gcmarketingsupport.co">info@gcmarketingsupport.co</a></p>
+    </div>
+    <nav aria-labelledby="foot-site">
+      <h2 id="foot-site">On this site</h2>
+      <ul>
+        <li><a href="#projects">Work</a></li>
+        <li><a href="#desk">Stories</a></li>
+        <li><a href="insights/index.html">Insights</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </nav>
+    <nav aria-labelledby="foot-work">
+      <h2 id="foot-work">Work with me</h2>
+      <ul>
+        <li><a href="https://calendly.com/gcmarketingsupportbookings/discovery-call" target="_blank" rel="noopener">Book a call</a></li>
+        <li><a href="https://gcmarketingsupport.co.uk" target="_blank" rel="noopener">Gibcom</a></li>
+        <li><a href="https://www.linkedin.com/in/gibson-nyendwa-uk/" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://github.com/gibjas22" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
+    </nav>
+    <nav aria-labelledby="foot-social">
+      <h2 id="foot-social">Follow</h2>
+      <ul>
+        <li><a href="https://www.youtube.com/@theUnsaidSoundMusic" target="_blank" rel="noopener">The Unsaid Sound on YouTube</a></li>
+        <li><a href="https://soundcloud.com/theunsaidsoundmusic" target="_blank" rel="noopener">SoundCloud</a></li>
+        <li><a href="https://www.instagram.com/nyendwagibson/" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://www.facebook.com/gibson.nyendwa/" target="_blank" rel="noopener">Facebook</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="foot-base">
+    <p class="links legal">
+      <a href="privacy.html">Privacy</a>
+      <a href="cookies.html">Cookies</a>
+      <a href="cookies.html#settings">Cookie settings</a>
+      <a href="terms.html">Terms of use</a>
+    </p>
+    <p class="small">Built for the AWS Student Builder Challenge 2026. Hosted on AWS Amplify.</p>
+  </div>
 </footer>
 
 <script type="module" src="js/main.js"></script>

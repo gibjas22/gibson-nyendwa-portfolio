@@ -34,7 +34,7 @@ Episode videos are not copied: they play from YouTube's privacy-enhanced player 
 ## Fonts
 - Inter variable (normal and italic, weights 100 to 900), Latin subset, self-hosted from `@fontsource-variable/inter` 5.3.0. Typeface by Rasmus Andersson; SIL Open Font License 1.1, included as `assets/fonts/OFL-Inter.txt`. Upstream: https://rsms.me/inter/ and https://github.com/rsms/inter. These are the active site fonts from the personal studio typography update.
 - Banner fonts for the SuperPowers kinetic banner only: Montserrat variable, normal and italic (The Montserrat Project Authors), Bebas Neue (The Bebas Neue Project Authors) and Great Vibes (The Great Vibes Pro Project Authors), Latin subset, self-hosted from @fontsource 5.3.0. All SIL Open Font License 1.1; licence texts in `assets/fonts/OFL-Montserrat.txt`, `OFL-Bebas-Neue.txt` and `OFL-Great-Vibes.txt`.
-- Earlier font assets: Sora (500, 600, 700) and Source Sans 3 (400, 400 italic, 600), Latin subset, retained in `assets/fonts/` from the @fontsource 5 packages. Both are under the SIL Open Font License 1.1; the licence texts are in `assets/fonts/OFL-Sora.txt` and `assets/fonts/OFL-Source-Sans-3.txt`.
+- Earlier font assets Sora and Source Sans 3 were removed on 3 November 2026 because no page used them.
 
 ## Home page hero background video
 | File | What | Source | Changes |

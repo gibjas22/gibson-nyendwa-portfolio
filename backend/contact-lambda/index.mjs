@@ -15,7 +15,7 @@ import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
 const ses = new SESv2Client({});
 const TO = process.env.TO_EMAIL;
 const FROM = process.env.FROM_EMAIL;
-const ORIGIN = process.env.ALLOW_ORIGIN || "*";
+const ORIGIN = process.env.ALLOW_ORIGIN || "https://main.dbthjbi29n1oo.amplifyapp.com";
 
 const LIMITS = { name: 100, email: 254, phone: 30, type: 60, message: 2000 };
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -39,6 +39,7 @@ export const handler = async (event) => {
 
   let data;
   try { data = JSON.parse(event.body || "{}"); } catch { return respond(400, { ok: false, error: "Could not read the message." }); }
+  if (!data || typeof data !== "object" || Array.isArray(data)) return respond(400, { ok: false, error: "Could not read the message." });
 
   // Honeypot: real visitors never see or fill the Company field.
   if (data.company) return respond(200, { ok: true });
