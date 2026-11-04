@@ -224,8 +224,8 @@ export const articles = [
     author: "Gibson Nyendwa",
     published: "2026-10-29",
     cover: "assets/img/insights/whats-on-in-birmingham-guide.jpg",
-    coverAlt: "A city-centre building with a tree in front of it, near Birmingham New Street station",
-    coverCredit: { name: "Jonny Gios", url: "https://unsplash.com/photos/a-building-with-a-tree-in-front-of-it-2_Knm-v0caY", source: "Unsplash" },
+    coverAlt: "The Rotunda and New Street Station in Birmingham city centre",
+    coverCredit: { name: "Tom W", url: "https://unsplash.com/photos/city-skyline-under-blue-sky-during-daytime-34JE99qzcwU", source: "Unsplash" },
     body: [
       { p: "Birmingham rarely sits still. Between the concert halls, the grassroots music rooms, the theatres, the galleries and the food halls, there is almost always something on, and much of it is closer and cheaper than people expect." },
       { p: "This guide is for anyone who lives here, is visiting, or runs a business that does well when people head out. It does not list dates or prices, because those change quickly. Instead, it points you to the places worth knowing and to the official pages that keep their listings up to date." },
@@ -349,7 +349,7 @@ export const articles = [
     author: "Gibson Nyendwa",
     published: "2026-11-04",
     cover: "assets/img/insights/google-business-profile-basics-birmingham.jpg",
-    coverAlt: "A shopfront on a city street, with a clock on the side of the building",
+    coverAlt: "A café shopfront with tall windows and wooden benches outside, customers seated inside",
     coverCredit: { name: "Samuel Regan-Asante", url: "https://unsplash.com/photos/a-store-front-with-a-clock-on-the-side-of-it-yazVRfLUxxI", source: "Unsplash" },
     body: [
       { p: "When someone in Birmingham searches for a plumber, a hairdresser or a café near them, the first thing they often see is not a website. It is a Google Business Profile: the panel with your name, opening hours, phone number, photos and reviews." },
@@ -401,7 +401,7 @@ export const articles = [
     author: "Gibson Nyendwa",
     published: "2026-11-04",
     cover: "assets/img/insights/ai-tools-small-business-data-protection.jpg",
-    coverAlt: "A laptop next to a monitor on a wooden desk",
+    coverAlt: "A laptop, tablet, keyboard and phone laid out on a dark wooden desk",
     coverCredit: { name: "Kevin Canlas", url: "https://unsplash.com/photos/a-wooden-desk-topped-with-a-laptop-computer-next-to-a-monitor-wycXe2BrKz8", source: "Unsplash" },
     body: [
       { p: "AI tools are now part of everyday work in many small businesses: drafting emails, summarising documents, answering enquiries, tidying spreadsheets. I build AI agents and automations myself, and I think they are genuinely useful. I also think the easiest mistake to make with them is a quiet one: pasting customer or staff details into a tool without asking where that information goes." },
