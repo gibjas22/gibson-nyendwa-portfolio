@@ -59,6 +59,9 @@ function watchSection(v) {
 }
 
 // ---------- the article ----------
+// Photo credit under a cover image, e.g. coverCredit: { name: "Tom W", url: "https://unsplash.com/photos/...", source: "Unsplash" }
+const credit = c => !c || !c.name ? "" : `<figcaption>Photo: ${c.url && safeURL(c.url) ? `<a href="${safeURL(c.url)}" rel="noopener">${esc(c.name)}</a>` : esc(c.name)}${c.source ? ` on ${esc(c.source)}` : ""}</figcaption>`;
+
 export function articleHTML(a) {
   const url = articleURL(a);
   const cat = CATEGORIES.find(c => c.id === a.category);
@@ -71,7 +74,7 @@ export function articleHTML(a) {
     .map(s => `<span>${s}</span>`).join(`<span class="sep" aria-hidden="true"> · </span>`);
   const cover = !a.cover ? "" : `<figure class="cover">${a.coverWebp && a.coverWebp.length
     ? `<picture><source type="image/webp" srcset="${a.coverWebp.map(w => `../${esc(a.cover.replace(/\.jpg$/i, ""))}-${w}.webp ${w}w`).join(", ")}" sizes="(max-width: 760px) calc(100vw - 2rem), 720px"><img src="../${esc(a.cover)}" alt="${esc(a.coverAlt || "")}" width="1600" height="900" fetchpriority="high" decoding="async"></picture>`
-    : `<img src="../${esc(a.cover)}" alt="${esc(a.coverAlt || "")}" width="1600" height="900" fetchpriority="high" decoding="async">`}</figure>`;
+    : `<img src="../${esc(a.cover)}" alt="${esc(a.coverAlt || "")}" width="1600" height="900" fetchpriority="high" decoding="async">`}${credit(a.coverCredit)}</figure>`;
 
   return `
     <header class="case-head" style="--c:${(categoryById(a.category) || {}).colour || "var(--primary)"}">

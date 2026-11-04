@@ -1722,3 +1722,22 @@ html[data-theme="white"] .kin { border-color: #2B2140; box-shadow: 0 14px 30px -
 }
 @media (max-width: 380px) { .foot-grid { grid-template-columns: 1fr; } }
 .hero-video-toggle { top: 1rem; bottom: auto; }
+
+/* ---------- Article photos (4 November 2026) ----------
+   Featured Insights card with a photo: text and photo side by side from 761px, photo first on phones.
+   The photo is decorative here (the article link is the heading), so it is hidden from screen readers. */
+.featured.has-media { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 0; padding: 0; overflow: hidden; }
+.featured.has-media .featured-text { padding: 2rem; align-self: center; }
+.featured-media { display: block; position: relative; min-height: 100%; background: var(--surface-raised, #1c1626); }
+.featured-media img { display: block; width: 100%; height: 100%; object-fit: cover; aspect-ratio: 16 / 9; }
+@media (min-width: 761px) { .featured-media img { position: absolute; inset: 0; aspect-ratio: auto; } }
+@media (max-width: 760px) {
+  .featured.has-media { grid-template-columns: minmax(0, 1fr); }
+  .featured.has-media .featured-media { order: -1; }
+  .featured.has-media .featured-text { padding: 1.25rem 1.25rem 1.5rem; }
+}
+/* Cover photo inside an article: same width as the text column, a quiet credit line underneath. */
+.cover { margin: 1.75rem 0 2rem; background: var(--surface); }
+.cover figcaption { padding: .5rem .9rem; font-size: .8125rem; line-height: 1.4; color: var(--text-muted); border-top: 1px solid var(--border); }
+.cover figcaption a { color: inherit; text-decoration-color: color-mix(in srgb, currentColor 45%, transparent); }
+.insights-grid .thumb img { object-position: center; }

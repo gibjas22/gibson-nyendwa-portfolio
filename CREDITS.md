@@ -29,6 +29,16 @@ Sources considered and not used: Pixabay Sound Effects (licence prohibits redist
 
 | assets/img/insights/send-life-transition-digital-wellbeing-support.jpg and safeguarding-thresholds-of-need-birmingham.jpg | Article covers | Gibson Nyendwa | Made for this site from the SEND Life Transition logo, with DejaVu Sans text | 1600 x 900 JPEG |
 
+### Article cover photos from Unsplash
+Used under the [Unsplash License](https://unsplash.com/license) (free to use, including commercially; credit not required but given). Each article shows "Photo: name on Unsplash" under its cover. Saved at 1600 x 900 (cropped by Unsplash's image service), JPEG.
+
+| File | Photo | Photographer | Source page |
+|---|---|---|---|
+| assets/img/insights/phishing-fake-invoices-small-business-checklist.jpg | Red padlock on a black computer keyboard | FlyD | https://unsplash.com/photos/red-padlock-on-black-computer-keyboard-mT7lXZPjk7U |
+| assets/img/insights/google-business-profile-basics-birmingham.jpg | Shopfront with a clock on the side (Spitalfields, London) | Samuel Regan-Asante | https://unsplash.com/photos/a-store-front-with-a-clock-on-the-side-of-it-yazVRfLUxxI |
+| assets/img/insights/ai-tools-small-business-data-protection.jpg | Laptop next to a monitor on a wooden desk | Kevin Canlas | https://unsplash.com/photos/a-wooden-desk-topped-with-a-laptop-computer-next-to-a-monitor-wycXe2BrKz8 |
+| assets/img/insights/whats-on-in-birmingham-guide.jpg | Birmingham city centre near New Street station | Jonny Gios | https://unsplash.com/photos/a-building-with-a-tree-in-front-of-it-2_Knm-v0caY |
+
 Episode videos are not copied: they play from YouTube's privacy-enhanced player only when a visitor presses play.
 
 ## Fonts

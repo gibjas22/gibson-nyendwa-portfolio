@@ -121,11 +121,16 @@ more.addEventListener("click", () => { shown += PAGE; render(); grid.children[Ma
 const feat = all.find(a => a.featured);
 if (feat) {
   const fc = categoryById(feat.category) || {};
-  featuredBox.innerHTML = `<section class="featured card" style="--c:${fc.colour || "var(--accent)"}" aria-labelledby="feat-h">
-    <p class="case-cat">Featured · ${esc(fc.label || "")}</p>
-    <h2 id="feat-h"><a href="${esc(feat.slug)}.html">${esc(feat.title)}</a></h2>
-    <p>${esc(feat.excerpt)}</p>
-    <p class="built"><time datetime="${feat.published}">${fmtDate(feat.published)}</time> · ${readingTime(feat)} min read</p></section>`;
+  // With a cover photo the featured card becomes a two-part feature: text beside the photo on wide
+  // screens, photo above the text on phones. Without one it stays text only.
+  featuredBox.innerHTML = `<section class="featured card${feat.cover ? " has-media" : ""}" style="--c:${fc.colour || "var(--accent)"}" aria-labelledby="feat-h">
+    <div class="featured-text">
+      <p class="case-cat">Featured · ${esc(fc.label || "")}</p>
+      <h2 id="feat-h"><a href="${esc(feat.slug)}.html">${esc(feat.title)}</a></h2>
+      <p>${esc(feat.excerpt)}</p>
+      <p class="built"><time datetime="${feat.published}">${fmtDate(feat.published)}</time> · ${readingTime(feat)} min read</p>
+    </div>${feat.cover ? `
+    <a class="featured-media" href="${esc(feat.slug)}.html" tabindex="-1" aria-hidden="true">${coverPicture(feat, "", "(max-width: 760px) calc(100vw - 2rem), 460px", false)}</a>` : ""}</section>`;
 }
 
 // Initial state from the URL

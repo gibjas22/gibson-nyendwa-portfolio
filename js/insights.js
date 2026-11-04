@@ -14,7 +14,7 @@ export const CATEGORIES = [
     blurb: "Agents, automation and the AI tools I build and use to run small businesses." },
   { id: "marketing", label: "Digital Marketing", colour: "#5CC4F2", icon: "signal",
     blurb: "Being found online: search, Google Business Profile and websites that turn visits into enquiries." },
-  { id: "security", label: "Cybersecurity", colour: "#5E8FE6", icon: "shield",
+  { id: "security", label: "Cybersecurity", colour: "#6F9CEB", icon: "shield",
     blurb: "Plain-English protection for small businesses and families, without the jargon." },
   { id: "send", label: "SEND & Inclusive Education", intro: "Special Educational Needs and Disabilities", colour: "#FFA152", icon: "hands",
     blurb: "Special Educational Needs and Disabilities: craft, transition and confidence, from twenty years in the work." },
@@ -223,6 +223,9 @@ export const articles = [
     tags: ["Birmingham", "events", "independent venues"],
     author: "Gibson Nyendwa",
     published: "2026-10-29",
+    cover: "assets/img/insights/whats-on-in-birmingham-guide.jpg",
+    coverAlt: "A city-centre building with a tree in front of it, near Birmingham New Street station",
+    coverCredit: { name: "Jonny Gios", url: "https://unsplash.com/photos/a-building-with-a-tree-in-front-of-it-2_Knm-v0caY", source: "Unsplash" },
     body: [
       { p: "Birmingham rarely sits still. Between the concert halls, the grassroots music rooms, the theatres, the galleries and the food halls, there is almost always something on, and much of it is closer and cheaper than people expect." },
       { p: "This guide is for anyone who lives here, is visiting, or runs a business that does well when people head out. It does not list dates or prices, because those change quickly. Instead, it points you to the places worth knowing and to the official pages that keep their listings up to date." },
@@ -271,6 +274,169 @@ export const articles = [
     featured: true,
     seoTitle: "What's On in Birmingham: Your Guide to Local Events",
     seoDescription: "Live music, theatre, free exhibitions, food and family days out: a friendly guide to finding what's on in Birmingham and backing its independent venues."
+  },
+  {
+    title: "Phishing and Fake Invoices: A Plain-English Checklist for Small Businesses",
+    slug: "phishing-fake-invoices-small-business-checklist",
+    excerpt: "Phishing is still the most common cyber attack on UK businesses. Here is how to spot the usual tricks, the few habits that stop most of them, and exactly where to report a suspicious message.",
+    category: "security",
+    tags: ["phishing", "small business", "fraud", "Cyber Essentials"],
+    author: "Gibson Nyendwa",
+    published: "2026-11-04",
+    cover: "assets/img/insights/phishing-fake-invoices-small-business-checklist.jpg",
+    coverAlt: "A red padlock resting on a black computer keyboard",
+    coverCredit: { name: "FlyD", url: "https://unsplash.com/photos/red-padlock-on-black-computer-keyboard-mT7lXZPjk7U", source: "Unsplash" },
+    body: [
+      { p: "If you run a small business, the cyber attack you are most likely to meet is not a hacker breaking through a firewall. It is an email, a text or a phone call that looks ordinary and asks you to do something quickly: pay an invoice, confirm a login, update some bank details." },
+      { p: "This guide is for owners and staff of small firms, charities and sole traders. It explains what phishing usually looks like, the habits that stop most of it, and what to do if someone has already clicked. It is defensive advice only, and it does not replace help from a professional during a live incident." },
+      { h: "How common is it?" },
+      { p: "The UK Government's Cyber Security Breaches Survey 2025/26, published on 30 April 2026, found that 43% of businesses had experienced a cyber security breach or attack in the previous 12 months. Phishing was by far the most common type, experienced by 38% of businesses. Small firms are not left alone because they are small: the survey put the figure at 42% for micro businesses and 46% for small ones." },
+      { h: "What phishing usually looks like" },
+      { p: "Most phishing relies on a handful of pressures rather than clever technology. Watch for these:" },
+      { ul: [
+        "Urgency or fear: an overdue payment, a suspended account, a parcel that cannot be delivered, a deadline today.",
+        "A change of bank details from a supplier, often arriving just before an invoice is due.",
+        "A login page you reach from a link rather than by typing the address yourself.",
+        "A sender that is nearly right: a familiar name with an odd email address, or a domain with one letter changed.",
+        "Requests to keep it quiet, to buy gift cards, or to bypass your usual way of approving payments."
+      ] },
+      { p: "None of these proves a message is fake, and real messages can be clumsy. The point is to pause when you see them, not to become an expert in spotting forgeries." },
+      { h: "Five habits that stop most of it" },
+      { ul: [
+        "Check any change of bank details by phone, using a number you already hold for that supplier, never one in the email asking for the change.",
+        "Go direct. If an email says your account needs attention, close it and open the website or app yourself.",
+        "Turn on two-step verification for email, banking and accounting software. It means a stolen password on its own is not enough.",
+        "Keep devices and software updated, and back up the files your business could not work without.",
+        "Agree a simple rule with staff: anyone can question a payment request, and nobody gets in trouble for checking."
+      ] },
+      { p: "These match the advice in the National Cyber Security Centre's Small Business Guide, which is free and worth reading in full. If you want a recognised baseline, the government-backed Cyber Essentials scheme sets out basic technical controls and offers certification." },
+      { h: "Where to report a suspicious message" },
+      { p: "Reporting takes seconds and helps take scam sites down. The official routes are:" },
+      { ul: [
+        "Emails: forward them to report@phishing.gov.uk. The NCSC investigates them.",
+        "Texts: forward them to 7726. It is free and goes to your mobile network.",
+        "Adverts: report misleading adverts to the Advertising Standards Authority, or to the search engine that showed them."
+      ] },
+      { h: "If someone has already clicked or paid" },
+      { p: "Act quickly and do not be embarrassed. People who report early limit the damage." },
+      { ul: [
+        "If money has gone, call your bank straight away using the number on your card or statement.",
+        "In England and Wales, report fraud to Report Fraud online at reportfraud.police.uk or on 0300 123 2040. In Scotland, report it to Police Scotland.",
+        "If a password was entered on a fake page, change it, and change it anywhere else you used the same one. Check that two-step verification is still switched on.",
+        "If customer or staff personal data may have been exposed, read the ICO's guidance on responding to a personal data breach. Some breaches must be reported to the ICO within 72 hours."
+      ] },
+      { h: "My view" },
+      { p: "In my experience the businesses that cope best are not the ones with the most expensive software. They are the ones where checking is normal: where a quick phone call to confirm bank details is just how things are done. That habit costs nothing and protects you from the attack you are most likely to face." }
+    ],
+    sources: [
+      { text: "Cyber security breaches survey 2025/2026, Department for Science, Innovation and Technology, 30 April 2026 (checked 4 November 2026)", url: "https://www.gov.uk/government/statistics/cyber-security-breaches-survey-20252026/cyber-security-breaches-survey-20252026" },
+      { text: "Avoid and report internet scams and phishing, GOV.UK (checked 4 November 2026)", url: "https://www.gov.uk/report-suspicious-emails-websites-phishing" },
+      { text: "Small Business Guide: Cyber Security, National Cyber Security Centre", url: "https://www.ncsc.gov.uk/collection/small-business-guide" },
+      { text: "Cyber Essentials, National Cyber Security Centre", url: "https://www.ncsc.gov.uk/cyberessentials/overview" },
+      { text: "72 hours: how to respond to a personal data breach, Information Commissioner's Office", url: "https://ico.org.uk/for-organisations/sme-web-hub/72-hours-how-to-respond-to-a-personal-data-breach" }
+    ],
+    status: "published",
+    featured: false,
+    seoTitle: "Phishing and Fake Invoices: A Checklist for Small Businesses",
+    seoDescription: "How to spot phishing and fake invoice scams, five habits that stop most of them, and where to report suspicious emails and texts in the UK."
+  },
+  {
+    title: "Google Business Profile: Getting the Basics Right for a Birmingham Small Business",
+    slug: "google-business-profile-basics-birmingham",
+    excerpt: "Your Google Business Profile is often the first thing a local customer sees. Here are the rules Google actually sets for names, addresses, hours and reviews, and the simple habits that keep a profile accurate.",
+    category: "marketing",
+    tags: ["Google Business Profile", "local search", "reviews", "Birmingham"],
+    author: "Gibson Nyendwa",
+    published: "2026-11-04",
+    cover: "assets/img/insights/google-business-profile-basics-birmingham.jpg",
+    coverAlt: "A shopfront on a city street, with a clock on the side of the building",
+    coverCredit: { name: "Samuel Regan-Asante", url: "https://unsplash.com/photos/a-store-front-with-a-clock-on-the-side-of-it-yazVRfLUxxI", source: "Unsplash" },
+    body: [
+      { p: "When someone in Birmingham searches for a plumber, a hairdresser or a café near them, the first thing they often see is not a website. It is a Google Business Profile: the panel with your name, opening hours, phone number, photos and reviews." },
+      { p: "Since 2016, much of my work through Gibcom has been helping small businesses get found online, and the profile is usually where I start. This guide sets out the rules Google publishes, which are stricter than many owners realise, and the habits that keep a profile working for you." },
+      { h: "Use your real business name, and nothing else" },
+      { p: "Google asks you to use the name customers already know from your shopfront, website and stationery. Adding extra words, such as a service, a location or a slogan, is not allowed. Google's guidelines say plainly that including unnecessary information in your business name isn't permitted." },
+      { p: "It is tempting to add \"Birmingham\" or \"Emergency\" to stand out. Don't. It breaks the rules, and profiles that break them can be suspended." },
+      { h: "Your address: real premises or a service area" },
+      { p: "Google wants a real, physical location. A PO box or a remote mailbox is not acceptable, and a virtual office, where you rent a mailing address but do not work from it, is not eligible for a profile." },
+      { p: "If you travel to customers, such as a mobile mechanic or a cleaner, you are a service-area business. You should have one profile for your base, with the areas you cover set as a service area, rather than separate profiles for every postcode you visit." },
+      { h: "Hours, categories, phone and website" },
+      { ul: [
+        "Hours: show your regular customer-facing hours and add special hours for bank holidays and Christmas. If you close for a season, mark the profile as temporarily closed rather than leaving old hours up.",
+        "Categories: choose the fewest that describe what your business is, as specifically as possible. Categories describe the business, not every service you offer.",
+        "Phone: use a number you control that connects to your business directly. Premium-rate numbers are not allowed.",
+        "Website: link to your own site, ideally the page for that location, without redirects."
+      ] },
+      { h: "Reviews: ask fairly, reply well" },
+      { p: "Reviews matter to customers and Google encourages you to ask for them, for example by sharing a link or QR code. There are firm limits, though. Google's policy says businesses must not offer payment, discounts or free goods or services in exchange for a review, or for changing or removing one. You also must not discourage negative reviews or ask only your happiest customers." },
+      { p: "Replies are public, so keep them short, professional and specific. For a negative review, protect the customer's privacy, apologise where it is right to, and reply promptly. A calm, helpful reply is often read by more people than the original complaint." },
+      { h: "Keep your details the same everywhere" },
+      { p: "My view is that consistency is underrated. If your name, address and phone number appear the same way on your profile, your website and local directories, customers are less likely to be confused and you are less likely to have out-of-date details floating around. It is one reason I started Birmingham Local Biz Support in 2021, a free directory for West Midlands businesses." },
+      { h: "A five-minute monthly check" },
+      { ul: [
+        "Are your hours right, including any holiday changes coming up?",
+        "Does the phone number ring through, and does the website link work?",
+        "Have you replied to every new review?",
+        "Are your photos current: the shopfront, the team at work, the products?",
+        "Has anyone suggested an edit to your profile that you need to accept or reject?"
+      ] }
+    ],
+    sources: [
+      { text: "Guidelines for representing your business on Google, Google Business Profile Help (checked 4 November 2026)", url: "https://support.google.com/business/answer/3038177?hl=en" },
+      { text: "Tips to get more reviews, Google Business Profile Help (checked 4 November 2026)", url: "https://support.google.com/business/answer/3474122?hl=en" },
+      { text: "Maps user-contributed content policy, Google (checked 4 November 2026)", url: "https://support.google.com/local-guides/answer/7400114?hl=en-GB" },
+      { text: "Birmingham Local Biz Support, a free West Midlands business directory", url: "https://birminghamlocalbizsupport.com" }
+    ],
+    status: "published",
+    featured: false,
+    seoTitle: "Google Business Profile Basics for Birmingham Small Businesses",
+    seoDescription: "Google's actual rules for business names, addresses, hours and reviews, and a five-minute monthly check to keep your profile accurate."
+  },
+  {
+    title: "Using AI Tools in a Small Business Without Putting Customer Data at Risk",
+    slug: "ai-tools-small-business-data-protection",
+    excerpt: "AI assistants can save a small business hours every week. Before you paste in customer details, here are the questions worth asking, grounded in the UK's data protection principles.",
+    category: "ai",
+    tags: ["AI", "data protection", "UK GDPR", "small business"],
+    author: "Gibson Nyendwa",
+    published: "2026-11-04",
+    cover: "assets/img/insights/ai-tools-small-business-data-protection.jpg",
+    coverAlt: "A laptop next to a monitor on a wooden desk",
+    coverCredit: { name: "Kevin Canlas", url: "https://unsplash.com/photos/a-wooden-desk-topped-with-a-laptop-computer-next-to-a-monitor-wycXe2BrKz8", source: "Unsplash" },
+    body: [
+      { p: "AI tools are now part of everyday work in many small businesses: drafting emails, summarising documents, answering enquiries, tidying spreadsheets. I build AI agents and automations myself, and I think they are genuinely useful. I also think the easiest mistake to make with them is a quiet one: pasting customer or staff details into a tool without asking where that information goes." },
+      { p: "This guide is for owners and managers who are not data protection specialists. It is not legal advice. It sets out practical questions to ask, based on the principles the Information Commissioner's Office (ICO) uses when it looks at AI." },
+      { h: "Why data protection applies" },
+      { p: "If an AI tool processes personal data, meaning information about an identifiable person such as a name, email address or notes about a customer, UK data protection law applies in the same way as it does to any other system. The ICO's guidance on AI and data protection describes a risk-based approach and returns to the familiar principles: lawfulness, fairness and transparency, purpose limitation, data minimisation, accuracy, storage limitation, and security and accountability." },
+      { h: "Five questions before you paste anything in" },
+      { ul: [
+        "Do I need personal data for this task at all? Often you can remove names and details and get the same result. That is data minimisation in practice.",
+        "Where does the information go, and is it used to train the tool? Check the provider's terms and settings, especially on free or personal accounts. Business plans often handle data differently.",
+        "Would the customer expect this? If someone shared details to book an appointment, would they be surprised to find them in a chatbot? That is the fairness and transparency test.",
+        "Who checks the output? AI can be confidently wrong. Anything that affects a customer, such as a quote, a decision or a reply to a complaint, should be read by a person before it goes out.",
+        "Can I explain it? Keep a short note of which tools you use, for what, and with what kind of data. If a customer asks, you should be able to answer plainly."
+      ] },
+      { h: "A sensible starting policy" },
+      { p: "My view is that a small business does not need a long AI policy to start well. A single page agreed with staff goes a long way:" },
+      { ul: [
+        "Use only the AI tools the business has approved, on business accounts.",
+        "Do not enter customer, staff or financial details unless the tool has been approved for that kind of data.",
+        "A person reviews anything sent to a customer.",
+        "Tell customers when they are dealing with an automated assistant rather than a person.",
+        "Review the list of tools every few months, because products and terms change."
+      ] },
+      { h: "Where to go next" },
+      { p: "If you are planning something bigger, such as an assistant that answers customer enquiries or a tool that makes decisions about people, read the ICO's guidance in full and consider whether you need a data protection impact assessment. The ICO also offers resources aimed at small organisations." },
+      { p: "AI can take real weight off a small team. Starting with these questions means it does that without creating a problem you only discover later." }
+    ],
+    sources: [
+      { text: "Guidance on AI and data protection, Information Commissioner's Office (checked 4 November 2026)", url: "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/guidance-on-ai-and-data-protection/about-this-guidance/" },
+      { text: "SME web hub, Information Commissioner's Office", url: "https://ico.org.uk/for-organisations/sme-web-hub/" }
+    ],
+    status: "published",
+    featured: false,
+    seoTitle: "AI Tools and Data Protection: A Guide for Small Businesses",
+    seoDescription: "Five practical questions to ask before putting customer data into an AI tool, based on the ICO's data protection principles, plus a simple starting policy."
   }
 ];
 
