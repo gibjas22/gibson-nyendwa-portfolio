@@ -91,9 +91,11 @@ Return completed files, exact version, PASS/FAIL/NOT TESTED evidence, unresolved
 Run the provided browser check after Chromium becomes available:
 
 ```bash
-python -m http.server 8000
+# Serves only the site files, bound to 127.0.0.1. Do not use python -m http.server here:
+# it listens on every interface and would expose .git, backend, scripts and docs.
+node scripts/preview-server.mjs 8000
 # In another terminal with Playwright and Chromium available:
 node scripts/qa-responsive.mjs http://127.0.0.1:8000
 ```
 
-Review screenshots manually. The script checks responsive widths, type bounds, video-control size, reduced-motion initial loading, menu Escape/focus and expanded certificate overflow. It does not prove colour contrast, full accessibility, consent behaviour, conversion delivery, real mobile performance or visual sign-off.
+QA output goes to `tmp/responsive-qa`, which is git-ignored. Do not commit screenshots or `results.json`. Review screenshots manually. The script checks responsive widths, type bounds, video-control size, reduced-motion initial loading, menu Escape/focus and expanded certificate overflow. It does not prove colour contrast, full accessibility, consent behaviour, conversion delivery, real mobile performance or visual sign-off.
