@@ -88,6 +88,14 @@ Return completed files, exact version, PASS/FAIL/NOT TESTED evidence, unresolved
 - BLOCKER: originating local-browser extension unavailable; local Playwright lacks its Chromium executable. Browser download returned an invalid archive. The cloud browser could inspect the live page but could not reach the local preview.
 - RELEASE: draft only. No changes to main, deployment configuration, Hostinger or client sites.
 
+## Follow-up verification, 22 November 2026
+The pilot's "NOT TESTED" and "BLOCKER" lines above are kept as the record at the time. They were closed in a follow-up to PR #4:
+- PASS: `scripts/qa-responsive.mjs` on the local preview, 117 of 117 checks (5 widths from 320 to 1440 px, 3 themes). Hero title 28 px at 320 and 390 px, 32.9 px at 768 px, 38.5 px at 1024 px and 42 px at 1440 px, all inside the documented 28 to 42 px scale. Pause control 44 by 44 px at every width. No horizontal overflow, including with the certificates expanded (one column at 320 and 390 px, two at 768 px, three from 1024 px).
+- PASS: the same script against the live site, 117 of 117, with identical measurements.
+- Negative control: the same script against the code before PR #4 fails 33 of 117 checks (title 44 px, pause control 36 by 36 px, certificate grid wider than its container), so the checks do detect the problems PR #4 fixed.
+- The script itself had a defect: it located the menu button by its accessible name, which changes from "Open menu" to "Close menu" once opened, so it timed out. It now uses a stable locator.
+- Still NOT TESTED: real-device touch and motion, 200% text zoom, colour contrast, consent behaviour and performance.
+
 Run the provided browser check after Chromium becomes available:
 
 ```bash
