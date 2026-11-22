@@ -192,7 +192,7 @@ Points that scored in the hackathon rubric:
 - **A visible hint** for the creative feature: the "Hear my story" item in the nav is always visible, never behind a hover.
 - **A text fallback** so the stories are readable without the feature working (screen readers, broken audio).
 - **Responsive** down to 390 px: tested by resizing the browser before deploying.
-- Scripts use `type="module"`, which browsers block from `file://`. To preview locally, run `python -m http.server 8000` in the repo and open http://localhost:8000.
+- Scripts use `type="module"`, which browsers block from `file://`. To preview locally, run `node scripts/preview-server.mjs 8000` in the repo and open http://127.0.0.1:8000. This server binds to 127.0.0.1 and serves only the site files, unlike `python -m http.server`, which exposes the whole repository folder on every network interface.
 
 Commit and push:
 

@@ -88,12 +88,22 @@ Return completed files, exact version, PASS/FAIL/NOT TESTED evidence, unresolved
 - BLOCKER: originating local-browser extension unavailable; local Playwright lacks its Chromium executable. Browser download returned an invalid archive. The cloud browser could inspect the live page but could not reach the local preview.
 - RELEASE: draft only. No changes to main, deployment configuration, Hostinger or client sites.
 
+## Follow-up verification, 22 November 2026
+The pilot's "NOT TESTED" and "BLOCKER" lines above are kept as the record at the time. They were closed in a follow-up to PR #4:
+- PASS: `scripts/qa-responsive.mjs` on the local preview, 117 of 117 checks (5 widths from 320 to 1440 px, 3 themes). Hero title 28 px at 320 and 390 px, 32.9 px at 768 px, 38.5 px at 1024 px and 42 px at 1440 px, all inside the documented 28 to 42 px scale. Pause control 44 by 44 px at every width. No horizontal overflow, including with the certificates expanded (one column at 320 and 390 px, two at 768 px, three from 1024 px).
+- PASS: the same script against the live site, 117 of 117, with identical measurements.
+- Negative control: the same script against the code before PR #4 fails 33 of 117 checks (title 44 px, pause control 36 by 36 px, certificate grid wider than its container), so the checks do detect the problems PR #4 fixed.
+- The script itself had a defect: it located the menu button by its accessible name, which changes from "Open menu" to "Close menu" once opened, so it timed out. It now uses a stable locator.
+- Still NOT TESTED: real-device touch and motion, 200% text zoom, colour contrast, consent behaviour and performance.
+
 Run the provided browser check after Chromium becomes available:
 
 ```bash
-python -m http.server 8000
+# Serves only the site files, bound to 127.0.0.1. Do not use python -m http.server here:
+# it listens on every interface and would expose .git, backend, scripts and docs.
+node scripts/preview-server.mjs 8000
 # In another terminal with Playwright and Chromium available:
 node scripts/qa-responsive.mjs http://127.0.0.1:8000
 ```
 
-Review screenshots manually. The script checks responsive widths, type bounds, video-control size, reduced-motion initial loading, menu Escape/focus and expanded certificate overflow. It does not prove colour contrast, full accessibility, consent behaviour, conversion delivery, real mobile performance or visual sign-off.
+QA output goes to `tmp/responsive-qa`, which is git-ignored. Do not commit screenshots or `results.json`. Review screenshots manually. The script checks responsive widths, type bounds, video-control size, reduced-motion initial loading, menu Escape/focus and expanded certificate overflow. It does not prove colour contrast, full accessibility, consent behaviour, conversion delivery, real mobile performance or visual sign-off.

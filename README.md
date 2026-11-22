@@ -44,10 +44,10 @@ Case studies live in `js/projects.js`. After editing it, run `node scripts/build
 Open `index.html` in a browser, or from the repo folder:
 
 ```
-python -m http.server 8000
+node scripts/preview-server.mjs 8000
 ```
 
-then visit http://localhost:8000. Audio only loads after you turn the sound on.
+then visit http://127.0.0.1:8000. The preview server listens on 127.0.0.1 only and serves just the site files (the HTML pages, `css`, `js`, `assets`, `insights` and `projects`), so `.git`, `backend`, `scripts`, `docs` and any local notes are not exposed. Avoid `python -m http.server`, which listens on every network interface and serves the whole repository folder. Audio only loads after you turn the sound on.
 
 ## Author
 

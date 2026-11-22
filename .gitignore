@@ -28,3 +28,5 @@ content/drafts/
 
 # My portfolio plan (Day 3 guide: keep it out of the public repository)
 plan.md
+# Generated QA output (scripts/qa-responsive.mjs writes screenshots and results.json here)
+tmp/

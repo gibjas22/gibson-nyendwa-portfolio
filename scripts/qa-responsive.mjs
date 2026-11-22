@@ -1,13 +1,16 @@
-// Read-only browser checks. Start a local HTTP server before running this file.
+// Read-only browser checks. Start the local preview server (scripts/preview-server.mjs) before running this file.
 // Install Playwright in a separate tooling directory, then set PLAYWRIGHT_MODULE
 // to its absolute package directory if it is not installed in this project.
+// To check the live site, pass its URL and set QA_ALLOW_ORIGIN to exactly that origin.
+// Only that origin is requested (everything else is blocked) and nothing is submitted or changed.
 import { createRequire } from 'node:module';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 const require = createRequire(import.meta.url);
 const base = new URL(process.argv[2] || 'http://127.0.0.1:8000');
-if (!['localhost', '127.0.0.1', '[::1]'].includes(base.hostname)) {
-  throw new Error('Use a local preview. This check blocks third-party requests.');
+const isLocal = ['localhost', '127.0.0.1', '[::1]'].includes(base.hostname);
+if (!isLocal && base.origin !== process.env.QA_ALLOW_ORIGIN) {
+  throw new Error('Use a local preview, or set QA_ALLOW_ORIGIN to exactly this origin to check the live site. Third-party requests are blocked either way.');
 }
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const browser = await chromium.launch({ headless: true });
@@ -45,18 +48,27 @@ try {
       });
       const label = `${width}px/${theme}`;
       check(`${label}: page fits`, facts.page <= facts.viewport + 1, facts);
-      check(`${label}: documented title scale`, facts.titleSize <= facts.rootSize * 2.625 + 0.1, facts.titleSize);
+      // Documented scale: 1.75rem to 2.625rem (28px to 42px at a 16px root).
+      check(`${label}: documented title scale (28 to 42px)`, facts.titleSize >= facts.rootSize * 1.75 - 0.1 && facts.titleSize <= facts.rootSize * 2.625 + 0.1, `${facts.titleSize}px`);
       check(`${label}: video control`, facts.pause.visible && facts.pause.width >= 44 && facts.pause.height >= 44, facts.pause);
       check(`${label}: reduced motion keeps poster`, !facts.videoHasSource, facts.videoHasSource);
       if (width < 1024) {
-        const menu = page.getByRole('button', { name: 'Open menu', exact: true });
+        // The accessible name flips between "Open menu" and "Close menu", so resolve the control once
+        // and keep a stable handle. A name-based locator stops matching after the menu opens.
+        const menu = page.locator('.menu-toggle');
+        check(`${label}: menu control is named Open menu`, await menu.getAttribute('aria-label') === 'Open menu', 'aria-label');
         await menu.click();
         check(`${label}: menu opens`, await menu.getAttribute('aria-expanded') === 'true', 'aria-expanded');
         await page.keyboard.press('Escape');
         check(`${label}: Escape restores focus`, await menu.evaluate(el => document.activeElement === el && el.getAttribute('aria-expanded') === 'false'), 'focus and aria-expanded');
       }
       await page.locator('.certs').evaluate(el => { el.open = true; });
-      check(`${label}: expanded certificates fit`, await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), 'expanded layout');
+      const certs = await page.evaluate(() => {
+        const grid = document.querySelector('.certs-grid');
+        const columns = grid ? getComputedStyle(grid).gridTemplateColumns.split(' ').length : 0;
+        return { page: document.documentElement.scrollWidth, viewport: innerWidth, gridClientWidth: grid ? grid.clientWidth : 0, gridScrollWidth: grid ? grid.scrollWidth : 0, columns };
+      });
+      check(`${label}: expanded certificates fit`, certs.page <= certs.viewport + 1 && certs.gridScrollWidth <= certs.gridClientWidth + 1, certs);
       await page.screenshot({ path: resolve(output, `${width}-${theme}.png`), fullPage: true });
       check(`${label}: no JavaScript errors`, errors.length === 0, errors);
       await context.close();
